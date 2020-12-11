@@ -1,0 +1,3 @@
+User-agent: *
+
+Sitemap: https://gasparyan.co/sitemap.xml

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Reproducible Research | Clinical Statistician</title>
+    <link>https://gasparyan.co/tag/reproducible-research/</link>
+      <atom:link href="https://gasparyan.co/tag/reproducible-research/index.xml" rel="self" type="application/rss+xml" />
+    <description>Reproducible Research</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2020 Samvel B. Gasparyan</copyright><lastBuildDate>Mon, 20 Aug 2018 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png</url>
+      <title>Reproducible Research</title>
+      <link>https://gasparyan.co/tag/reproducible-research/</link>
+    </image>
+    
+    <item>
+      <title>EasySTAT Project</title>
+      <link>https://gasparyan.co/project/external-project/</link>
+      <pubDate>Mon, 20 Aug 2018 00:00:00 +0000</pubDate>
+      <guid>https://gasparyan.co/project/external-project/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

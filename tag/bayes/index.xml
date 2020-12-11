@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bayes | Clinical Statistician</title>
+    <link>https://gasparyan.co/tag/bayes/</link>
+      <atom:link href="https://gasparyan.co/tag/bayes/index.xml" rel="self" type="application/rss+xml" />
+    <description>Bayes</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2020 Samvel B. Gasparyan</copyright><lastBuildDate>Sat, 14 Nov 2020 09:00:00 +0400</lastBuildDate>
+    <image>
+      <url>https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png</url>
+      <title>Bayes</title>
+      <link>https://gasparyan.co/tag/bayes/</link>
+    </image>
+    
+    <item>
+      <title>Bayesian Estimation</title>
+      <link>https://gasparyan.co/post/bayes/2020-11-14-r-rmarkdown/</link>
+      <pubDate>Sat, 14 Nov 2020 09:00:00 +0400</pubDate>
+      <guid>https://gasparyan.co/post/bayes/2020-11-14-r-rmarkdown/</guid>
+      <description>
+&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://gasparyan.co/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;ceo-salary-estimation-problem&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;CEO Salary Estimation Problem&lt;/h2&gt;
+&lt;p&gt;Consider the following problem. An investigative reporter wants to figure out how much salary makes the CEO of an investment bank X. For this he conducts interviews with some of the employees of that bank and writes down their salaries, which forms the following sample&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[X^n=(X_1,\cdots,X_n).\]&lt;/span&gt;
+The reporter knows only that the salaries in that bank can range from 0 (unpaid interns) to &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; which is the salary of the CEO that the reporter wants to estimate. Since he has no information about the structure of salaries in the bank X, he assumes that the salaries have uniform distribution in the interval &lt;span class=&#34;math inline&#34;&gt;\([0,\theta],\)&lt;/span&gt;
+&lt;span class=&#34;math display&#34;&gt;\[X^n=(X_1,\cdots,X_n),\ \ X_i\sim {\mathbb U}(0,\theta),\,\theta&amp;gt;0.\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The uniform distribution is the maximum entropy probability distribution under no constraint other than that it is contained in the distribution’s support (according to the principle of maximum entropy, if nothing is known about a distribution except that it belongs to a certain class (usually defined in terms of specified properties or measures), then the distribution with the largest entropy should be chosen as the least-informative default.)&lt;/p&gt;
+&lt;div id=&#34;frequentist-and-bayesian-estimation&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Frequentist and Bayesian Estimation&lt;/h3&gt;
+&lt;p&gt;Since no other information is known about the possible values of the CEO’s salary, the reporter needs to estimate the unknown &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; using the sample &lt;span class=&#34;math inline&#34;&gt;\(X^n.\)&lt;/span&gt; For the uniform distribution the maximum likelihood estimator (MLE) for &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; will be
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n=X_{(n)}=\max(X_1,\cdots,X_n).\]&lt;/span&gt;
+Therefore, the reporter needs to ask for salary information from as many employees of bank X as possible and take the maximum of these values, which will serve as an estimate for the CEO’s salary.&lt;/p&gt;
+&lt;p&gt;Now suppose that the investigative reporter wants to get a Pulitzer prize for his reporting and remembers that he has a minor in Statistics. He reads economics literature and finds out that economists established that nationally the salaries of CEOs of banks follow the Pareto distribution &lt;span class=&#34;math inline&#34;&gt;\(\theta\sim Pa(\theta_0, a)\)&lt;/span&gt;, because of the Pareto principle, which states that a large portion of wealth of CEOs is held by a small fraction of them. Using this prior distribution, a Bayesian estimator for the salary of CEO of bank X will be&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\hat\theta^B_n=\frac{a+n}{a+n-1}\max(\theta_0,X_1,\cdots,X_n).\]&lt;/span&gt;
+Here &lt;span class=&#34;math inline&#34;&gt;\(a\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\theta_0\)&lt;/span&gt; are unknown as well and can be estimated using the available data of CEO salaries of other banks. Therefore, the investigative reporter decides to use the work of his colleagues - other investigative reporters - who conducted studies in other banks and reported estimates for salaries of CEOs. Denote this new sample of salaries of other CEOs as
+&lt;span class=&#34;math display&#34;&gt;\[\vartheta^m=(\vartheta_1,\cdots,\vartheta_m).\]&lt;/span&gt;
+Since &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; follows the Pareto distribution then the parameters &lt;span class=&#34;math inline&#34;&gt;\(\theta_0\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(a\)&lt;/span&gt; can be estimated as follows:
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_0=\vartheta_{(1)}=\min(\vartheta_1,\cdots,\vartheta_m),\ \ \hat a=\frac{m}{\sum_{i=1}^m\ln\frac{\vartheta_i}{\vartheta_{(1)}}}.\]&lt;/span&gt;
+Therefore, drawing on reports from other investigations and his own survey, the investigative reporter can obtain the following estimator of the salary of the CEO&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\hat\theta^B_n=\frac{\hat a+n}{\hat a+n-1}\max(\vartheta_{(1)},X_1,\cdots,X_n).\]&lt;/span&gt;
+Therefore, each time a new salary of some CEO is reported &lt;span class=&#34;math inline&#34;&gt;\((\vartheta_{m+1}),\)&lt;/span&gt; this new data can be used by the investigative reporter to update the estimate of the salary of the CEO of bank X.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;pareto-distributions&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Pareto distributions&lt;/h2&gt;
+&lt;p&gt;The random variable &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt; has a Pareto distribution with parameters &lt;span class=&#34;math inline&#34;&gt;\(\theta&amp;gt;0\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(a&amp;gt;0\)&lt;/span&gt;, &lt;span class=&#34;math inline&#34;&gt;\(\xi\sim Pa(\theta,a)\)&lt;/span&gt; if the distribution function is given by the formula
+&lt;span class=&#34;math display&#34;&gt;\[F(x)=1-\left(\frac{\theta}{x}\right)^a,\,x&amp;gt;\theta,\]&lt;/span&gt;
+and &lt;span class=&#34;math inline&#34;&gt;\(F(x)=0,\,x\leq \theta.\)&lt;/span&gt; The density function will have the form
+&lt;span class=&#34;math display&#34;&gt;\[f(x)=a\frac{\theta^a}{x^{a+1}},\,x&amp;gt;\theta.\]&lt;/span&gt;
+In the case of &lt;span class=&#34;math inline&#34;&gt;\(a&amp;gt;1\)&lt;/span&gt; the expectation of a Pareto random variable is
+&lt;span class=&#34;math display&#34;&gt;\[E\xi=\frac{a}{a-1}\theta.\]&lt;/span&gt;
+If &lt;span class=&#34;math inline&#34;&gt;\(a&amp;gt;2\)&lt;/span&gt; then the variance exists as well and equals to
+&lt;span class=&#34;math display&#34;&gt;\[Var(\xi)=\frac{a}{(a-1)^2(a-2)}\theta^2.\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;problems&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Problems&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;Show that if &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; follows the Pareto distribution &lt;span class=&#34;math inline&#34;&gt;\(\theta\sim Pa(\theta_0, a),\)&lt;/span&gt; then the parameters &lt;span class=&#34;math inline&#34;&gt;\(\theta_0\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(a\)&lt;/span&gt; can be estimated as follows:
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_0=\vartheta_{(1)}=\min(\vartheta_1,\cdots,\vartheta_m),\ \ \hat a=\frac{m}{\sum_{i=1}^m\ln\frac{\vartheta_i}{\vartheta_{(1)}}},\]&lt;/span&gt;
+where &lt;span class=&#34;math inline&#34;&gt;\(\vartheta^m=(\vartheta_1,\cdots,\vartheta_m)\)&lt;/span&gt; is an i.i.d. sample from &lt;span class=&#34;math inline&#34;&gt;\(Pa(\theta_0,a).\)&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Suppose that an i.i.d. sample is observed
+&lt;span class=&#34;math display&#34;&gt;\[X^n=(X_1,\cdots,X_n),\,X_i\sim F(x,\theta),\,\theta\in\Theta,\,x\in R.\]&lt;/span&gt;
+Consider an estimator for &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; based on the sample &lt;span class=&#34;math inline&#34;&gt;\(X^n\)&lt;/span&gt;
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n(X^n)=\hat\theta_n(X_1,\cdots,X_n).\]&lt;/span&gt;
+Mean Squared Error (MSE, &lt;span class=&#34;math inline&#34;&gt;\(L(\theta,\hat\theta)\)&lt;/span&gt;) for this estimator is defined as
+&lt;span class=&#34;math display&#34;&gt;\[E_\theta(\hat\theta_n-\theta)^2=\int_{R^n}(\hat\theta_n(x^n)-\theta)^2dF(x_1,\theta)\cdots dF(x_n,\theta).\]&lt;/span&gt;
+If the prior distribution of the unknown parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; is given &lt;span class=&#34;math inline&#34;&gt;\(\theta\sim \pi(\theta),\,\theta\in\Theta,\)&lt;/span&gt; then the Bayesian risk of the estimator &lt;span class=&#34;math inline&#34;&gt;\(\hat\theta_n\)&lt;/span&gt; is defined as
+&lt;span class=&#34;math display&#34;&gt;\[E_\pi L(\theta,\hat\theta)=\int_\Theta E_\theta(\hat\theta_n-\theta)^2d \pi(\theta).\]&lt;/span&gt;
+Show that the Bayes estimator, defined as the one which minimizes the Bayesian risk, has the form
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n^B=\arg_{\hat\theta_n}\min_{\theta\in\Theta} E_\pi L(\theta,\hat\theta)=\int_{\Theta}\theta f(\theta|x)d\theta,\]&lt;/span&gt;
+where &lt;span class=&#34;math inline&#34;&gt;\(f(\theta|x)\)&lt;/span&gt; is the posterior distribution of &lt;span class=&#34;math inline&#34;&gt;\(\theta.\)&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Suppose that &lt;span class=&#34;math inline&#34;&gt;\(X_i\sim {\mathbb U}(0,\theta)\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\theta\sim Pa(\theta_0, a)\)&lt;/span&gt;. Show that the Bayes estimator has the form&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\hat\theta^B_n=\frac{a+n}{a+n-1}\max(\theta_0,X_1,\cdots,X_n).\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
