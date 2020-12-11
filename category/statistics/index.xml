@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Statistics | Clinical Statistician</title>
+    <link>https://gasparyan.co/category/statistics/</link>
+      <atom:link href="https://gasparyan.co/category/statistics/index.xml" rel="self" type="application/rss+xml" />
+    <description>Statistics</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2020 Samvel B. Gasparyan</copyright><lastBuildDate>Sat, 14 Nov 2020 09:00:00 +0400</lastBuildDate>
+    <image>
+      <url>https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png</url>
+      <title>Statistics</title>
+      <link>https://gasparyan.co/category/statistics/</link>
+    </image>
+    
+    <item>
+      <title>Bayesian Estimation</title>
+      <link>https://gasparyan.co/post/bayes/2020-11-14-r-rmarkdown/</link>
+      <pubDate>Sat, 14 Nov 2020 09:00:00 +0400</pubDate>
+      <guid>https://gasparyan.co/post/bayes/2020-11-14-r-rmarkdown/</guid>
+      <description>
+&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://gasparyan.co/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;ceo-salary-estimation-problem&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;CEO Salary Estimation Problem&lt;/h2&gt;
+&lt;p&gt;Consider the following problem. An investigative reporter wants to figure out how much salary makes the CEO of an investment bank X. For this he conducts interviews with some of the employees of that bank and writes down their salaries, which forms the following sample&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[X^n=(X_1,\cdots,X_n).\]&lt;/span&gt;
+The reporter knows only that the salaries in that bank can range from 0 (unpaid interns) to &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; which is the salary of the CEO that the reporter wants to estimate. Since he has no information about the structure of salaries in the bank X, he assumes that the salaries have uniform distribution in the interval &lt;span class=&#34;math inline&#34;&gt;\([0,\theta],\)&lt;/span&gt;
+&lt;span class=&#34;math display&#34;&gt;\[X^n=(X_1,\cdots,X_n),\ \ X_i\sim {\mathbb U}(0,\theta),\,\theta&amp;gt;0.\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The uniform distribution is the maximum entropy probability distribution under no constraint other than that it is contained in the distribution’s support (according to the principle of maximum entropy, if nothing is known about a distribution except that it belongs to a certain class (usually defined in terms of specified properties or measures), then the distribution with the largest entropy should be chosen as the least-informative default.)&lt;/p&gt;
+&lt;div id=&#34;frequentist-and-bayesian-estimation&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Frequentist and Bayesian Estimation&lt;/h3&gt;
+&lt;p&gt;Since no other information is known about the possible values of the CEO’s salary, the reporter needs to estimate the unknown &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; using the sample &lt;span class=&#34;math inline&#34;&gt;\(X^n.\)&lt;/span&gt; For the uniform distribution the maximum likelihood estimator (MLE) for &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; will be
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n=X_{(n)}=\max(X_1,\cdots,X_n).\]&lt;/span&gt;
+Therefore, the reporter needs to ask for salary information from as many employees of bank X as possible and take the maximum of these values, which will serve as an estimate for the CEO’s salary.&lt;/p&gt;
+&lt;p&gt;Now suppose that the investigative reporter wants to get a Pulitzer prize for his reporting and remembers that he has a minor in Statistics. He reads economics literature and finds out that economists established that nationally the salaries of CEOs of banks follow the Pareto distribution &lt;span class=&#34;math inline&#34;&gt;\(\theta\sim Pa(\theta_0, a)\)&lt;/span&gt;, because of the Pareto principle, which states that a large portion of wealth of CEOs is held by a small fraction of them. Using this prior distribution, a Bayesian estimator for the salary of CEO of bank X will be&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\hat\theta^B_n=\frac{a+n}{a+n-1}\max(\theta_0,X_1,\cdots,X_n).\]&lt;/span&gt;
+Here &lt;span class=&#34;math inline&#34;&gt;\(a\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\theta_0\)&lt;/span&gt; are unknown as well and can be estimated using the available data of CEO salaries of other banks. Therefore, the investigative reporter decides to use the work of his colleagues - other investigative reporters - who conducted studies in other banks and reported estimates for salaries of CEOs. Denote this new sample of salaries of other CEOs as
+&lt;span class=&#34;math display&#34;&gt;\[\vartheta^m=(\vartheta_1,\cdots,\vartheta_m).\]&lt;/span&gt;
+Since &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; follows the Pareto distribution then the parameters &lt;span class=&#34;math inline&#34;&gt;\(\theta_0\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(a\)&lt;/span&gt; can be estimated as follows:
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_0=\vartheta_{(1)}=\min(\vartheta_1,\cdots,\vartheta_m),\ \ \hat a=\frac{m}{\sum_{i=1}^m\ln\frac{\vartheta_i}{\vartheta_{(1)}}}.\]&lt;/span&gt;
+Therefore, drawing on reports from other investigations and his own survey, the investigative reporter can obtain the following estimator of the salary of the CEO&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\hat\theta^B_n=\frac{\hat a+n}{\hat a+n-1}\max(\vartheta_{(1)},X_1,\cdots,X_n).\]&lt;/span&gt;
+Therefore, each time a new salary of some CEO is reported &lt;span class=&#34;math inline&#34;&gt;\((\vartheta_{m+1}),\)&lt;/span&gt; this new data can be used by the investigative reporter to update the estimate of the salary of the CEO of bank X.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;pareto-distributions&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Pareto distributions&lt;/h2&gt;
+&lt;p&gt;The random variable &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt; has a Pareto distribution with parameters &lt;span class=&#34;math inline&#34;&gt;\(\theta&amp;gt;0\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(a&amp;gt;0\)&lt;/span&gt;, &lt;span class=&#34;math inline&#34;&gt;\(\xi\sim Pa(\theta,a)\)&lt;/span&gt; if the distribution function is given by the formula
+&lt;span class=&#34;math display&#34;&gt;\[F(x)=1-\left(\frac{\theta}{x}\right)^a,\,x&amp;gt;\theta,\]&lt;/span&gt;
+and &lt;span class=&#34;math inline&#34;&gt;\(F(x)=0,\,x\leq \theta.\)&lt;/span&gt; The density function will have the form
+&lt;span class=&#34;math display&#34;&gt;\[f(x)=a\frac{\theta^a}{x^{a+1}},\,x&amp;gt;\theta.\]&lt;/span&gt;
+In the case of &lt;span class=&#34;math inline&#34;&gt;\(a&amp;gt;1\)&lt;/span&gt; the expectation of a Pareto random variable is
+&lt;span class=&#34;math display&#34;&gt;\[E\xi=\frac{a}{a-1}\theta.\]&lt;/span&gt;
+If &lt;span class=&#34;math inline&#34;&gt;\(a&amp;gt;2\)&lt;/span&gt; then the variance exists as well and equals to
+&lt;span class=&#34;math display&#34;&gt;\[Var(\xi)=\frac{a}{(a-1)^2(a-2)}\theta^2.\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;problems&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Problems&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;Show that if &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; follows the Pareto distribution &lt;span class=&#34;math inline&#34;&gt;\(\theta\sim Pa(\theta_0, a),\)&lt;/span&gt; then the parameters &lt;span class=&#34;math inline&#34;&gt;\(\theta_0\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(a\)&lt;/span&gt; can be estimated as follows:
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_0=\vartheta_{(1)}=\min(\vartheta_1,\cdots,\vartheta_m),\ \ \hat a=\frac{m}{\sum_{i=1}^m\ln\frac{\vartheta_i}{\vartheta_{(1)}}},\]&lt;/span&gt;
+where &lt;span class=&#34;math inline&#34;&gt;\(\vartheta^m=(\vartheta_1,\cdots,\vartheta_m)\)&lt;/span&gt; is an i.i.d. sample from &lt;span class=&#34;math inline&#34;&gt;\(Pa(\theta_0,a).\)&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Suppose that an i.i.d. sample is observed
+&lt;span class=&#34;math display&#34;&gt;\[X^n=(X_1,\cdots,X_n),\,X_i\sim F(x,\theta),\,\theta\in\Theta,\,x\in R.\]&lt;/span&gt;
+Consider an estimator for &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; based on the sample &lt;span class=&#34;math inline&#34;&gt;\(X^n\)&lt;/span&gt;
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n(X^n)=\hat\theta_n(X_1,\cdots,X_n).\]&lt;/span&gt;
+Mean Squared Error (MSE, &lt;span class=&#34;math inline&#34;&gt;\(L(\theta,\hat\theta)\)&lt;/span&gt;) for this estimator is defined as
+&lt;span class=&#34;math display&#34;&gt;\[E_\theta(\hat\theta_n-\theta)^2=\int_{R^n}(\hat\theta_n(x^n)-\theta)^2dF(x_1,\theta)\cdots dF(x_n,\theta).\]&lt;/span&gt;
+If the prior distribution of the unknown parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; is given &lt;span class=&#34;math inline&#34;&gt;\(\theta\sim \pi(\theta),\,\theta\in\Theta,\)&lt;/span&gt; then the Bayesian risk of the estimator &lt;span class=&#34;math inline&#34;&gt;\(\hat\theta_n\)&lt;/span&gt; is defined as
+&lt;span class=&#34;math display&#34;&gt;\[E_\pi L(\theta,\hat\theta)=\int_\Theta E_\theta(\hat\theta_n-\theta)^2d \pi(\theta).\]&lt;/span&gt;
+Show that the Bayes estimator, defined as the one which minimizes the Bayesian risk, has the form
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n^B=\arg_{\hat\theta_n}\min_{\theta\in\Theta} E_\pi L(\theta,\hat\theta)=\int_{\Theta}\theta f(\theta|x)d\theta,\]&lt;/span&gt;
+where &lt;span class=&#34;math inline&#34;&gt;\(f(\theta|x)\)&lt;/span&gt; is the posterior distribution of &lt;span class=&#34;math inline&#34;&gt;\(\theta.\)&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Suppose that &lt;span class=&#34;math inline&#34;&gt;\(X_i\sim {\mathbb U}(0,\theta)\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\theta\sim Pa(\theta_0, a)\)&lt;/span&gt;. Show that the Bayes estimator has the form&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\hat\theta^B_n=\frac{a+n}{a+n-1}\max(\theta_0,X_1,\cdots,X_n).\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Dose-Response Curves in R</title>
+      <link>https://gasparyan.co/post/drc/2018-03-19-r-rmarkdown/</link>
+      <pubDate>Thu, 13 Sep 2018 09:00:00 +0400</pubDate>
+      <guid>https://gasparyan.co/post/drc/2018-03-19-r-rmarkdown/</guid>
+      <description>
+&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://gasparyan.co/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Introduction&lt;/h1&gt;
+&lt;div id=&#34;abstract&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Abstract&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;In clinical research the dose–response relationship is often non-linear, therefore advanced fitting models are needed to capture their behavior. The talk will concentrate on fitting non-linear parametric models to the dose–response data and will explain some specificities of this problem.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The talk is based on the book by &lt;strong&gt;Christian Ritz, Jens Carl Streibig “Nonlinear regression with R”.&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;purpose-of-dose-response-information&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Purpose of Dose-Response Information&lt;/h1&gt;
+&lt;div id=&#34;ich-e4-harmonized-tripartite-guideline&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;ICH E4 Harmonized Tripartite Guideline&lt;/h2&gt;
+&lt;p&gt;Knowledge of the relationships among dose, drug-concentration in blood, and clinical
+response (effectiveness and undesirable effects) is important for the safe and effective
+use of drugs in individual patients. It helps identify&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;an appropriate starting dose,&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;the best way to adjust dosage to the needs of a particular patient,&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;a dose beyond which increases would be unlikely to provide added benefit or would
+produce unacceptable side effects.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;example&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Example&lt;/h2&gt;
+&lt;p&gt;There are other fields of studies were concentration analysis can be used.&lt;/p&gt;
+&lt;p&gt;Consider the following relationship (&lt;em&gt;Chwirut2&lt;/em&gt; is included in the package &lt;strong&gt;NISTnls&lt;/strong&gt;),
+where the response variable is ultrasonic response, and the predictor variable is metal distance.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#library(NISTnls)
+dim(Chwirut2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 54  2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(Chwirut2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##         y     x
+## 1 92.9000 0.500
+## 2 57.1000 1.000
+## 3 31.0500 1.750
+## 4 11.5875 3.750
+## 5  8.0250 5.750
+## 6 63.6000 0.875&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;p&gt;A distance-amplitude relationship of attenuation that an ultrasound beam experiences traveling through a medium&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#library(ggplot2)
+g &amp;lt;- ggplot(data=Chwirut2,aes(x=x,y=y)) + 
+  geom_point() + xlab(&amp;quot;Metal distance&amp;quot;) + ylab(&amp;quot;Ultrasonic respons&amp;quot;)
+g&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/drc/2018-03-19-r-rmarkdown_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-built-in-function-nls&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;The built-in function &lt;em&gt;nls()&lt;/em&gt;&lt;/h1&gt;
+&lt;div id=&#34;fitting-a-parametric-family&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Fitting a parametric family&lt;/h2&gt;
+&lt;p&gt;Suppose we observe the following pair of data points &lt;span class=&#34;math inline&#34;&gt;\((x_i,y_i),\,i=1,\cdots,n.\)&lt;/span&gt; Consider a parametric family (usually non-linear) that we want to fit to the data
+&lt;span class=&#34;math display&#34;&gt;\[f(x,(\theta_1,\cdots,\theta_k)).\]&lt;/span&gt;
+The hypothesis is that there is the following relationship between observed points&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[y_i=f(x_i,(\theta_1,\cdots,\theta_k))+\varepsilon_i,\ \ i=1,\cdots,n.\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The fitting method that we are going to use is &lt;em&gt;the Non-linear Least Squares (NLS)&lt;/em&gt; method. NLS estimates can be found using this minimization problem.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[(\hat\theta_1,\cdots,\hat\theta_k)=\arg\min_{\theta_1,\cdots,\theta_k}\sum_{i=1}^n(y_i-f(x_i,(\theta_1,\cdots,\theta_k)))^2.\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;gauss---newton-algorithm&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Gauss - Newton algorithm&lt;/h2&gt;
+&lt;p&gt;The Gauss - Newton algorithm is used to solve the optimization problem described above.&lt;/p&gt;
+&lt;p&gt;If we denote &lt;span class=&#34;math inline&#34;&gt;\(g_i(\theta)=y_i-f(x_i,\theta), \ \ \theta=(\theta_1,\cdots,\theta_k),\)&lt;/span&gt;
+then the minimization problem is the following
+&lt;span class=&#34;math display&#34;&gt;\[\min_{\theta\in R^k}\sum_{i=1}^ng_i^2(\theta)=\min_{\theta\in R^k}||g(\theta)||^2.\]&lt;/span&gt;
+Choose an initial value &lt;span class=&#34;math inline&#34;&gt;\(\theta_0\)&lt;/span&gt; and linearize the function &lt;span class=&#34;math inline&#34;&gt;\(g(\theta)\)&lt;/span&gt; around &lt;span class=&#34;math inline&#34;&gt;\(\theta_0\)&lt;/span&gt; as follows&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\hat g(\theta,\theta_0)=g(\theta_0)+Dg(\theta_0)(\theta-\theta_0).\]&lt;/span&gt;
+Solving &lt;span class=&#34;math inline&#34;&gt;\(\min_{\theta\in R^k}||g(\theta_0)+Dg(\theta_0)(\theta-\theta_0)||^2,\)&lt;/span&gt; where &lt;span class=&#34;math inline&#34;&gt;\(m\times n\)&lt;/span&gt; matrix &lt;span class=&#34;math inline&#34;&gt;\(Dg(\theta)\)&lt;/span&gt; is the Jacobian, we get &lt;span class=&#34;math inline&#34;&gt;\(\theta_1\)&lt;/span&gt; and continuing this process interatively, we get the sequence &lt;span class=&#34;math inline&#34;&gt;\((\theta_m),\,m=0,1,\cdots.\)&lt;/span&gt; Moreover, if &lt;span class=&#34;math inline&#34;&gt;\(Dg(\theta_k)\)&lt;/span&gt; has linearly independent columns,&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\theta_{k+1}=\theta_k-\left([Dg(\theta_k)]^TDg(\theta_k)\right)^{-1}[Dg(\theta_k)]^Tg(\theta_k).\]&lt;/span&gt;
+The question is - how to choose the initial value &lt;span class=&#34;math inline&#34;&gt;\(\theta_0\)&lt;/span&gt; of iteration?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-parametric-family&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The parametric family&lt;/h2&gt;
+&lt;p&gt;The following parametric family was suggested to fit the distance-amplitude relationship&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[f(x,(\beta_1,\beta_2,\beta_3))=\frac{\exp(-\beta_1x)}{\beta_2+\beta_3x}\]&lt;/span&gt;
+Assumptions:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;correct mean function &lt;span class=&#34;math inline&#34;&gt;\(f\)&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;variance homogeneity (homoscedasticity)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;normally distributed measurements errors&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;mutually independent measurement errors &lt;span class=&#34;math inline&#34;&gt;\(\varepsilon_i\)&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;If we take &lt;span class=&#34;math inline&#34;&gt;\(x=0\)&lt;/span&gt; then we get &lt;span class=&#34;math inline&#34;&gt;\(f(0,(\beta_1,\beta_2,\beta_3))=\frac{1}{\beta_2}\)&lt;/span&gt; so the initial estimate of &lt;span class=&#34;math inline&#34;&gt;\(\beta_2\)&lt;/span&gt; can be the reciprocal of the response value closest to the &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; axis, that is, roughly, &lt;span class=&#34;math inline&#34;&gt;\(\frac{1}{100}=0.01.\)&lt;/span&gt; For the&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;fitting-non-linear-parametric-family&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Fitting non-linear parametric family&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;expFct &amp;lt;- function(x,beta1,beta2=0.01,beta3)  exp(-beta1*x)/(beta2+beta3*x)
+l &amp;lt;- list(beta1=0.1, beta2=0.01, beta3=0.001)
+fit &amp;lt;- nls(data=Chwirut2, y ~ expFct(x, beta1, beta2, beta3), start=l)
+fit&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Nonlinear regression model
+##   model: y ~ expFct(x, beta1, beta2, beta3)
+##    data: Chwirut2
+##    beta1    beta2    beta3 
+## 0.166576 0.005165 0.012150 
+##  residual sum-of-squares: 513
+## 
+## Number of iterations to convergence: 9 
+## Achieved convergence tolerance: 7.467e-07&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tidy(fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 3 x 5
+##   term  estimate std.error statistic  p.value
+##   &amp;lt;chr&amp;gt;    &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;
+## 1 beta1  0.167    0.0383        4.35 6.56e- 5
+## 2 beta2  0.00517  0.000666      7.75 3.54e-10
+## 3 beta3  0.0122   0.00153       7.94 1.81e-10&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;plotting-the-fitted-non-linear-function&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Plotting the fitted non-linear function&lt;/h2&gt;
+&lt;p&gt;Hence, we can plot the fitted curve&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#library(broom)
+values &amp;lt;- tidy(fit)$estimate
+g + stat_function(fun=expFct, args=values, colour=&amp;quot;blue&amp;quot;, lwd=1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/drc/2018-03-19-r-rmarkdown_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-package-nls2&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;The package &lt;em&gt;nls2&lt;/em&gt;&lt;/h1&gt;
+&lt;div id=&#34;searching-a-grid&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Searching a grid&lt;/h2&gt;
+&lt;p&gt;The procedure of finding initial points for the minimization iteration can be automated in the following way. In case the range of the parameter estimates can be envisaged grid search can be carried out:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;the residual sums-of-squares &lt;span class=&#34;math inline&#34;&gt;\(RSS(\beta),\,\beta=(\beta_1,\cdots,\beta_k)\)&lt;/span&gt; is calculated for all the values in the intervals&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;starting values are chosen in the way to provide the smallest value of &lt;span class=&#34;math inline&#34;&gt;\(RSS(\beta)\)&lt;/span&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In our example, having &lt;span class=&#34;math inline&#34;&gt;\(\beta_2=0.01,\)&lt;/span&gt; for other two parameters, knowing only that they are positive numbers, we can search in the interval &lt;span class=&#34;math inline&#34;&gt;\([0.1,1]\)&lt;/span&gt; taking the step size equal to &lt;span class=&#34;math inline&#34;&gt;\(0.1.\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Create a &lt;em&gt;data.frame&lt;/em&gt; containing all possible combinations of suggested initial values for the parameters&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;beta1 &amp;lt;- seq(0.1, 1, by = 0.1)
+beta2 &amp;lt;- 0.01
+beta3 &amp;lt;- seq(0.1, 1, by = 0.1)
+grid.Chwirut2 &amp;lt;- expand.grid(list(beta1 = beta1, beta2 = beta2, beta3 = beta3))
+head(grid.Chwirut2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   beta1 beta2 beta3
+## 1   0.1  0.01   0.1
+## 2   0.2  0.01   0.1
+## 3   0.3  0.01   0.1
+## 4   0.4  0.01   0.1
+## 5   0.5  0.01   0.1
+## 6   0.6  0.01   0.1&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-nls2-function&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The &lt;em&gt;nls2()&lt;/em&gt; function&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;nls2()&lt;/em&gt; function differs from the original function by a way that it provides the possibility to specify a data frame of values of starting points. Its argument &lt;em&gt;algorithm=“brute-force”&lt;/em&gt; evaluates &lt;em&gt;RSS&lt;/em&gt; for the parameter values provided through the &lt;em&gt;start&lt;/em&gt; argument.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(nls2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit2 &amp;lt;- nls2(data = Chwirut2, y ~ expFct(x, beta1, beta2, beta3), 
+             start = grid.Chwirut2, algorithm = &amp;quot;brute-force&amp;quot;)
+fit2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Nonlinear regression model
+##   model: y ~ expFct(x, beta1, beta2, beta3)
+##    data: Chwirut2
+## beta1 beta2 beta3 
+##  0.10  0.01  0.10 
+##  residual sum-of-squares: 60696
+## 
+## Number of iterations to convergence: 100 
+## Achieved convergence tolerance: NA&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;fitting-using-the-function-nls2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Fitting using the function &lt;em&gt;nls2()&lt;/em&gt;&lt;/h2&gt;
+&lt;p&gt;Fitting procedure can be continued this way: replace the value of the &lt;em&gt;start&lt;/em&gt; argument by &lt;em&gt;fit2&lt;/em&gt; and leave out the argument &lt;em&gt;algorithm&lt;/em&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tidy(nls2(data = Chwirut2, y ~ expFct(x, beta1, beta2, beta3), start=fit2))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 3 x 5
+##   term  estimate std.error statistic  p.value
+##   &amp;lt;chr&amp;gt;    &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;
+## 1 beta1  0.167    0.0383        4.35 6.56e- 5
+## 2 beta2  0.00517  0.000666      7.75 3.54e-10
+## 3 beta3  0.0121   0.00153       7.94 1.81e-10&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;self-starter-functions&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Self-Starter functions&lt;/h1&gt;
+&lt;div id=&#34;automating-further-the-search-for-initial-points&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Automating further the search for initial points&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Self-starter functions are special type of functions. They are implementations of specific given mean functions and designed in a way to calculate starting values for a given dataset. They can be thought as the definition of the parametric family combined with the logic of how to choose initial values based on the given dataset.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;We have already encountered such example: for the parametric family
+&lt;span class=&#34;math display&#34;&gt;\[f(x,(\beta_1,\beta_2,\beta_3))=\frac{\exp(-\beta_1x)}{\beta_2+\beta_3x}\]&lt;/span&gt;
+we said that the initial estimate of &lt;span class=&#34;math inline&#34;&gt;\(\beta_2\)&lt;/span&gt; can be the reciprocal of the response value closest to the &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; axis. So, if we find also logic of choosing initial values for &lt;span class=&#34;math inline&#34;&gt;\(\beta_1\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\beta_3,\)&lt;/span&gt; then we can add these logics into the definition of this parametric family and get a Self-Starter function.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;We will construct a Self-Starter function later, but before that we will explore the built-in Self-Starter functions.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div id=&#34;built-in-self-starters&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Built-in Self-Starters&lt;/h2&gt;
+&lt;p&gt;Consider the following dataset&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dat &amp;lt;- data.frame(
+  conc = c(2.856829,  5.005303,  7.519473,  22.101664,  
+         27.769976,  39.198025,  45.483269, 203.784238),
+rate = c(14.58342, 24.74123, 31.34551, 72.96985, 77.50099, 
+         96.08794, 96.96624, 108.88374)
+)
+dat&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##         conc      rate
+## 1   2.856829  14.58342
+## 2   5.005303  24.74123
+## 3   7.519473  31.34551
+## 4  22.101664  72.96985
+## 5  27.769976  77.50099
+## 6  39.198025  96.08794
+## 7  45.483269  96.96624
+## 8 203.784238 108.88374&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;g &amp;lt;- ggplot(data = dat, aes(x = conc, y = rate)) + geom_point()
+g&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/drc/2018-03-19-r-rmarkdown_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-michaelis-menten-model&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The Michaelis-Menten model&lt;/h2&gt;
+&lt;p&gt;We are going to fit this data using the parametric family of Michaelis-Menten functions&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[f(x,(V_m,k))=\frac{V_m x}{K+x}.\]&lt;/span&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Here the constants &lt;span class=&#34;math inline&#34;&gt;\(V_m\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(K\)&lt;/span&gt; are positive. &lt;span class=&#34;math inline&#34;&gt;\(V_{m}\)&lt;/span&gt; represents the maximum rate achieved by the system, at saturating substrate concentration. The constant &lt;span class=&#34;math inline&#34;&gt;\(K\)&lt;/span&gt; is the substrate concentration at which the reaction rate is half of &lt;span class=&#34;math inline&#34;&gt;\(V_m.\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Again we can interactively find the initial estimates for the parameters to fit the NLS curve. But there is a built-in Self-Starter function called &lt;em&gt;SSmicmen()&lt;/em&gt; which has a logic inscribed in it which lets it work with &lt;em&gt;nls()&lt;/em&gt; without specifying starting points.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;hr /&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit3 &amp;lt;- nls(rate ~ SSmicmen(conc, Vm, K), data = dat)
+tidy(fit3)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 2 x 5
+##   term  estimate std.error statistic    p.value
+##   &amp;lt;chr&amp;gt;    &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;
+## 1 Vm       126.       7.17     17.6  0.00000218
+## 2 K         17.1      2.95      5.78 0.00117&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;g + stat_function(fun = SSmicmen, args = list(Vm = tidy(fit3)$estimate[1],
+                                       K=tidy(fit3)$estimate[2]), 
+                  colour = &amp;quot;darkgreen&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/drc/2018-03-19-r-rmarkdown_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;defining-self-starter-functions&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Defining Self-Starter functions&lt;/h1&gt;
+&lt;div id=&#34;a-simple-example&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;A simple example&lt;/h2&gt;
+&lt;p&gt;Consider the following parametric family&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[f(x,(b,y_0))=y_0 e^{\frac{x}{b}}.\]&lt;/span&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;This model can be used to describe radioactive decay. The parameter &lt;span class=&#34;math inline&#34;&gt;\(y_0\)&lt;/span&gt; is
+the initial amount of the radioactive substance (at time &lt;span class=&#34;math inline&#34;&gt;\(x = 0\)&lt;/span&gt;). The rate of
+decay is governed by the second parameter &lt;span class=&#34;math inline&#34;&gt;\(b\)&lt;/span&gt; (the inverse decay constant).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;The definition of a self-starter contains the formula of the parametric family, a logic of constructing initial values for parameters, a function taking the dataset as argument and other arguments ensuring that the logic of construction of initial values, the definition of parametric family and &lt;em&gt;nls()&lt;/em&gt; are tied together.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-logic-of-construction-of-initial-values&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The logic of construction of initial values&lt;/h2&gt;
+&lt;p&gt;Apply the log transform on the given mean function&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\log f(x,(b,y_0))=\log y_0+\frac{x}{b}.\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Hence, if we apply the log transform on the response data, we can apply linear regression techniques to estimate the slope and the intercept, then, from the equalities&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\log\tilde y_0={\beta_0}, \ \ \tilde \beta_1=\frac{1}{b}\]&lt;/span&gt;
+we get&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\tilde y_0=e^{\tilde \beta_0}, \ \ \tilde b=\frac{1}{\tilde\beta_1}.\]&lt;/span&gt;
+This is the logic of construction of initial parameter values that we need to include in the definition of a Self-Starter.&lt;/p&gt;
+&lt;p&gt;(We are not interested in the error structure that will change after the transformation, because we need only initial estimates.)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-match.call-function&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The &lt;em&gt;match.call()&lt;/em&gt; function&lt;/h2&gt;
+&lt;p&gt;The function &lt;em&gt;match.call()&lt;/em&gt; can be used in the definition of the function to store the call in the resulting object. In addition, if that function is called without specifying the arguments, the function &lt;em&gt;match.call()&lt;/em&gt; matches the arguments to their names by their positions. Observe below&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Func &amp;lt;- function(input, parameter){
+  value &amp;lt;- input^parameter
+  attr(value,&amp;quot;call&amp;quot;) &amp;lt;- match.call()
+  value
+}
+power &amp;lt;- Func(2,16) #observe that we did not specify the names of parameters
+power&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 65536
+## attr(,&amp;quot;call&amp;quot;)
+## Func(input = 2, parameter = 16)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Hence, their argument values can be extracted from the call by their names as from a list&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;attr(power,&amp;quot;call&amp;quot;)$parameter&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 16&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;three-steps&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Three steps&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Define the mean function&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;expModel &amp;lt;- function(predictor,b, y0) {
+  y0 * exp(predictor/b)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Define the function with the initialization logic&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;expModelInit &amp;lt;- function(mCall, LHS, data) {
+ xy &amp;lt;- sortedXyData(mCall[[&amp;quot;predictor&amp;quot;]], LHS, data)
+ lmFit &amp;lt;- lm(log(xy[, &amp;quot;y&amp;quot;]) ~ xy[, &amp;quot;x&amp;quot;])
+ coefs &amp;lt;- coef(lmFit)
+ y0 &amp;lt;- exp(coefs[1])
+ b &amp;lt;- 1/coefs[2]
+ value &amp;lt;- c(b, y0)
+ names(value) &amp;lt;- c(&amp;quot;b&amp;quot;,&amp;quot;y0&amp;quot;)
+ value
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;define-the-self-starter-function&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Define the Self-Starter function&lt;/h1&gt;
+&lt;div id=&#34;specificities-of-working-in-a-markdown-environment&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Specificities of working in a Markdown Environment&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;SSexp &amp;lt;- selfStart(expModel, expModelInit, c(&amp;quot;b&amp;quot;, &amp;quot;y0&amp;quot;))
+class(SSexp)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;selfStart&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;RStudio actually creates a separate R session to render the document. This causes problem with the &lt;em&gt;getInitial()&lt;/em&gt; function which searches for user created SS functions in the Global environment and cannot find them because they are created in a new environment only for the Markdown use. Hence, we need to ensure that our created Self-Starter is defined in the Global environment.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Only for Markdown execution
+l &amp;lt;- list(SSexp = SSexp)
+list2env(l, envir = .GlobalEnv)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;lt;environment: R_GlobalEnv&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;getting-the-inital-values&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Getting the inital values&lt;/h2&gt;
+&lt;p&gt;Self-starters can be passed as an argument to the function &lt;em&gt;getInitial()&lt;/em&gt; to obtain the initial values. Consider the following dataset&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;load(file = &amp;quot;RGRcurve.rda&amp;quot;)
+head(RGRcurve)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   Day   RGR
+## 1   0 0.169
+## 2   0 0.164
+## 3   0 0.210
+## 4   0 0.215
+## 5   0 0.183
+## 6   0 0.181&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then, the initial values, determined according to our logic, will be&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;getInitial(RGR ~ SSexp(Day, b,y0), data = RGRcurve)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##         b        y0 
+## 3.8450187 0.1674235&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;fitting-by-user-defined-ss&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Fitting by user defined SS&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit4 &amp;lt;- nls(RGR ~ SSexp(Day, b,y0), data = RGRcurve)
+getInitial(RGR ~ SSexp(Day, b,y0), data = RGRcurve)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##         b        y0 
+## 3.8450187 0.1674235&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Compare the initial values with the estimated values
+tidy(fit4)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 2 x 5
+##   term  estimate std.error statistic  p.value
+##   &amp;lt;chr&amp;gt;    &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;
+## 1 b        3.76     0.175       21.5 3.40e-23
+## 2 y0       0.164    0.0142      11.5 4.03e-14&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;g &amp;lt;- ggplot(data = RGRcurve, aes(x = Day, y = RGR)) + geom_point()
+g + stat_function(fun = SSexp, args=tidy(fit4)$estimate, colour=&amp;quot;darkgreen&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/drc/2018-03-19-r-rmarkdown_files/figure-html/unnamed-chunk-23-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;difficult-example&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Difficult Example&lt;/h1&gt;
+&lt;div id=&#34;returning-to-the-difficult-example&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Returning to the difficult example&lt;/h2&gt;
+&lt;p&gt;Considering once again the parametric family&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[f(x,\beta)=\frac{\exp(-\beta_1x)}{\beta_2+\beta_3x},\ \ \beta=(\beta_1,\beta_2,\beta_3).\]&lt;/span&gt;
+We can use Taylor’s formula&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[f(x,\beta)\approx f(0,\beta)+f&amp;#39;(0,\beta)x,\ \ x\approx 0.\]&lt;/span&gt;
+Simplifying this and remembering that &lt;span class=&#34;math inline&#34;&gt;\(f(0,\beta)=\frac{1}{\beta_2}\)&lt;/span&gt; we get
+&lt;span class=&#34;math display&#34;&gt;\[f(x,\beta)\approx \frac{1}{\beta_2}-\frac{1}{\beta_2}\left(\beta_1+\frac{\beta_3}{\beta_2}\right)x.\]&lt;/span&gt;
+Which in turn gives the equality
+&lt;span class=&#34;math display&#34;&gt;\[1-\beta_2 f(x,\beta)=\left(\beta_1+\frac{\beta_3}{\beta_2}\right)x,\]&lt;/span&gt;
+hence, transforming the data according to the left hand side and fitting a linear model without an intercept we can estimate &lt;span class=&#34;math inline&#34;&gt;\(\left(\beta_1+\frac{\beta_3}{\beta_2}\right).\)&lt;/span&gt; For two parameters out of three we have a rule to find starting values, for the third one we still need a guess. Taking &lt;span class=&#34;math inline&#34;&gt;\(\beta_1=0\)&lt;/span&gt; may work.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;section&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;expFctInit &amp;lt;- function(mCall, LHS, data){
+  xy &amp;lt;- sortedXyData(mCall[[&amp;quot;x&amp;quot;]], LHS, data)
+  beta2 &amp;lt;- 1/xy[1,&amp;quot;y&amp;quot;]
+  coefs &amp;lt;- coef(lm(1-beta2*xy[,&amp;quot;y&amp;quot;]~xy[,&amp;quot;x&amp;quot;]+0))
+  beta1 &amp;lt;- 0
+  beta3 &amp;lt;- coefs*beta2
+  value &amp;lt;- c(beta1, beta2, beta3)
+  names(value) &amp;lt;- c(&amp;quot;beta1&amp;quot;, &amp;quot;beta2&amp;quot;, &amp;quot;beta3&amp;quot;)
+  value
+}
+SSexpFct &amp;lt;- selfStart(expFct, expFctInit, c(&amp;quot;beta1&amp;quot;, &amp;quot;beta2&amp;quot;, &amp;quot;beta3&amp;quot;))
+l &amp;lt;- list(SSexpFct=SSexpFct)
+list2env(l, envir = .GlobalEnv)#Only for Markdown execution&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;lt;environment: R_GlobalEnv&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;getInitial(data = Chwirut2, y ~ SSexpFct(x, beta1, beta2, beta3))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##       beta1       beta2       beta3 
+## 0.000000000 0.012140834 0.002537341&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit0 &amp;lt;- nls(data = Chwirut2, y ~ SSexpFct(x, beta1, beta2, beta3))&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit0_tidy &amp;lt;- tidy(fit0)
+fit0_tidy$p.value &amp;lt;- format.pval(fit0_tidy$p.value,eps=0.001,digits=3)
+CI &amp;lt;- as.data.frame(suppressMessages(confint(fit0)))
+CI$term &amp;lt;- row.names(CI)
+fit0_tidy &amp;lt;- merge(fit0_tidy,CI,by=&amp;quot;term&amp;quot;)
+fit0_tidy[,!names(fit0_tidy)%in%c(&amp;quot;term&amp;quot;, &amp;quot;p.value&amp;quot;)]&amp;lt;-
+  round(fit0_tidy[,!names(fit0_tidy)%in%c(&amp;quot;term&amp;quot;, &amp;quot;p.value&amp;quot;)], 3)
+fit0_tidy&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    term estimate std.error statistic p.value  2.5% 97.5%
+## 1 beta1    0.167     0.038     4.349  &amp;lt;0.001 0.094 0.254
+## 2 beta2    0.005     0.001     7.753  &amp;lt;0.001 0.004 0.006
+## 3 beta3    0.012     0.002     7.939  &amp;lt;0.001 0.009 0.015&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here, we used the generic function &lt;span class=&#34;math inline&#34;&gt;\(confint()\)&lt;/span&gt; on the object of class &lt;span class=&#34;math inline&#34;&gt;\(nls\)&lt;/span&gt; and got the confidence intervals for the parameters estimates. In addition, the function &lt;span class=&#34;math inline&#34;&gt;\(format.pval()\)&lt;/span&gt; was used to simplify the presentation of p.values.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;values &amp;lt;- tidy(fit0)$estimate
+g &amp;lt;- ggplot(data = Chwirut2, aes(x = x, y = y))+
+  geom_point() + xlab(&amp;quot;Metal distance&amp;quot;) + ylab(&amp;quot;Ultrasonic respons&amp;quot;)
+g + stat_function(fun = expFct, args = values,
+                  colour=&amp;quot;blue&amp;quot;, lwd=1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/drc/2018-03-19-r-rmarkdown_files/figure-html/unnamed-chunk-26-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;predict(fit0, newdata = data.frame(x=6:7))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 4.715006 3.453957&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;further-reading&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Further Reading&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;The package &lt;em&gt;drc&lt;/em&gt; (Dose-Response curves) contains much more prespecified parametric families (22, to be exact - run &lt;em&gt;drc::getMeanFunctions()&lt;/em&gt; to see the list).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The package &lt;em&gt;nlme&lt;/em&gt; (Linear and Nonlinear Mixed Effects Models) which allows the inclusion of the donor effect as a random effect in dose-response studies.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;More robust algorithms for fitting (&lt;em&gt;The Levenberg-Marquardt curve-fitting method&lt;/em&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-levenberg-marquardt-method&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The Levenberg-Marquardt method&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;The Levenberg-Marquardt curve-fitting method is a combination of the two other minimization methods: the gradient descent method and the Gauss-Newton method.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;In the gradient descent method, the sum of the squared errors is reduced by updating the parameters in the steepest-descent direction.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;In the Gauss-Newton method, the sum of the squared errors is reduced by assuming the least squares function is locally quadratic, and finding the minimum of the quadratic.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The Levenberg-Marquardt method acts more like a gradient-descent method when the parameters are far from their optimal value, and acts more like the Gauss-Newton method when the parameters are close to their optimal value.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://people.duke.edu/~hpgavin/ce281/lm.pdf&#34;&gt;&lt;em&gt;Henri P. Gavin, The Levenberg-Marquardt method for nonlinear least squares curve-fitting problems&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;presentation&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Presentation&lt;/h1&gt;
+&lt;p&gt;Below is a presentation version of this lecture which contains also interactive applications for curve fitting.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Optimality of Estimators in Regular Models</title>
+      <link>https://gasparyan.co/post/regmod/2018-09-13-r-rmarkdown/</link>
+      <pubDate>Mon, 19 Mar 2018 09:00:00 +0400</pubDate>
+      <guid>https://gasparyan.co/post/regmod/2018-09-13-r-rmarkdown/</guid>
+      <description>
+&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://gasparyan.co/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;consistent-estimators&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Consistent Estimators&lt;/h2&gt;
+In the estimation problem of a one-dimensional parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; from an i.i.d. sample &lt;span class=&#34;math display&#34;&gt;\[X^n=(X_1,\cdots,X_n),\ \ X_i\sim F(x,\theta),\,\theta\in\Theta\subset R\]&lt;/span&gt;
+we introduced the notion of consistency of an estimator.
+&lt;p&gt;This means that whatever the unknown value of &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; is, this estimator is going to be close to that value in higher probability as &lt;span class=&#34;math inline&#34;&gt;\(n\)&lt;/span&gt; increases
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n\approx\theta, \text{ for large } n.\]&lt;/span&gt;
+Now our goal is to quantify this closeness.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;asymptotically-normal-estimators&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Asymptotically Normal Estimators&lt;/h2&gt;
+&lt;p&gt;We say that the estimator &lt;span class=&#34;math inline&#34;&gt;\(\hat\theta_n\)&lt;/span&gt; is asymptotically normal if
+&lt;span class=&#34;math display&#34;&gt;\[\frac{\hat\theta_n-\theta}{\sqrt{Var(\hat\theta_n)}}\stackrel{d}{\rightarrow}N (0,1),\]&lt;/span&gt;
+which means that
+&lt;span class=&#34;math display&#34;&gt;\[P\left(\frac{\hat\theta_n-\theta}{\sqrt{Var(\hat\theta_n)}}&amp;lt;x\right)\rightarrow P(\xi&amp;lt;x),\,x\in R,\,\xi\sim N(0,1).\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;asymptotically-normal-estimators-example-1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Asymptotically Normal Estimators (Example 1)&lt;/h2&gt;
+&lt;p&gt;Suppose that&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[X^n=(X_1,\cdots,X_n),\ \ X_i\sim N(\theta,\sigma^2),\,\theta\in R,\,\sigma&amp;gt;0.\]&lt;/span&gt;
+We know that the estimator &lt;span class=&#34;math inline&#34;&gt;\(\hat\theta_n=\bar X_n=\frac{1}{n}\sum_{i=1}^nX_i\)&lt;/span&gt; is an unbiased, consistent estimator for &lt;span class=&#34;math inline&#34;&gt;\(\theta.\)&lt;/span&gt; By central limit theorem, as &lt;span class=&#34;math inline&#34;&gt;\(n\rightarrow+\infty,\)&lt;/span&gt;
+&lt;span class=&#34;math display&#34;&gt;\[\sqrt{n}\frac{\bar X_n-\theta}{\sigma}\stackrel{d}{\rightarrow}N(0,1),\]&lt;/span&gt;
+hence this estimator is also asymptotically normal. The convergence above can be written as (when &lt;span class=&#34;math inline&#34;&gt;\(n\rightarrow+\infty\)&lt;/span&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\sqrt{n}(\bar X_n-\theta)\stackrel{d}{\rightarrow}N(0,\sigma^2).\]&lt;/span&gt;
+Here &lt;span class=&#34;math inline&#34;&gt;\(\sqrt{n}\)&lt;/span&gt; is rate of convergence of the estimator and &lt;span class=&#34;math inline&#34;&gt;\(\sigma^2\)&lt;/span&gt; is the asymptotic variance.
+Hence, higher the rate of convergence or smaller the asymptotic variance, better is the estimator.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;method-of-moments&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Method of Moments&lt;/h2&gt;
+&lt;p&gt;Consider again the estimation problem of a one-dimensional parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; from an i.i.d. sample &lt;span class=&#34;math display&#34;&gt;\[X^n=(X_1,\cdots,X_n),\ \ X_i\sim F(x,\theta),\,\theta\in\Theta\subset R.\]&lt;/span&gt;
+The idea of the method of moments is based on the fact that we can estimate the mathematical expectation, that is, for any given function &lt;span class=&#34;math inline&#34;&gt;\(g(\cdot),\)&lt;/span&gt; so that &lt;span class=&#34;math inline&#34;&gt;\(E|g(X_1)|&amp;lt;+\infty,\)&lt;/span&gt;
+the following convergence is true
+&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
+\frac{1}{n}\sum_{j=1}^n g(X_j)\stackrel{P}{\rightarrow} E g(X_1).
+\end{align*}\]&lt;/span&gt;
+Hence, for the estimation of the parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta,\)&lt;/span&gt; for some &lt;span class=&#34;math inline&#34;&gt;\(g(\cdot)\)&lt;/span&gt; we can calculate &lt;span class=&#34;math inline&#34;&gt;\(E_\theta g(X_1)=T(\theta).\)&lt;/span&gt; That will ensure the convergence
+&lt;span class=&#34;math display&#34;&gt;\[
+\frac{1}{n}\sum_{j=1}^n g(X_j)\stackrel{P}{\rightarrow}T(\theta).
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;method-of-moments-page-2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Method of Moments (Page 2)&lt;/h2&gt;
+&lt;p&gt;Therefore, if the function &lt;span class=&#34;math inline&#34;&gt;\(T(\cdot)\)&lt;/span&gt; has continuous inverse function &lt;span class=&#34;math inline&#34;&gt;\(h=T^{-1},\)&lt;/span&gt; then &lt;span class=&#34;math inline&#34;&gt;\(\hat\theta_n\)&lt;/span&gt; will be a consistent estimator
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n=h\left(\frac{1}{n}\sum_{j=1}^n g(X_j)\right)\stackrel{P}{\rightarrow}\theta.\]&lt;/span&gt;
+Furthermore, if the function &lt;span class=&#34;math inline&#34;&gt;\(h(\cdot)\)&lt;/span&gt; is also differentiable and &lt;span class=&#34;math inline&#34;&gt;\(E_\theta g^2(X_1)&amp;lt;+\infty,\)&lt;/span&gt; then the delta method ensures that the MM estimator is also asymptotically normal
+&lt;span class=&#34;math display&#34;&gt;\[\sqrt{n}(\hat\theta_n-\theta)\stackrel{d}{\rightarrow}N\left(0,[h&amp;#39;(E_\theta(X_1))]^2 Var_\theta(g(X_1))\right).\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;method-of-moments-example-2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Method of Moments (Example 2)&lt;/h2&gt;
+&lt;p&gt;Consider the problem of parameter estimation in uniform distribution&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[X_1,\cdots,X_n,\ \ X_i\sim U[0,\theta],\,\theta&amp;gt;0.\]&lt;/span&gt;
+Construct MM estimators using the functions &lt;span class=&#34;math inline&#34;&gt;\(g(x)=x,\ \ g(x)=x^2.\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;For &lt;span class=&#34;math inline&#34;&gt;\(g(x)=x\)&lt;/span&gt; we have &lt;span class=&#34;math inline&#34;&gt;\(E_\theta X_1=\frac{\theta}{2}=t,\)&lt;/span&gt; were the last equality is a notation. Then, &lt;span class=&#34;math inline&#34;&gt;\(\theta=2t=h(t),\)&lt;/span&gt; again, the last equality is a notation and
+&lt;span class=&#34;math display&#34;&gt;\[\frac{1}{n}\sum_{i=1}^n X_i\stackrel{P_\theta}{\rightarrow}E_\theta X_1=t.\]&lt;/span&gt;
+Therefore,
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n^1=\frac{2}{n}\sum_{i=1}^n X_i\stackrel{P_\theta}{\rightarrow}2t=\theta,\]&lt;/span&gt;
+and
+&lt;span class=&#34;math display&#34;&gt;\[\sqrt{n}(\hat\theta_n^1-\theta)\stackrel{d}{\rightarrow}N\left(0,\frac{\theta^2}{3}\right).\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;method-of-moments-example-2-page-2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Method of Moments (Example 2, Page 2)&lt;/h2&gt;
+&lt;p&gt;For &lt;span class=&#34;math inline&#34;&gt;\(g(x)=x^2\)&lt;/span&gt; we have &lt;span class=&#34;math inline&#34;&gt;\(E_\theta X_1^2=\frac{\theta^2}{3}=t,\)&lt;/span&gt; were the last equality is a notation. Then, &lt;span class=&#34;math inline&#34;&gt;\(\theta=\sqrt{3t}=h(t), \ \ (\theta&amp;gt;0)\)&lt;/span&gt; again, the last equality is a notation and
+&lt;span class=&#34;math display&#34;&gt;\[\frac{1}{n}\sum_{i=1}^n X_i^2\stackrel{P_\theta}{\rightarrow}E_\theta X_1^2=t.\]&lt;/span&gt;
+Therefore,
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n^2=\sqrt{\frac{3}{n}\sum_{i=1}^n X_i^2}\stackrel{P_\theta}{\rightarrow}\sqrt{3t}=\theta,\]&lt;/span&gt;
+and
+&lt;span class=&#34;math display&#34;&gt;\[\sqrt{n}(\hat\theta_n^2-\theta)\stackrel{d}{\rightarrow}N\left(0,\frac{\theta^2}{5}\right).\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;method-of-moments-example-2-page-3&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Method of Moments (Example 2, Page 3)&lt;/h2&gt;
+&lt;p&gt;Hence, in the estimation problem of a one-dimensional parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; from a uniform distribution&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[X_1,\cdots,X_n,\ \ X_i\sim U[0,\theta],\,\theta&amp;gt;0,\]&lt;/span&gt;
+we have constructed two estimators using the MM
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n^1=\frac{2}{n}\sum_{i=1}^n X_i, \ \ \hat\theta_n^2=\sqrt{\frac{3}{n}\sum_{i=1}^n X_i^2},\]&lt;/span&gt;
+with the following properties
+&lt;span class=&#34;math display&#34;&gt;\[
+\sqrt{n}(\hat\theta_n^1-\theta)\stackrel{d}{\rightarrow}N\left(0,\frac{\theta^2}{3}\right), \ \
+\sqrt{n}(\hat\theta_n^2-\theta)\stackrel{d}{\rightarrow}N\left(0,\frac{\theta^2}{5}\right).\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Both have the same rate of convergence, but the second one has smaller asymptotic variance, so, asymptotically, the second one is better, although the first one is computationally easier to implement (an important trade-off in Statistics).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;method-of-moments-page-2-1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Method of Moments (Page 2)&lt;/h2&gt;
+&lt;p&gt;Therefore, if the function &lt;span class=&#34;math inline&#34;&gt;\(T(\cdot)\)&lt;/span&gt; has continuous inverse function &lt;span class=&#34;math inline&#34;&gt;\(h=T^{-1},\)&lt;/span&gt; then &lt;span class=&#34;math inline&#34;&gt;\(\hat\theta_n\)&lt;/span&gt; will be a consistent estimator
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n=h\left(\frac{1}{n}\sum_{j=1}^n g(X_j)\right)\stackrel{P}{\rightarrow}\theta.\]&lt;/span&gt;
+Furthermore, if the function &lt;span class=&#34;math inline&#34;&gt;\(h(\cdot)\)&lt;/span&gt; is also differentiable and &lt;span class=&#34;math inline&#34;&gt;\(E_\theta g^2(X_1)&amp;lt;+\infty,\)&lt;/span&gt; then the delta method ensures that the MM estimator is also asymptotically normal
+&lt;span class=&#34;math display&#34;&gt;\[\sqrt{n}(\hat\theta_n-\theta)\stackrel{d}{\rightarrow}N\left(0,[h&amp;#39;(E_\theta(X_1))]^2Var_\theta(g(X_1))\right).\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;method-of-moments-example-2-1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Method of Moments (Example 2)&lt;/h2&gt;
+&lt;p&gt;Consider the problem of parameter estimation in uniform distribution&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[X_1,\cdots,X_n,\ \ X_i\sim U[0,\theta],\,\theta&amp;gt;0.\]&lt;/span&gt;
+Construct MM estimators using the functions &lt;span class=&#34;math inline&#34;&gt;\(g(x)=x,\ \ g(x)=x^2.\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;For &lt;span class=&#34;math inline&#34;&gt;\(g(x)=x\)&lt;/span&gt; we have &lt;span class=&#34;math inline&#34;&gt;\(E_\theta X_1=\frac{\theta}{2}=t,\)&lt;/span&gt; were the last equality is a notation. Then, &lt;span class=&#34;math inline&#34;&gt;\(\theta=2t=h(t),\)&lt;/span&gt; again, the last equality is a notation and
+&lt;span class=&#34;math display&#34;&gt;\[\frac{1}{n}\sum_{i=1}^n X_i\stackrel{P_\theta}{\rightarrow}E_\theta X_1=t.\]&lt;/span&gt;
+Therefore,
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n^1=\frac{2}{n}\sum_{i=1}^n X_i\stackrel{P_\theta}{\rightarrow}2t=\theta,\]&lt;/span&gt;
+and
+&lt;span class=&#34;math display&#34;&gt;\[\sqrt{n}(\hat\theta_n^1-\theta)\stackrel{d}{\rightarrow}N\left(0,\frac{\theta^2}{3}\right).\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;method-of-moments-example-2-page-2-1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Method of Moments (Example 2, Page 2)&lt;/h2&gt;
+&lt;p&gt;For &lt;span class=&#34;math inline&#34;&gt;\(g(x)=x^2\)&lt;/span&gt; we have &lt;span class=&#34;math inline&#34;&gt;\(E_\theta X_1^2=\frac{\theta^2}{3}=t,\)&lt;/span&gt; were the last equality is a notation. Then, &lt;span class=&#34;math inline&#34;&gt;\(\theta=\sqrt{3t}=h(t), \ \ (\theta&amp;gt;0)\)&lt;/span&gt; again, the last equality is a notation and
+&lt;span class=&#34;math display&#34;&gt;\[\frac{1}{n}\sum_{i=1}^n X_i^2\stackrel{P_\theta}{\rightarrow}E_\theta X_1^2=t.\]&lt;/span&gt;
+Therefore,
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n^2=\sqrt{\frac{3}{n}\sum_{i=1}^n X_i^2}\stackrel{P_\theta}{\rightarrow}\sqrt{3t}=\theta,\]&lt;/span&gt;
+and
+&lt;span class=&#34;math display&#34;&gt;\[\sqrt{n}(\hat\theta_n^2-\theta)\stackrel{d}{\rightarrow}N\left(0,\frac{\theta^2}{5}\right).\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;method-of-moments-example-2-page-3-1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Method of Moments (Example 2, Page 3)&lt;/h2&gt;
+&lt;p&gt;Hence, in the estimation problem of a one-dimensional parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; from a uniform distribution&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[X_1,\cdots,X_n,\ \ X_i\sim U[0,\theta],\,\theta&amp;gt;0,\]&lt;/span&gt;
+we have constructed two estimators using the MM
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n^1=\frac{2}{n}\sum_{i=1}^n X_i, \ \ \hat\theta_n^2=\sqrt{\frac{3}{n}\sum_{i=1}^n X_i^2},\]&lt;/span&gt;
+with the following properties
+&lt;span class=&#34;math display&#34;&gt;\[
+\sqrt{n}(\hat\theta_n^1-\theta)\stackrel{d}{\rightarrow}N\left(0,\frac{\theta^2}{3}\right), \ \
+\sqrt{n}(\hat\theta_n^2-\theta)\stackrel{d}{\rightarrow}N\left(0,\frac{\theta^2}{5}\right).\]&lt;/span&gt;
+Both have the same rate of convergence, but the second one has smaller asymptotic variance, so, asymptotically, the second one is better, although the first one is computationally easier to implement (an important trade-off in Statistics).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-maximum-likelihood-estimator&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The Maximum Likelihood Estimator&lt;/h2&gt;
+&lt;p&gt;Consider again the estimation problem of a one-dimensional parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; from an i.i.d. sample &lt;span class=&#34;math display&#34;&gt;\[X^n=(X_1,\cdots,X_n),\ \ X_i\sim F(x,\theta),\,\theta\in\Theta\subset R.\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The second method to construct estimators is the Maximum Likelihood Estimator. Here we need the existence of the density functions &lt;span class=&#34;math inline&#34;&gt;\(\{f(x,\theta,\,\theta\in\Theta)\}.\)&lt;/span&gt;
+The following function is called the Likelihood function of the above model&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[L(X^n,\theta)=\prod_{i=1}^n f(X_i,\theta).\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The Maximum Likelihood Estimator (the MLE) is defined as the point of maximum of the likelihood function
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n^{MLE}=\arg\max_{\theta\in\Theta}L(X^n,\theta).\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;regular-models&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Regular Models&lt;/h2&gt;
+&lt;p&gt;We call the model &lt;span class=&#34;math inline&#34;&gt;\(\{f(x,\theta),\,\theta\in\Theta\}\)&lt;/span&gt; a regular if the derivative of the density functions &lt;span class=&#34;math inline&#34;&gt;\(f(\cdot,\theta)\)&lt;/span&gt; exists with respect to &lt;span class=&#34;math inline&#34;&gt;\(\theta.\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Beware that there are other technical conditions as well in the definition of regular models, but we will check only the condition above.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt; The uniform distribution has the density function
+&lt;span class=&#34;math display&#34;&gt;\[f(x,\theta)=\frac{1}{\theta}I_{[0,\theta]}(x)=\frac{1}{\theta}I_{[0,+\infty)}(x)I_{[x,+\infty)}(\theta).\]&lt;/span&gt;
+This function is not differentiable w.r.t. the unknown parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta,\)&lt;/span&gt; hence this is not a regular model.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-properties-of-the-mle&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The Properties of the MLE&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Since the natural logarithm is an increasing function, then we can define (if &lt;span class=&#34;math inline&#34;&gt;\(f(x,\theta)&amp;gt;0,\,(x,\theta)\in\Theta\times R\)&lt;/span&gt;)
+&lt;span class=&#34;math display&#34;&gt;\[V(X^n,\theta)=\ln L(X^n,\theta)=\sum_{i=1}^n\ln f(X_i,\theta)\]&lt;/span&gt;
+and for the MLE we will have
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n^{MLE}=\arg\max_{\theta\in\Theta}V(X^n,\theta)=\arg\max_{\theta\in\Theta}\sum_{i=1}^n\ln f(X_i,\theta).\]&lt;/span&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-properties-of-the-mle-page-2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The Properties of the MLE (Page 2)&lt;/h2&gt;
+&lt;ol start=&#34;2&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;In the regular models the MLE is consistent and asymptotically normal with the asymptotic variance equal to the inverse of the Fisher information &lt;span class=&#34;math inline&#34;&gt;\(I^{-1}(\theta)\)&lt;/span&gt;
+&lt;span class=&#34;math display&#34;&gt;\[\sqrt{n}(\hat\theta_n^{MLE}-\theta)\stackrel{d}{\rightarrow}N(0,I^{-1}(\theta)),\]&lt;/span&gt;
+where the Fisher information is defined as
+&lt;span class=&#34;math display&#34;&gt;\[I(\theta)=\int_{R}\left[\frac{\partial(\ln f(x,\theta))}{\partial\theta}\right]^2f(x,\theta){\rm d} x.\]&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;If the second derivative of the density functions &lt;span class=&#34;math inline&#34;&gt;\(f(x,\theta)\)&lt;/span&gt; with respect to &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; exists then the Fisher information can be calculated by the following formula&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[I(\theta)=-\int_{R}\left[\frac{\partial^2(\ln f(x,\theta))}{\partial\theta^2}\right]f(x,\theta){\rm d} x.\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;an-example-of-a-non-regular-model&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;An Example of a Non-Regular Model&lt;/h2&gt;
+&lt;p&gt;Consider again the problem of parameter estimation in uniform distribution
+&lt;span class=&#34;math display&#34;&gt;\[X_1,\cdots,X_n,\ \ X_i\sim U[0,\theta],\,\theta&amp;gt;0.\]&lt;/span&gt;
+The density function of the uniform distribution is given by the formula
+&lt;span class=&#34;math display&#34;&gt;\[f(x,\theta)=\frac{1}{\theta}I_{[0,\theta]}(x),\]&lt;/span&gt;
+hence the likelihood function will be
+&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
+L(X^n,\theta)&amp;amp;=\frac{1}{\theta^n}\prod_{i=1}^n I_{[0,\theta]}(X_i)=\frac{1}{\theta^n}I_{[0,+\infty)}(X_{(1)})I_{[0,\theta]}(X_{(n)})=\\
+&amp;amp;=\frac{1}{\theta^n}I_{[0,+\infty)}(X_{(1)})I_{[X_{(n)},+\infty)}(\theta)\stackrel{a.s.}{=}\frac{1}{\theta^n}I_{[X_{(n)},+\infty)}(\theta),
+\end{align*}\]&lt;/span&gt;
+which attains its maximum at the point &lt;span class=&#34;math inline&#34;&gt;\(\hat\theta_n^\ast=X_{(n)},\)&lt;/span&gt; so that is the MLE.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;an-example-of-a-non-regular-model-page-2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;An Example of a Non-Regular Model (Page 2)&lt;/h2&gt;
+&lt;p&gt;Calculate the distribution function of this estimator
+&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
+P(X_{(n)}&amp;lt; x)&amp;amp;=P(\max\{X_1,\cdots,X_n\}&amp;lt;x)=P(X_1&amp;lt;x,\cdots,X_n&amp;lt;x)=\\
+&amp;amp;=P(X_1&amp;lt;x)\cdots P(X_n&amp;lt;x)=F^n(x),
+\end{align*}\]&lt;/span&gt;
+hence
+&lt;span class=&#34;math display&#34;&gt;\[P(n(\theta-X_{(n)})&amp;lt;x)=P\left(\theta-\frac{x}{n}&amp;lt;X_{(n)}\right)=1-F^n\left(\theta-\frac{x}{n}\right),\]&lt;/span&gt;
+therefore, &lt;span class=&#34;math inline&#34;&gt;\(P(n(\theta-X_{(n)})&amp;lt;x)=0,\)&lt;/span&gt; for &lt;span class=&#34;math inline&#34;&gt;\(x\leq0,\)&lt;/span&gt; and for &lt;span class=&#34;math inline&#34;&gt;\(x&amp;gt;0\)&lt;/span&gt;
+&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
+&amp;amp;P(n(\theta-X_{(n)})&amp;lt;x)=P\left(\theta-\frac{x}{n}&amp;lt;X_{(n)}\right)=1-F^n\left(\theta-\frac{x}{n}\right)=\\
+&amp;amp;=1-\left(\frac{\theta-\frac{x}{n}}{\theta}\right)^n=1-\left[\left(1-\frac{x}{\theta n}\right)^{-\frac{n\theta}{x}}\right]^{-\frac{x}{\theta}}\rightarrow1-e^{-\frac{x}{\theta}}.
+\end{align*}\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;an-example-of-a-non-regular-model-page-3&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;An Example of a Non-Regular Model (Page 3)&lt;/h2&gt;
+&lt;p&gt;So, for the MLE we have the following convergence to the exponential distribution
+&lt;span class=&#34;math display&#34;&gt;\[n(\theta-\hat\theta_n^\ast)\stackrel{d}{\rightarrow}E\left(\frac{1}{\theta}\right),\]&lt;/span&gt;
+which means that the rate of convergence for the MLE is &lt;span class=&#34;math inline&#34;&gt;\(n,\)&lt;/span&gt; unlike the two previous estimators constructed by the method of moments for which the rate of convergence was &lt;span class=&#34;math inline&#34;&gt;\(\sqrt{n}.\)&lt;/span&gt; In fact, we can show that even non-asymptotically&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
+E_\theta(\hat\theta^\ast_n-\theta)^2=\frac{2\theta^2}{(n+1)(n+2)}&amp;lt;\frac{\theta^2}{3n}=E_\theta(\hat\theta^{1}_n-\theta)^2,\,n&amp;gt;2,
+\end{align*}\]&lt;/span&gt;
+where &lt;span class=&#34;math inline&#34;&gt;\(\hat\theta^1_n=2\bar X_n,\)&lt;/span&gt; which entails that even for small sample sizes the MLE is better.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;an-example-of-a-non-regular-model-page-4-simulations&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;An Example of a Non-Regular Model (Page 4, Simulations)&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;set.seed(1)
+n&amp;lt;-1000
+theta&amp;lt;-2
+X&amp;lt;-runif(n,0,theta)
+th1&amp;lt;-2*cumsum(X)/(1:n)
+th2&amp;lt;-sqrt(3*cumsum(X^2)/(1:n))
+th&amp;lt;-numeric()
+for(i in 1:n){
+  th[i]&amp;lt;-max(X[1:i])
+}
+plot(1:n,th1,type=&amp;quot;l&amp;quot;,col=1,ylim=c(1.8,2.2),
+     xlab=&amp;quot;Sample Size&amp;quot;,ylab=&amp;quot;Estimators&amp;quot;)
+lines(1:n,th2,type=&amp;quot;l&amp;quot;,col=2)
+lines(1:n,th,type=&amp;quot;l&amp;quot;,col=3)
+abline(h=theta,col=4,lty=2)
+legend(500,2.2,col=c(1,2,3,4),lty=c(1,1,1,2),
+       legend=c(&amp;quot;MM1&amp;quot;,&amp;quot;MM2&amp;quot;,&amp;quot;MLE&amp;quot;,&amp;quot;True Value&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;an-example-of-a-non-regular-model-page-5&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;An Example of a Non-Regular Model (Page 5)&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/regmod/2018-09-13-r-rmarkdown_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;an-example-of-a-non-regular-model-page-6&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;An Example of a Non-Regular Model (Page 6)&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;n&amp;lt;-10000
+m&amp;lt;-1000
+theta&amp;lt;-2
+
+th1&amp;lt;-numeric()
+th2&amp;lt;-numeric()
+th&amp;lt;-numeric()
+
+for(i in 1:m){set.seed(i);X&amp;lt;-runif(n,0,theta)
+  th1[i] &amp;lt;- 2*mean(X)
+  th2[i] &amp;lt;- sqrt(3*mean(X^2))
+  th[i] &amp;lt;- max(X) 
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;an-example-of-a-non-regular-model-page-7&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;An Example of a Non-Regular Model (Page 7)&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mfrow=c(1,3))
+x&amp;lt;-seq(-4,4,0.001)
+hist(sqrt(n)*(th1-theta),nclass=50,freq=FALSE,
+     col=&amp;quot;lightblue&amp;quot;, border=&amp;quot;blue&amp;quot;,ylab=&amp;quot;&amp;quot;,
+     xlab=&amp;quot;&amp;quot;,main=&amp;quot;MM1&amp;quot;,xlim=c(-4,4),ylim=c(0,0.5))
+lines(x,dnorm(x,0,theta^2/3),col=2)
+
+hist(sqrt(n)*(th2-theta),nclass=50,freq=FALSE,
+     col=&amp;quot;lightblue&amp;quot;, border=&amp;quot;blue&amp;quot;,ylab=&amp;quot;&amp;quot;,
+     xlab=&amp;quot;&amp;quot;,main=&amp;quot;MM2&amp;quot;,xlim=c(-4,4),ylim=c(0,0.5))
+lines(x,dnorm(x,0,theta^2/5),col=2)
+
+x&amp;lt;-seq(0,10,0.001)
+hist(n*(theta-th),nclass=50,freq=FALSE,col=&amp;quot;lightblue&amp;quot;,
+     border=&amp;quot;blue&amp;quot;,ylab=&amp;quot;&amp;quot;,xlab=&amp;quot;&amp;quot;,main=&amp;quot;MLE&amp;quot;,
+     xlim=c(0,10),ylim=c(0,0.5))
+lines(x,dexp(x,1/theta),col=2)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;an-example-of-a-non-regular-model-page-7-1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;An Example of a Non-Regular Model (Page 7)&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/regmod/2018-09-13-r-rmarkdown_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

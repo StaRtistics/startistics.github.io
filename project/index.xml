@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects | Clinical Statistician</title>
+    <link>https://gasparyan.co/project/</link>
+      <atom:link href="https://gasparyan.co/project/index.xml" rel="self" type="application/rss+xml" />
+    <description>Projects</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2020 Samvel B. Gasparyan</copyright><lastBuildDate>Sun, 15 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png</url>
+      <title>Projects</title>
+      <link>https://gasparyan.co/project/</link>
+    </image>
+    
+    <item>
+      <title>Armdown</title>
+      <link>https://gasparyan.co/project/internal-project/</link>
+      <pubDate>Sun, 15 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>https://gasparyan.co/project/internal-project/</guid>
+      <description>&lt;p&gt;This project is dedicated to promoting Statistics and Data Science texts in Armenian language. Follow the &lt;em&gt;Rmenia&lt;/em&gt; link above to access &lt;em&gt;R&lt;/em&gt; programming lecture notes in Armenian. Follow the &lt;em&gt;Armdown&lt;/em&gt; link above to access the configuration files which will help to produce Armenian texts using &lt;em&gt;Markdown&lt;/em&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>EasySTAT Project</title>
+      <link>https://gasparyan.co/project/external-project/</link>
+      <pubDate>Mon, 20 Aug 2018 00:00:00 +0000</pubDate>
+      <guid>https://gasparyan.co/project/external-project/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

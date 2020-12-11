@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Statisics | Clinical Statistician</title>
+    <link>https://gasparyan.co/category/statisics/</link>
+      <atom:link href="https://gasparyan.co/category/statisics/index.xml" rel="self" type="application/rss+xml" />
+    <description>Statisics</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2020 Samvel B. Gasparyan</copyright><lastBuildDate>Fri, 20 Dec 2019 10:00:00 +0400</lastBuildDate>
+    <image>
+      <url>https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png</url>
+      <title>Statisics</title>
+      <link>https://gasparyan.co/category/statisics/</link>
+    </image>
+    
+    <item>
+      <title>Exponential Distribution</title>
+      <link>https://gasparyan.co/post/exp/2019-12-20-r-rmarkdown/</link>
+      <pubDate>Fri, 20 Dec 2019 10:00:00 +0400</pubDate>
+      <guid>https://gasparyan.co/post/exp/2019-12-20-r-rmarkdown/</guid>
+      <description>
+&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://gasparyan.co/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;This is a short reminder of some simple properties of exponential distributions.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The continuous random variable (RV) &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt; has an exponential distribution with the rate &lt;span class=&#34;math inline&#34;&gt;\(\lambda&amp;gt;0\)&lt;/span&gt; if its CMD (cumulative distribution function) has the following form&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[F_\xi(x)=P(\xi&amp;lt;x)=\left\{\begin{matrix}
+&amp;amp;1-e^{-\lambda x}, &amp;amp;x\geq 0.\\
+&amp;amp;0 &amp;amp;x&amp;lt;0.
+\end{matrix}\right.
+\]&lt;/span&gt;
+This entails that an exponential RV is with 1 probability positive and has the PDF (probability density function)
+&lt;span class=&#34;math display&#34;&gt;\[f_\xi(x)=F_\xi&amp;#39;(x)=\left\{\begin{matrix}
+&amp;amp;\lambda e^{-\lambda x}, &amp;amp;x&amp;gt;0,\\
+&amp;amp;0 &amp;amp;x&amp;lt;0.
+\end{matrix}\right.
+\]&lt;/span&gt;
+If &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt; has an exponential distribution with the rate &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; we will denote this by &lt;span class=&#34;math inline&#34;&gt;\({\mathbb E}(\lambda).\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;In &lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt; the following functions can be used to, correspondingly, generate numbers from &lt;span class=&#34;math inline&#34;&gt;\({\mathbb E}(\lambda)\)&lt;/span&gt;, calculate values of CDF, calculate values of PDF&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rexp(n=2, rate=1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.9987573 0.5837795&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pexp(q=1, rate=1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.6321206&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dexp(x=1, rate=1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.3678794&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;em&gt;histogram&lt;/em&gt; is a non-parametric estimator for the PDF. Hence we can simulate data from an exponential distribution and show that the histogram based on the data fits the PDF. Consider the case of &lt;span class=&#34;math inline&#34;&gt;\({\mathbb E}(2)\)&lt;/span&gt; and simulate a sample of size &lt;span class=&#34;math inline&#34;&gt;\(n=10000.\)&lt;/span&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rm(list=ls())
+
+n &amp;lt;- 10000
+lambda &amp;lt;- 2
+
+X &amp;lt;- rexp(n = n, rate = lambda)
+int &amp;lt;- seq(0, max(X), max(X)/100)
+
+hist(X, freq = FALSE, nclass = 50, col = &amp;quot;lightblue&amp;quot;, 
+     border = &amp;quot;blue&amp;quot;, ylim = c(0, 2), main = &amp;quot;&amp;quot;)
+lines(int, dexp(int, rate = lambda), col = &amp;quot;red&amp;quot;, lty = 2, lwd = 2)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/exp/2019-12-20-r-rmarkdown_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This is a very useful technique to check whether the RVs have the given PDF. We will use this technique below.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;example-1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Example 1&lt;/h2&gt;
+&lt;p&gt;Suppose &lt;span class=&#34;math inline&#34;&gt;\(\xi\sim {\mathbb E}(\lambda)\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\eta\sim {\mathbb E}(\mu)\)&lt;/span&gt; are independent. Calculate the PDF of the RV &lt;span class=&#34;math inline&#34;&gt;\(\zeta=\eta-\xi.\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;First consider the case of &lt;span class=&#34;math inline&#34;&gt;\(z&amp;gt;0.\)&lt;/span&gt; Since &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt; are independent, then the joint PDF of these RVs will be the product of individual PDFs, that is &lt;span class=&#34;math inline&#34;&gt;\(f_{(\eta,\xi)}(x,y)=f_{\xi}(x)f_{\eta}(y).\)&lt;/span&gt; Therefore,&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[F_\zeta(z)=P(\eta-\xi&amp;lt;z)=\int_0^{+\infty}\int_0^{+\infty}I_{\{y-x\leq z\}}(x,y)\lambda\mu e^{-\lambda x-\mu y}d x dy.\]&lt;/span&gt;
+Making the following variable change &lt;span class=&#34;math inline&#34;&gt;\(u=y-x\)&lt;/span&gt; will give
+&lt;span class=&#34;math display&#34;&gt;\[F_\zeta(z)=P(\eta-\xi&amp;lt;z)=\lambda\mu \int_0^{+\infty}e^{-(\lambda + \mu) x}\left(\int_{-x}^{z}e^{-\mu u}d u\right) dx=1-\frac{\lambda}{\lambda+\mu}e^{-\mu z},\ \ z&amp;gt;0.\]&lt;/span&gt;
+If &lt;span class=&#34;math inline&#34;&gt;\(z&amp;lt;0\)&lt;/span&gt; then
+&lt;span class=&#34;math display&#34;&gt;\[P(\eta-\xi&amp;lt;z)=P(\xi-\eta&amp;gt;-z)=1-P(\xi-\eta&amp;lt;-z)=1-\left(1-\frac{\mu}{\mu+\lambda}e^{\lambda z}\right)=\frac{\mu}{\lambda+\mu}e^{\lambda z},\ \ z&amp;lt;0.\]&lt;/span&gt;
+Therefore,
+&lt;span class=&#34;math display&#34;&gt;\[F_\zeta(z)=\left\{\begin{matrix}
+&amp;amp;1-\frac{\lambda}{\lambda+\mu} e^{-\mu z}, &amp;amp;z\geq 0,\\
+&amp;amp;\frac{\mu}{\lambda+\mu} e^{\lambda z} &amp;amp;z&amp;lt;0.
+\end{matrix}\right.\]&lt;/span&gt;
+The PDF will be
+&lt;span class=&#34;math display&#34;&gt;\[f_\zeta(z)=\frac{\lambda\mu}{\lambda+\mu}\left\{\begin{matrix}
+&amp;amp;e^{-\mu z}, &amp;amp;z\geq 0,\\
+&amp;amp;e^{\lambda z} &amp;amp;z&amp;lt;0.
+\end{matrix}\right.\]&lt;/span&gt;
+This formula can be checked using simulations.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rm(list=ls())
+
+n &amp;lt;- 20000
+m &amp;lt;- 10000
+lambda &amp;lt;- 2
+mu &amp;lt;- 5
+
+
+  X &amp;lt;- rexp(n,lambda)
+  Y &amp;lt;- rexp(m, mu)
+  Z &amp;lt;- Y-X
+  
+int &amp;lt;- seq(min(Z),max(Z),(max(Z)-min(Z))/100)
+dens &amp;lt;- function(z) (lambda*mu)/(lambda+mu)*ifelse(z&amp;gt;=0,exp(-mu*z),exp(lambda*z))
+hist(Z, nclass = 100, freq=FALSE,ylim=c(0,1.5),
+     xlim = c(min(Z),max(Z)), main=&amp;quot;&amp;quot;, col = &amp;quot;lightblue&amp;quot;, border = &amp;quot;blue&amp;quot;)
+lines(int,dens(int), col=&amp;quot;2&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/exp/2019-12-20-r-rmarkdown_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;From the PDF we can calculate also
+&lt;span class=&#34;math display&#34;&gt;\[E(\zeta)=\frac{\lambda-\mu}{\lambda\mu},\ \ P(\eta&amp;gt;\xi)=\frac{\lambda}{\lambda+\mu}.\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;example-2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Example 2&lt;/h2&gt;
+&lt;p&gt;Suppose that &lt;span class=&#34;math inline&#34;&gt;\(\eta\sim{\mathbb E}(\mu)\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\eta&amp;#39;\sim{\mathbb E}(\mu&amp;#39;)\)&lt;/span&gt; are independent. Find the distribution of the RVs &lt;span class=&#34;math inline&#34;&gt;\(\min(\eta,\eta&amp;#39;)\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\max(\eta,\eta&amp;#39;).\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;For all &lt;span class=&#34;math inline&#34;&gt;\(z&amp;gt;0\)&lt;/span&gt; we have
+&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
+P(\min(\eta,\eta&amp;#39;)&amp;lt;z)=1-P(\min(\eta,\eta&amp;#39;)\geq z)=1-P(\eta\geq z,\eta&amp;#39;\geq z)=1-e^{-(\mu+\mu&amp;#39;) z},\,z&amp;gt;0,
+\end{align*}\]&lt;/span&gt;
+and &lt;span class=&#34;math inline&#34;&gt;\(P(\min(\eta,\eta&amp;#39;)&amp;lt;z)=0,\ \ z\leq 0.\)&lt;/span&gt; Therefore, &lt;span class=&#34;math inline&#34;&gt;\(\min(\eta,\eta&amp;#39;)\sim{\mathbb E}(\mu+\mu&amp;#39;)\)&lt;/span&gt;, that is, the minimum of two exponentially distributed RVs is an exponentially distributed RV as well, with the rate being equal to the sum of the rates of the given two RVs.&lt;/p&gt;
+&lt;p&gt;On the other hand,
+&lt;span class=&#34;math display&#34;&gt;\[P(\max(\eta, \eta&amp;#39;) &amp;lt; z)= P(\eta &amp;lt; z, \eta&amp;#39; &amp;lt;z)=(1-e^{-\mu z})(1-e^{-\mu&amp;#39; z}),\,z&amp;gt;0.\]&lt;/span&gt;
+For &lt;span class=&#34;math inline&#34;&gt;\(\mu=\mu&amp;#39;\)&lt;/span&gt; we have&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[P(\max(\eta, \eta&amp;#39;) &amp;lt; z) = (1-e^{-\mu z})^2,\,z&amp;gt;0,\]&lt;/span&gt;
+with PDF being equal to &lt;span class=&#34;math inline&#34;&gt;\(f(z)=2\mu(1-e^{-\mu z})e^{-\mu z},\,z&amp;gt;0\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(f(z)=0,\,z&amp;lt;0.\)&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;example-3&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Example 3&lt;/h2&gt;
+&lt;p&gt;For given three independent RVs such that &lt;span class=&#34;math inline&#34;&gt;\(\xi\sim{\mathbb E}(\lambda)\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\eta,\eta&amp;#39;\sim{\mathbb E}(\mu),\)&lt;/span&gt; calculate the following probability
+&lt;span class=&#34;math inline&#34;&gt;\(\theta=P(\xi&amp;lt;\eta,\xi&amp;lt;\eta&amp;#39;).\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;We can reformulate this problem as follows
+&lt;span class=&#34;math display&#34;&gt;\[\theta=P(\xi&amp;lt;\eta,\xi&amp;lt;\eta&amp;#39;)=P(\xi&amp;lt;\min(\eta,\eta&amp;#39;))=P(\xi-\min(\eta,\eta&amp;#39;)&amp;lt;0).\]&lt;/span&gt;
+Hence, denoting by &lt;span class=&#34;math inline&#34;&gt;\(\zeta=\xi-\min(\eta,\eta&amp;#39;),\)&lt;/span&gt; in the first step we can calculate the distribution function of the RV &lt;span class=&#34;math inline&#34;&gt;\(\zeta.\)&lt;/span&gt; We have &lt;span class=&#34;math inline&#34;&gt;\(\xi\sim{\mathbb E}(\xi)\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\min(\eta,\eta&amp;#39;)\sim{\mathbb E}(2\mu)\)&lt;/span&gt; (see Example 2), hence, using the Example 1 we obtain&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[F_\zeta(z)=\left\{\begin{matrix}
+&amp;amp;1-\frac{2\mu}{\lambda+2\mu} e^{-\lambda z}, &amp;amp;z\geq 0,\\
+&amp;amp;\frac{\lambda}{\lambda+2\mu} e^{2\mu z} &amp;amp;z&amp;lt;0.
+\end{matrix}\right.\]&lt;/span&gt;
+For the PDF we have
+&lt;span class=&#34;math display&#34;&gt;\[f_\zeta(z)=\left\{\begin{matrix}
+&amp;amp;\frac{2\lambda\mu}{\lambda+2\mu} e^{-\lambda z}, &amp;amp;z&amp;gt; 0,\\
+&amp;amp;\frac{2\lambda\mu}{\lambda+2\mu} e^{2\mu z} &amp;amp;z&amp;lt;0.
+\end{matrix}\right.\]&lt;/span&gt;
+We can, again, check this using simulations.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rm(list=ls())
+
+n &amp;lt;- 200000
+m &amp;lt;- 100000
+lambda &amp;lt;- 2.5
+mu &amp;lt;- 1.3
+
+
+X1 &amp;lt;- rexp(n,mu)
+X2 &amp;lt;- rexp(n,mu)
+Y &amp;lt;- rexp(m, lambda)
+Z &amp;lt;- Y - ifelse(X1&amp;gt;=X2,X2,X1)
+Coeff &amp;lt;- 2*lambda*mu/(lambda+2*mu)
+
+int &amp;lt;- seq(min(Z), max(Z), (max(Z)-min(Z))/100)
+dens &amp;lt;- function(z) Coeff*ifelse(z&amp;gt;=0, exp(-lambda*z), exp(2*mu*z))
+
+
+hist(Z, nclass = 100, freq=FALSE, ylim=c(0,1.5), 
+     xlim=c(min(Z), max(Z)), main = &amp;quot;&amp;quot;, border = &amp;quot;blue&amp;quot;, col = &amp;quot;lightblue&amp;quot;)
+lines(int,dens(int), col=&amp;quot;2&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/exp/2019-12-20-r-rmarkdown_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Therefore,
+&lt;span class=&#34;math display&#34;&gt;\[\theta=F_\zeta(0)=\frac{\lambda}{\lambda+2\mu}.\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;example-4&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Example 4&lt;/h2&gt;
+&lt;p&gt;For given three independent RVs such that &lt;span class=&#34;math inline&#34;&gt;\(\xi,\xi&amp;#39;\sim{\mathbb E}(\lambda)\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\eta\sim{\mathbb E}(\mu),\)&lt;/span&gt; calculate the following probability
+&lt;span class=&#34;math inline&#34;&gt;\(\vartheta=P(\xi&amp;lt;\eta,\xi&amp;#39;&amp;lt;\eta).\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;We can reformulate this problem as follows
+&lt;span class=&#34;math display&#34;&gt;\[\vartheta=P(\xi&amp;lt;\eta,\xi&amp;#39;&amp;lt;\eta)=P(\max(\xi,\xi&amp;#39;)&amp;lt;\eta)=P(\eta-\max(\xi,\xi&amp;#39;)&amp;gt;0).\]&lt;/span&gt;
+Hence, denoting by &lt;span class=&#34;math inline&#34;&gt;\(\kappa=\eta-\max(\xi,\xi&amp;#39;),\)&lt;/span&gt; in the first step we can calculate the distribution function of the RV &lt;span class=&#34;math inline&#34;&gt;\(\kappa.\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
+P(\kappa&amp;lt;z)=\int_0^{+\infty}\int_0^{+\infty}I(y-x\leq z)2\lambda\mu(1-e^{-\lambda x})e^{-\lambda x-\mu y}d x d y.
+\end{align*}\]&lt;/span&gt;
+If &lt;span class=&#34;math inline&#34;&gt;\(z&amp;gt;0\)&lt;/span&gt; then, denoting &lt;span class=&#34;math inline&#34;&gt;\(y-x=u\)&lt;/span&gt; we get &lt;span class=&#34;math inline&#34;&gt;\(y=u+x,\,u\in[-x,\infty)\ \ d y= d u.\)&lt;/span&gt; Therefore,&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
+P(\kappa&amp;lt;z)&amp;amp;=2\lambda\mu\int_0^{+\infty}(1-e^{-\lambda x})e^{-\lambda x-\mu x}\int_{-x}^{z}e^{-\mu u}d u d x=\\
+&amp;amp;=-2\lambda\int_0^{+\infty}(e^{-(\lambda+\mu) x -\mu z}-e^{-(2\lambda+\mu) x -\mu z}-e^{-\lambda x }+e^{-2\lambda x }) d x=\\
+&amp;amp;=1-\frac{2\lambda^2}{(\lambda+\mu)(2\lambda+\mu)}e^{-\mu z },\ \ z&amp;gt;0.
+\end{align*}\]&lt;/span&gt;
+For &lt;span class=&#34;math inline&#34;&gt;\(z&amp;gt;0\)&lt;/span&gt; calculate also (using the notation &lt;span class=&#34;math inline&#34;&gt;\(x-y=u\)&lt;/span&gt;, which entails &lt;span class=&#34;math inline&#34;&gt;\(x=y+u,\,d x=d u,\)&lt;/span&gt; where &lt;span class=&#34;math inline&#34;&gt;\(u\in[-y,+\infty).\)&lt;/span&gt;)
+&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
+P(\max(\xi,\xi&amp;#39;)-\eta&amp;lt;z)&amp;amp;=\int_0^{+\infty}\int_0^{+\infty}I(x-y\leq z)2\lambda\mu(1-e^{-\lambda x})e^{-\lambda x-\mu y}d x d y=\\
+&amp;amp;=\int_0^{+\infty}\int_{-y}^{z}(e^{-\lambda(y+u)  - \mu y} - e^{-2\lambda(y+u)  -\mu y}d u dy)=\\
+&amp;amp;=1+\mu\left[\frac{e^{-2\lambda z}}{2\lambda+\mu}-\frac{2e^{-\lambda z}}{\lambda+\mu}\right],\ \ z\geq 0.
+\end{align*}\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Therefore, for &lt;span class=&#34;math inline&#34;&gt;\(z&amp;gt;0\)&lt;/span&gt; we have
+&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
+P(\kappa&amp;lt;-z)&amp;amp;=1-P(\max(\xi,\xi&amp;#39;)-\eta&amp;lt;z)=\\
+&amp;amp;=-\mu\left[\frac{e^{-2\lambda z}}{2\lambda+\mu}-\frac{2e^{-\lambda z}}{\lambda+\mu}\right],\ \ z\geq 0
+\end{align*}\]&lt;/span&gt;
+Finally we obtain
+&lt;span class=&#34;math display&#34;&gt;\[F_\kappa(z)=\left\{\begin{matrix}
+&amp;amp;1-\frac{2\lambda^2}{(\lambda+\mu)(2\lambda+\mu)} e^{-\mu z}, &amp;amp;z\geq 0,\\
+&amp;amp;-\mu\left[\frac{e^{2\lambda z}}{2\lambda+\mu}-\frac{2e^{\lambda z}}{\lambda+\mu}\right] &amp;amp;z&amp;lt;0.
+\end{matrix}\right.\]&lt;/span&gt;
+For the PDF we have
+&lt;span class=&#34;math display&#34;&gt;\[f_\kappa(z)=\left\{\begin{matrix}
+&amp;amp;\frac{2\lambda^2\mu}{(\lambda+\mu)(2\lambda+\mu)} e^{-\mu z}, &amp;amp;z&amp;gt; 0,\\
+&amp;amp;-2\lambda\mu\left[\frac{e^{2\lambda z}}{2\lambda+\mu}-\frac{e^{\lambda z}}{\lambda+\mu}\right] &amp;amp;z&amp;lt;0.
+\end{matrix}\right.\]&lt;/span&gt;
+To check this formula we can make the following simulations.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rm(list=ls())
+
+n &amp;lt;- 200000
+m &amp;lt;- 100000
+lambda &amp;lt;- 2.5
+mu &amp;lt;- 5.5
+
+
+X1 &amp;lt;- rexp(n,lambda)
+X2 &amp;lt;- rexp(n,lambda)
+Y &amp;lt;- rexp(m, mu)
+Z &amp;lt;- Y - ifelse(X1 &amp;gt;= X2, X1, X2)
+Coeff &amp;lt;- 2*mu*lambda^2/((lambda+mu)*(2*lambda+mu))
+Coeff1 &amp;lt;- -2*lambda*mu/(2*lambda+mu)
+Coeff2 &amp;lt;- -2*lambda*mu/(lambda+mu)
+
+int &amp;lt;- seq(min(Z), max(Z), (max(Z)-min(Z))/100)
+
+dens &amp;lt;- function(z) ifelse(z&amp;gt;=0, Coeff*exp(-mu*z),
+                           Coeff1*exp(2*lambda*z)-Coeff2*exp(lambda*z))
+
+
+
+hist(Z, nclass = 100, freq=FALSE,ylim=c(0, 1.5), xlim=c(min(Z), max(Z)),
+     main = &amp;quot;&amp;quot;, col = &amp;quot;lightblue&amp;quot;, border = &amp;quot;blue&amp;quot;)
+lines(int,dens(int), col=&amp;quot;2&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/exp/2019-12-20-r-rmarkdown_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Therefore,
+&lt;span class=&#34;math display&#34;&gt;\[\vartheta=P(\xi&amp;lt;\eta, \xi&amp;#39;&amp;lt;\eta)=P(\kappa&amp;gt;0)=\frac{2\lambda^2}{(\lambda+\mu)(2\lambda+\mu)}.\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
