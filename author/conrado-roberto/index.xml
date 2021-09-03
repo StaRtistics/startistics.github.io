@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Conrado Roberto | Biostatistician</title>
+    <link>https://gasparyan.co/author/conrado-roberto/</link>
+      <atom:link href="https://gasparyan.co/author/conrado-roberto/index.xml" rel="self" type="application/rss+xml" />
+    <description>Conrado Roberto</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2021 Samvel B. Gasparyan</copyright><lastBuildDate>Mon, 26 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png</url>
+      <title>Conrado Roberto</title>
+      <link>https://gasparyan.co/author/conrado-roberto/</link>
+    </image>
+    
+    <item>
+      <title>Dapagliflozin in patients with cardiometabolic risk factors hospitalised with COVID-19 (DARE-19)</title>
+      <link>https://gasparyan.co/publication/dare-19-primary/</link>
+      <pubDate>Mon, 26 Jul 2021 00:00:00 +0000</pubDate>
+      <guid>https://gasparyan.co/publication/dare-19-primary/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

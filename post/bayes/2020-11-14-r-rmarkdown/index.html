@@ -27,7 +27,7 @@
   
   
 
-  <meta name="author" content="Samvel Gasparyan">
+  <meta name="author" content="Samvel B. Gasparyan">
 
   
   
@@ -317,9 +317,9 @@
   
   <meta property="twitter:card" content="summary">
   
-  <meta property="og:site_name" content="Clinical Statistician">
+  <meta property="og:site_name" content="Biostatistician">
   <meta property="og:url" content="https://gasparyan.co/post/bayes/2020-11-14-r-rmarkdown/">
-  <meta property="og:title" content="Bayesian Estimation | Clinical Statistician">
+  <meta property="og:title" content="Bayesian Estimation | Biostatistician">
   <meta property="og:description" content="CEO Salary Estimation ProblemConsider the following problem. An investigative reporter wants to figure out how much salary makes the CEO of an investment bank X. For this he conducts interviews with some of the employees of that bank and writes down their salaries, which forms the following sample"><meta property="og:image" content="https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
@@ -359,12 +359,12 @@
   
   "author": {
     "@type": "Person",
-    "name": "Samvel Gasparyan"
+    "name": "Samvel B. Gasparyan"
   },
   
   "publisher": {
     "@type": "Organization",
-    "name": "Clinical Statistician",
+    "name": "Biostatistician",
     "logo": {
       "@type": "ImageObject",
       "url": "https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_192x192_fill_lanczos_center_2.png"
@@ -388,7 +388,7 @@
 
 
 
-  <title>Bayesian Estimation | Clinical Statistician</title>
+  <title>Bayesian Estimation | Biostatistician</title>
 
 </head>
 
@@ -457,7 +457,7 @@
 
     
     <div class="d-none d-lg-inline-flex">
-      <a class="navbar-brand" href="/">Clinical Statistician</a>
+      <a class="navbar-brand" href="/">Biostatistician</a>
     </div>
     
 
@@ -470,7 +470,7 @@
 
     
     <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
-      <a class="navbar-brand" href="/">Clinical Statistician</a>
+      <a class="navbar-brand" href="/">Biostatistician</a>
     </div>
     
 
@@ -798,8 +798,6 @@
     <div class="article-style">
       
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
-<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
 
 
 <div id="ceo-salary-estimation-problem" class="section level2">
@@ -825,6 +823,18 @@ Therefore, drawing on reports from other investigations and his own survey, the 
 Therefore, each time a new salary of some CEO is reported <span class="math inline">\((\vartheta_{m+1}),\)</span> this new data can be used by the investigative reporter to update the estimate of the salary of the CEO of bank X.</p>
 </div>
 </div>
+<div id="conjugate-priors" class="section level2">
+<h2>Conjugate priors</h2>
+<p>In the example above the prior distribution of the unknown parameter <span class="math inline">\(\theta\)</span> was chosen because of theoretical considerations, based on an economic law (the Pareto rule). In most cases, it is not possible to give preference to one prior over the others based on some principle, <em>conjugate</em> priors are selected for computational simplicity.</p>
+<ul>
+<li>The prior distribution <span class="math inline">\(\theta\sim\pi(\theta),\,\theta\in\Theta\)</span> (with the density <span class="math inline">\(p(\theta)\)</span>) is called <em>conjugate</em> prior for the likelihood function <span class="math inline">\(f(x|\theta)\)</span> if its posterior density function <span class="math inline">\(f(\theta|x)\)</span> is from the same family as the likelihood function.</li>
+</ul>
+<p>The <strong>Bayes’</strong> theorem specifies the following relationship between the likelihood function <span class="math inline">\(f(x|\theta)\)</span> and the posterior function <span class="math inline">\(f(\theta|x),\)</span> for the given prior density <span class="math inline">\(p(\theta)\)</span></p>
+<p><span class="math display">\[f(\theta|x)=\frac{f(x|\theta) p(\theta)}{\int_\Theta f(x|\vartheta) p(\vartheta) d\vartheta}.\]</span>
+Therefore, the density <span class="math inline">\(p(\theta)\)</span> is a conjugate prior for <span class="math inline">\(f(x|\theta),\)</span> if <span class="math inline">\(f(x|\theta)\)</span> and <span class="math inline">\(f(\theta|x)\)</span> are from the same family.</p>
+</div>
+<div id="appendix" class="section level1">
+<h1>Appendix</h1>
 <div id="pareto-distributions" class="section level2">
 <h2>Pareto distributions</h2>
 <p>The random variable <span class="math inline">\(\xi\)</span> has a Pareto distribution with parameters <span class="math inline">\(\theta&gt;0\)</span> and <span class="math inline">\(a&gt;0\)</span>, <span class="math inline">\(\xi\sim Pa(\theta,a)\)</span> if the distribution function is given by the formula
@@ -856,6 +866,7 @@ where <span class="math inline">\(f(\theta|x)\)</span> is the posterior distribu
 <li><p>Suppose that <span class="math inline">\(X_i\sim {\mathbb U}(0,\theta)\)</span> and <span class="math inline">\(\theta\sim Pa(\theta_0, a)\)</span>. Show that the Bayes estimator has the form</p></li>
 </ol>
 <p><span class="math display">\[\hat\theta^B_n=\frac{a+n}{a+n-1}\max(\theta_0,X_1,\cdots,X_n).\]</span></p>
+</div>
 </div>
 
     </div>
@@ -994,12 +1005,12 @@ where <span class="math inline">\(f(\theta|x)\)</span> is the posterior distribu
   <div class="media author-card content-widget-hr">
     
       
-      <a href="https://gasparyan.co/"><img class="avatar mr-3 avatar-circle" src="/author/samvel-gasparyan/avatar_huf53f5f801e994c667cd72dd831a8fbac_797363_270x270_fill_q90_lanczos_center.jpg" alt="Samvel Gasparyan"></a>
+      <a href="https://gasparyan.co/"><img class="avatar mr-3 avatar-circle" src="/author/samvel-b.-gasparyan/avatar_hu805be2d0cd11b3293ad906453806c9b9_1001537_270x270_fill_q90_lanczos_center.jpg" alt="Samvel B. Gasparyan"></a>
     
 
     <div class="media-body">
-      <h5 class="card-title"><a href="https://gasparyan.co/">Samvel Gasparyan</a></h5>
-      <h6 class="card-subtitle">Clinical Statistician</h6>
+      <h5 class="card-title"><a href="https://gasparyan.co/">Samvel B. Gasparyan</a></h5>
+      <h6 class="card-subtitle">Biostatistician</h6>
       <p class="card-text">Biostatistician in cardiovascular trials.</p>
       <ul class="network-icon" aria-hidden="true">
   
@@ -1062,8 +1073,8 @@ where <span class="math inline">\(f(\theta|x)\)</span> is the posterior distribu
       
     
     <li>
-      <a href="https://www.researchgate.net/profile/Samvel_Gasparyan" target="_blank" rel="noopener">
-        <i class="ai ai-researchgate"></i>
+      <a href="https://orcid.org/0000-0002-4797-2208" target="_blank" rel="noopener">
+        <i class="ai ai-orcid"></i>
       </a>
     </li>
   
@@ -1138,7 +1149,7 @@ where <span class="math inline">\(f(\theta|x)\)</span> is the posterior distribu
   
 
   <p class="powered-by">
-    © 2020 Samvel B. Gasparyan
+    © 2021 Samvel B. Gasparyan
   </p>
 
   

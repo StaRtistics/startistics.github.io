@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Bayes | Clinical Statistician</title>
+    <title>Bayes | Biostatistician</title>
     <link>https://gasparyan.co/tag/bayes/</link>
       <atom:link href="https://gasparyan.co/tag/bayes/index.xml" rel="self" type="application/rss+xml" />
     <description>Bayes</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2020 Samvel B. Gasparyan</copyright><lastBuildDate>Sat, 14 Nov 2020 09:00:00 +0400</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2021 Samvel B. Gasparyan</copyright><lastBuildDate>Sat, 14 Nov 2020 09:00:00 +0400</lastBuildDate>
     <image>
       <url>https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png</url>
       <title>Bayes</title>
@@ -19,8 +19,6 @@
       <guid>https://gasparyan.co/post/bayes/2020-11-14-r-rmarkdown/</guid>
       <description>
 &lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;https://gasparyan.co/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;ceo-salary-estimation-problem&#34; class=&#34;section level2&#34;&gt;
@@ -46,6 +44,18 @@ Therefore, drawing on reports from other investigations and his own survey, the 
 Therefore, each time a new salary of some CEO is reported &lt;span class=&#34;math inline&#34;&gt;\((\vartheta_{m+1}),\)&lt;/span&gt; this new data can be used by the investigative reporter to update the estimate of the salary of the CEO of bank X.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
+&lt;div id=&#34;conjugate-priors&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Conjugate priors&lt;/h2&gt;
+&lt;p&gt;In the example above the prior distribution of the unknown parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; was chosen because of theoretical considerations, based on an economic law (the Pareto rule). In most cases, it is not possible to give preference to one prior over the others based on some principle, &lt;em&gt;conjugate&lt;/em&gt; priors are selected for computational simplicity.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The prior distribution &lt;span class=&#34;math inline&#34;&gt;\(\theta\sim\pi(\theta),\,\theta\in\Theta\)&lt;/span&gt; (with the density &lt;span class=&#34;math inline&#34;&gt;\(p(\theta)\)&lt;/span&gt;) is called &lt;em&gt;conjugate&lt;/em&gt; prior for the likelihood function &lt;span class=&#34;math inline&#34;&gt;\(f(x|\theta)\)&lt;/span&gt; if its posterior density function &lt;span class=&#34;math inline&#34;&gt;\(f(\theta|x)\)&lt;/span&gt; is from the same family as the likelihood function.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The &lt;strong&gt;Bayes’&lt;/strong&gt; theorem specifies the following relationship between the likelihood function &lt;span class=&#34;math inline&#34;&gt;\(f(x|\theta)\)&lt;/span&gt; and the posterior function &lt;span class=&#34;math inline&#34;&gt;\(f(\theta|x),\)&lt;/span&gt; for the given prior density &lt;span class=&#34;math inline&#34;&gt;\(p(\theta)\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[f(\theta|x)=\frac{f(x|\theta) p(\theta)}{\int_\Theta f(x|\vartheta) p(\vartheta) d\vartheta}.\]&lt;/span&gt;
+Therefore, the density &lt;span class=&#34;math inline&#34;&gt;\(p(\theta)\)&lt;/span&gt; is a conjugate prior for &lt;span class=&#34;math inline&#34;&gt;\(f(x|\theta),\)&lt;/span&gt; if &lt;span class=&#34;math inline&#34;&gt;\(f(x|\theta)\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(f(\theta|x)\)&lt;/span&gt; are from the same family.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;appendix&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Appendix&lt;/h1&gt;
 &lt;div id=&#34;pareto-distributions&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Pareto distributions&lt;/h2&gt;
 &lt;p&gt;The random variable &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt; has a Pareto distribution with parameters &lt;span class=&#34;math inline&#34;&gt;\(\theta&amp;gt;0\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(a&amp;gt;0\)&lt;/span&gt;, &lt;span class=&#34;math inline&#34;&gt;\(\xi\sim Pa(\theta,a)\)&lt;/span&gt; if the distribution function is given by the formula
@@ -77,6 +87,7 @@ where &lt;span class=&#34;math inline&#34;&gt;\(f(\theta|x)\)&lt;/span&gt; is th
 &lt;li&gt;&lt;p&gt;Suppose that &lt;span class=&#34;math inline&#34;&gt;\(X_i\sim {\mathbb U}(0,\theta)\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\theta\sim Pa(\theta_0, a)\)&lt;/span&gt;. Show that the Bayes estimator has the form&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\hat\theta^B_n=\frac{a+n}{a+n-1}\max(\theta_0,X_1,\cdots,X_n).\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 </description>
     </item>

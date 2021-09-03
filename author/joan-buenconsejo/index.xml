@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Joan Buenconsejo | Biostatistician</title>
+    <link>https://gasparyan.co/author/joan-buenconsejo/</link>
+      <atom:link href="https://gasparyan.co/author/joan-buenconsejo/index.xml" rel="self" type="application/rss+xml" />
+    <description>Joan Buenconsejo</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2021 Samvel B. Gasparyan</copyright><lastBuildDate>Mon, 26 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png</url>
+      <title>Joan Buenconsejo</title>
+      <link>https://gasparyan.co/author/joan-buenconsejo/</link>
+    </image>
+    
+    <item>
+      <title>Dapagliflozin in patients with cardiometabolic risk factors hospitalised with COVID-19 (DARE-19)</title>
+      <link>https://gasparyan.co/publication/dare-19-primary/</link>
+      <pubDate>Mon, 26 Jul 2021 00:00:00 +0000</pubDate>
+      <guid>https://gasparyan.co/publication/dare-19-primary/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Adjusted win ratio with stratification: Calculation methods and interpretation</title>
+      <link>https://gasparyan.co/publication/adjusted-win-ratio/</link>
+      <pubDate>Sun, 26 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>https://gasparyan.co/publication/adjusted-win-ratio/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
