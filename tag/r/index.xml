@@ -164,8 +164,6 @@ fit&lt;/code&gt;&lt;/pre&gt;
       <guid>https://gasparyan.co/post/exp/2019-12-20-r-rmarkdown/</guid>
       <description>
 &lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;https://gasparyan.co/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;introduction&#34; class=&#34;section level2&#34;&gt;
@@ -186,7 +184,7 @@ This entails that an exponential RV is with 1 probability positive and has the P
 If &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt; has an exponential distribution with the rate &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; we will denote this by &lt;span class=&#34;math inline&#34;&gt;\({\mathbb E}(\lambda).\)&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;In &lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt; the following functions can be used to, correspondingly, generate numbers from &lt;span class=&#34;math inline&#34;&gt;\({\mathbb E}(\lambda)\)&lt;/span&gt;, calculate values of CDF, calculate values of PDF&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rexp(n=2, rate=1)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.9987573 0.5837795&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.06697548 0.25507292&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pexp(q=1, rate=1)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.6321206&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dexp(x=1, rate=1)&lt;/code&gt;&lt;/pre&gt;
