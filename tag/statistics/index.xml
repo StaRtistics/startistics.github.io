@@ -93,14 +93,12 @@ where &lt;span class=&#34;math inline&#34;&gt;\(f(\theta|x)\)&lt;/span&gt; is th
     </item>
     
     <item>
-      <title>Win Ratio Confidence Intervals in R</title>
+      <title>Win Odds Confidence Intervals in R</title>
       <link>https://gasparyan.co/post/wrci/2020-01-10-r-rmarkdown/</link>
       <pubDate>Fri, 10 Jan 2020 10:00:00 +0400</pubDate>
       <guid>https://gasparyan.co/post/wrci/2020-01-10-r-rmarkdown/</guid>
       <description>
 &lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;https://gasparyan.co/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;mann-whitney-estimate-for-the-win-probability&#34; class=&#34;section level2&#34;&gt;
@@ -173,16 +171,16 @@ Coeff &amp;lt;- Coeff0*(1/(1-alpha)*lambda/(2*lambda+mu)+1/alpha*mu/(lambda+2*mu
 hist(WR, nclass = 20, freq=FALSE, xlim=c(-x0,x0), 
      ylim=c(0, 1.1), col = &amp;quot;lightblue&amp;quot;, border = &amp;quot;blue&amp;quot;)
 lines(int,dnorm(int, mean = 0, sd=sqrt(Coeff)), col=&amp;quot;2&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/WRCI/2020-01-10-r-rmarkdown_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/wrci/2020-01-10-r-rmarkdown_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;definition-of-the-win-ratio&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Definition of the win ratio&lt;/h2&gt;
-&lt;p&gt;Consider two independent, continuous RVs (random variables) &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt;. The odds of the win probability is called the &lt;em&gt;win ratio&lt;/em&gt; of RV &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt; against the RV &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt;&lt;/p&gt;
+&lt;div id=&#34;definition-of-the-win-odds&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Definition of the win odds&lt;/h2&gt;
+&lt;p&gt;Consider two independent, continuous RVs (random variables) &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt;. The odds of the win probability is called the &lt;em&gt;win odds&lt;/em&gt; of RV &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt; against the RV &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
 \omega=\frac{P(\eta&amp;gt;\xi)}{P(\eta&amp;lt;\xi)}=\frac{\theta}{1-\theta}.
 \end{align*}\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;The Mann-Whitney estimate of the win probability can be transformed by the function &lt;span class=&#34;math inline&#34;&gt;\(f(x)=\frac{x}{1-x},\ \ x\in(0,1)\)&lt;/span&gt; to get an estimate for the win ratio. Using the same transformation and the asymptotic normality of the Mann-Whitney estimate it is possible to construct asymptotic confidence intervals for the win ratio, for a given asymptotic confidence level.&lt;/p&gt;
-&lt;p&gt;If &lt;span class=&#34;math inline&#34;&gt;\(\omega=1\)&lt;/span&gt; then the random variables &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt; are stochastically equivalent, while &lt;span class=&#34;math inline&#34;&gt;\(\omega&amp;gt;1\)&lt;/span&gt; means that &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt; is stochastically greater than (wins against) &lt;span class=&#34;math inline&#34;&gt;\(\eta.\)&lt;/span&gt; The case &lt;span class=&#34;math inline&#34;&gt;\(\omega&amp;lt;1\)&lt;/span&gt; means that &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt; loses against &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt;. The asymptotic confidence interval of the win ratio can be used to test the hypothesis whether &lt;span class=&#34;math inline&#34;&gt;\(\omega=1\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;The Mann-Whitney estimate of the win probability can be transformed by the function &lt;span class=&#34;math inline&#34;&gt;\(f(x)=\frac{x}{1-x},\ \ x\in(0,1)\)&lt;/span&gt; to get an estimate for the win odds. Using the same transformation and the asymptotic normality of the Mann-Whitney estimate it is possible to construct asymptotic confidence intervals for the win odds, for a given asymptotic confidence level.&lt;/p&gt;
+&lt;p&gt;If &lt;span class=&#34;math inline&#34;&gt;\(\omega=1\)&lt;/span&gt; then the random variables &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt; are stochastically equivalent, while &lt;span class=&#34;math inline&#34;&gt;\(\omega&amp;gt;1\)&lt;/span&gt; means that &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt; is stochastically greater than (wins against) &lt;span class=&#34;math inline&#34;&gt;\(\eta.\)&lt;/span&gt; The case &lt;span class=&#34;math inline&#34;&gt;\(\omega&amp;lt;1\)&lt;/span&gt; means that &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt; loses against &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt;. The asymptotic confidence interval of the win odds can be used to test the hypothesis whether &lt;span class=&#34;math inline&#34;&gt;\(\omega=1\)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;To use the asymptotic normality result described above we need to estimate the asymptotic variance. The package &lt;em&gt;sanon&lt;/em&gt; in &lt;em&gt;R&lt;/em&gt; allows to estimate the asymptotic standard error of the Mann-Whitney estimate.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;the-package-sanon&#34; class=&#34;section level2&#34;&gt;
@@ -228,11 +226,11 @@ fit&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit$p&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##            [,1]
 ## [1,] 0.02150601&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The p-value based on the asymptotic confidence interval of level 0.05 is less than 0.05, hence the null hypothesis of no treatment difference is rejected. The Mann-Whitney estimate can be transformed to get an estimate for the win ratio.&lt;/p&gt;
+&lt;p&gt;The p-value based on the asymptotic confidence interval of level 0.05 is less than 0.05, hence the null hypothesis of no treatment difference is rejected. The Mann-Whitney estimate can be transformed to get an estimate for the win odds.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;confint(fit)$ci/(1-confint(fit)$ci)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##        Estimate    Lower    Upper
 ## visit4 1.614013 1.071762 2.540746&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;For the win ratio the null hypothesis of no treatment difference is &lt;span class=&#34;math inline&#34;&gt;\(\omega=1.\)&lt;/span&gt; The win ratio 1.61 characterizes the treatment effect difference.&lt;/p&gt;
+&lt;p&gt;For the win odds the null hypothesis of no treatment difference is &lt;span class=&#34;math inline&#34;&gt;\(\omega=1.\)&lt;/span&gt; The win odds 1.61 characterizes the treatment effect difference.&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>

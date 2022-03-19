@@ -5,12 +5,20 @@
     <link>https://gasparyan.co/author/joan-buenconsejo/</link>
       <atom:link href="https://gasparyan.co/author/joan-buenconsejo/index.xml" rel="self" type="application/rss+xml" />
     <description>Joan Buenconsejo</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2021 Samvel B. Gasparyan</copyright><lastBuildDate>Mon, 26 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2021 Samvel B. Gasparyan</copyright><lastBuildDate>Thu, 23 Sep 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png</url>
       <title>Joan Buenconsejo</title>
       <link>https://gasparyan.co/author/joan-buenconsejo/</link>
     </image>
+    
+    <item>
+      <title>Power and sample size calculation for the win odds test: application to an ordinal endpoint in COVID-19 trials</title>
+      <link>https://gasparyan.co/publication/power-win-odds/</link>
+      <pubDate>Thu, 23 Sep 2021 00:00:00 +0000</pubDate>
+      <guid>https://gasparyan.co/publication/power-win-odds/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Dapagliflozin in patients with cardiometabolic risk factors hospitalised with COVID-19 (DARE-19)</title>

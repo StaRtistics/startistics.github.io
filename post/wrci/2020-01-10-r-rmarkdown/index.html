@@ -319,7 +319,7 @@
   
   <meta property="og:site_name" content="Biostatistician">
   <meta property="og:url" content="https://gasparyan.co/post/wrci/2020-01-10-r-rmarkdown/">
-  <meta property="og:title" content="Win Ratio Confidence Intervals in R | Biostatistician">
+  <meta property="og:title" content="Win Odds Confidence Intervals in R | Biostatistician">
   <meta property="og:description" content="Mann-Whitney estimate for the win probabilityConsider two independent, continuous RVs (random variables) \(\xi\) and \(\eta\). The following probability is called the win probability of RV \(\eta\) against the RV \(\xi\)"><meta property="og:image" content="https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
@@ -352,7 +352,7 @@
     "@type": "WebPage",
     "@id": "https://gasparyan.co/post/wrci/2020-01-10-r-rmarkdown/"
   },
-  "headline": "Win Ratio Confidence Intervals in R",
+  "headline": "Win Odds Confidence Intervals in R",
   
   "datePublished": "2020-01-10T10:00:00+04:00",
   "dateModified": "2020-01-10T10:00:00+04:00",
@@ -388,7 +388,7 @@
 
 
 
-  <title>Win Ratio Confidence Intervals in R | Biostatistician</title>
+  <title>Win Odds Confidence Intervals in R | Biostatistician</title>
 
 </head>
 
@@ -726,7 +726,7 @@
   
   
 <div class="article-container pt-3">
-  <h1>Win Ratio Confidence Intervals in R</h1>
+  <h1>Win Odds Confidence Intervals in R</h1>
 
   
 
@@ -798,8 +798,6 @@
     <div class="article-style">
       
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
-<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
 
 
 <div id="mann-whitney-estimate-for-the-win-probability" class="section level2">
@@ -872,16 +870,16 @@ Coeff &lt;- Coeff0*(1/(1-alpha)*lambda/(2*lambda+mu)+1/alpha*mu/(lambda+2*mu))
 hist(WR, nclass = 20, freq=FALSE, xlim=c(-x0,x0), 
      ylim=c(0, 1.1), col = &quot;lightblue&quot;, border = &quot;blue&quot;)
 lines(int,dnorm(int, mean = 0, sd=sqrt(Coeff)), col=&quot;2&quot;)</code></pre>
-<p><img src="/post/WRCI/2020-01-10-r-rmarkdown_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p><img src="/post/wrci/2020-01-10-r-rmarkdown_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 </div>
-<div id="definition-of-the-win-ratio" class="section level2">
-<h2>Definition of the win ratio</h2>
-<p>Consider two independent, continuous RVs (random variables) <span class="math inline">\(\xi\)</span> and <span class="math inline">\(\eta\)</span>. The odds of the win probability is called the <em>win ratio</em> of RV <span class="math inline">\(\eta\)</span> against the RV <span class="math inline">\(\xi\)</span></p>
+<div id="definition-of-the-win-odds" class="section level2">
+<h2>Definition of the win odds</h2>
+<p>Consider two independent, continuous RVs (random variables) <span class="math inline">\(\xi\)</span> and <span class="math inline">\(\eta\)</span>. The odds of the win probability is called the <em>win odds</em> of RV <span class="math inline">\(\eta\)</span> against the RV <span class="math inline">\(\xi\)</span></p>
 <p><span class="math display">\[\begin{align*}
 \omega=\frac{P(\eta&gt;\xi)}{P(\eta&lt;\xi)}=\frac{\theta}{1-\theta}.
 \end{align*}\]</span></p>
-<p>The Mann-Whitney estimate of the win probability can be transformed by the function <span class="math inline">\(f(x)=\frac{x}{1-x},\ \ x\in(0,1)\)</span> to get an estimate for the win ratio. Using the same transformation and the asymptotic normality of the Mann-Whitney estimate it is possible to construct asymptotic confidence intervals for the win ratio, for a given asymptotic confidence level.</p>
-<p>If <span class="math inline">\(\omega=1\)</span> then the random variables <span class="math inline">\(\xi\)</span> and <span class="math inline">\(\eta\)</span> are stochastically equivalent, while <span class="math inline">\(\omega&gt;1\)</span> means that <span class="math inline">\(\eta\)</span> is stochastically greater than (wins against) <span class="math inline">\(\eta.\)</span> The case <span class="math inline">\(\omega&lt;1\)</span> means that <span class="math inline">\(\eta\)</span> loses against <span class="math inline">\(\xi\)</span>. The asymptotic confidence interval of the win ratio can be used to test the hypothesis whether <span class="math inline">\(\omega=1\)</span>.</p>
+<p>The Mann-Whitney estimate of the win probability can be transformed by the function <span class="math inline">\(f(x)=\frac{x}{1-x},\ \ x\in(0,1)\)</span> to get an estimate for the win odds. Using the same transformation and the asymptotic normality of the Mann-Whitney estimate it is possible to construct asymptotic confidence intervals for the win odds, for a given asymptotic confidence level.</p>
+<p>If <span class="math inline">\(\omega=1\)</span> then the random variables <span class="math inline">\(\xi\)</span> and <span class="math inline">\(\eta\)</span> are stochastically equivalent, while <span class="math inline">\(\omega&gt;1\)</span> means that <span class="math inline">\(\eta\)</span> is stochastically greater than (wins against) <span class="math inline">\(\eta.\)</span> The case <span class="math inline">\(\omega&lt;1\)</span> means that <span class="math inline">\(\eta\)</span> loses against <span class="math inline">\(\xi\)</span>. The asymptotic confidence interval of the win odds can be used to test the hypothesis whether <span class="math inline">\(\omega=1\)</span>.</p>
 <p>To use the asymptotic normality result described above we need to estimate the asymptotic variance. The package <em>sanon</em> in <em>R</em> allows to estimate the asymptotic standard error of the Mann-Whitney estimate.</p>
 </div>
 <div id="the-package-sanon" class="section level2">
@@ -927,11 +925,11 @@ fit</code></pre>
 <pre class="r"><code>fit$p</code></pre>
 <pre><code>##            [,1]
 ## [1,] 0.02150601</code></pre>
-<p>The p-value based on the asymptotic confidence interval of level 0.05 is less than 0.05, hence the null hypothesis of no treatment difference is rejected. The Mann-Whitney estimate can be transformed to get an estimate for the win ratio.</p>
+<p>The p-value based on the asymptotic confidence interval of level 0.05 is less than 0.05, hence the null hypothesis of no treatment difference is rejected. The Mann-Whitney estimate can be transformed to get an estimate for the win odds.</p>
 <pre class="r"><code>confint(fit)$ci/(1-confint(fit)$ci)</code></pre>
 <pre><code>##        Estimate    Lower    Upper
 ## visit4 1.614013 1.071762 2.540746</code></pre>
-<p>For the win ratio the null hypothesis of no treatment difference is <span class="math inline">\(\omega=1.\)</span> The win ratio 1.61 characterizes the treatment effect difference.</p>
+<p>For the win odds the null hypothesis of no treatment difference is <span class="math inline">\(\omega=1.\)</span> The win odds 1.61 characterizes the treatment effect difference.</p>
 </div>
 
     </div>
@@ -968,7 +966,7 @@ fit</code></pre>
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https://gasparyan.co/post/wrci/2020-01-10-r-rmarkdown/&amp;text=Win%20Ratio%20Confidence%20Intervals%20in%20R" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://gasparyan.co/post/wrci/2020-01-10-r-rmarkdown/&amp;text=Win%20Odds%20Confidence%20Intervals%20in%20R" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -981,7 +979,7 @@ fit</code></pre>
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https://gasparyan.co/post/wrci/2020-01-10-r-rmarkdown/&amp;t=Win%20Ratio%20Confidence%20Intervals%20in%20R" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://gasparyan.co/post/wrci/2020-01-10-r-rmarkdown/&amp;t=Win%20Odds%20Confidence%20Intervals%20in%20R" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -994,7 +992,7 @@ fit</code></pre>
       
       
       <li>
-        <a href="mailto:?subject=Win%20Ratio%20Confidence%20Intervals%20in%20R&amp;body=https://gasparyan.co/post/wrci/2020-01-10-r-rmarkdown/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Win%20Odds%20Confidence%20Intervals%20in%20R&amp;body=https://gasparyan.co/post/wrci/2020-01-10-r-rmarkdown/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -1007,7 +1005,7 @@ fit</code></pre>
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https://gasparyan.co/post/wrci/2020-01-10-r-rmarkdown/&amp;title=Win%20Ratio%20Confidence%20Intervals%20in%20R" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://gasparyan.co/post/wrci/2020-01-10-r-rmarkdown/&amp;title=Win%20Odds%20Confidence%20Intervals%20in%20R" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -1020,7 +1018,7 @@ fit</code></pre>
       
       
       <li>
-        <a href="whatsapp://send?text=Win%20Ratio%20Confidence%20Intervals%20in%20R%20https://gasparyan.co/post/wrci/2020-01-10-r-rmarkdown/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="whatsapp://send?text=Win%20Odds%20Confidence%20Intervals%20in%20R%20https://gasparyan.co/post/wrci/2020-01-10-r-rmarkdown/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -1033,7 +1031,7 @@ fit</code></pre>
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=https://gasparyan.co/post/wrci/2020-01-10-r-rmarkdown/&amp;title=Win%20Ratio%20Confidence%20Intervals%20in%20R" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https://gasparyan.co/post/wrci/2020-01-10-r-rmarkdown/&amp;title=Win%20Odds%20Confidence%20Intervals%20in%20R" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>
