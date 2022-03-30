@@ -5,12 +5,128 @@
     <link>https://gasparyan.co/tag/statistics/</link>
       <atom:link href="https://gasparyan.co/tag/statistics/index.xml" rel="self" type="application/rss+xml" />
     <description>Statistics</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2022 Samvel B. Gasparyan</copyright><lastBuildDate>Sat, 14 Nov 2020 09:00:00 +0400</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2022 Samvel B. Gasparyan</copyright><lastBuildDate>Fri, 31 Dec 2021 10:00:00 +0400</lastBuildDate>
     <image>
       <url>https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png</url>
       <title>Statistics</title>
       <link>https://gasparyan.co/tag/statistics/</link>
     </image>
+    
+    <item>
+      <title>Neyman-Pearson and some other Uniformly Most Powerful Tests</title>
+      <link>https://gasparyan.co/post/np/2021-12-31-r-rmarkdown/</link>
+      <pubDate>Fri, 31 Dec 2021 10:00:00 +0400</pubDate>
+      <guid>https://gasparyan.co/post/np/2021-12-31-r-rmarkdown/</guid>
+      <description>
+&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;Suppose data consisting of i.i.d. observations &lt;span class=&#34;math inline&#34;&gt;\(X^n=(X_1,X_2,\cdots,X_n)\)&lt;/span&gt; are available from a distribution &lt;span class=&#34;math inline&#34;&gt;\(F(x,\theta),\,\theta\in\Theta\subset\mathbf{R}.\)&lt;/span&gt; The exact value &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; corresponding to the distribution that generated the observations is unknown. The problem is, using the available data &lt;span class=&#34;math inline&#34;&gt;\(X^n,\)&lt;/span&gt; construct tests for making decisions on the possible value of unknown parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt;. Unlike the estimation problems where an estimator is constructed based on data which can be used as an approximate value of the unknown parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt;, the hypothesis testing deals with decisions, for example, whether the unknown parameter is in a given subset (the null hypothesis)
+&lt;span class=&#34;math display&#34;&gt;\[{\mathcal H}_0:\ \ \theta\in\Theta_0\subset\Theta,\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;or, alternatively, in its supplement
+&lt;span class=&#34;math display&#34;&gt;\[{\mathcal H}_a:\ \ \theta\in\Theta\setminus\Theta_0.\]&lt;/span&gt;
+Therefore, hypothesis testing is interested in knowing whether the unknown value is in a given set &lt;span class=&#34;math inline&#34;&gt;\(\Theta_0\)&lt;/span&gt;. We may define this set as containing only one value &lt;span class=&#34;math inline&#34;&gt;\(\Theta_0=\{\theta_0\}\)&lt;/span&gt; in which case the test will be whether the unknown value is equal to the given known value &lt;span class=&#34;math inline&#34;&gt;\(\theta_0\)&lt;/span&gt;. The statistical tests that make the decisions are based on the data and the construction of statistical tests can be formalized as follows.&lt;/p&gt;
+&lt;p&gt;Suppose &lt;span class=&#34;math inline&#34;&gt;\(\psi:\mathbf{R^n}\rightarrow\{0,1\}\)&lt;/span&gt; is a measurable function defined for all observations &lt;span class=&#34;math inline&#34;&gt;\(X^n\)&lt;/span&gt; and takes only the values 0 and 1. Any such function will be called a &lt;em&gt;statistical test.&lt;/em&gt; We will use the convention that the value 1 corresponds to the decision of rejecting the null hypothesis (hence the alternative hypothesis should be accepted), while the value 0 means a decision that the null hypothesis should be accepted. Hence using the available observations &lt;span class=&#34;math inline&#34;&gt;\(X^n\)&lt;/span&gt; we can make a decision based on the value of &lt;span class=&#34;math inline&#34;&gt;\(\psi(X^n).\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;As we have seen from the definition of a statistical test, any measurable function is a test, including the functions that are constant &lt;span class=&#34;math inline&#34;&gt;\(\psi\equiv1\)&lt;/span&gt; (data independent tests), which are not good tests at all since those will always give the same answer regardless of the data, and hence, will very likely be wrong in most cases. Therefore, we need to define tests that have good properties (give reliable answers), and before this we need to define what a good test should be in a formal way. We will be dealing only with small sample statistical tests, meaning the sample size &lt;span class=&#34;math inline&#34;&gt;\(n\)&lt;/span&gt; is fixed and the properties of statistical test will be considered under this condition only (unlike the asymptotic theory, where a large sample inference is done under the condition when &lt;span class=&#34;math inline&#34;&gt;\(n\rightarrow+\infty\)&lt;/span&gt;).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;type-i-and-ii-errors&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Type I and II errors&lt;/h3&gt;
+&lt;p&gt;For each statistical test &lt;span class=&#34;math inline&#34;&gt;\(\psi\)&lt;/span&gt; we may either make a correct decision (correctly identify the set to which the unknown value &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; belongs) or commit one of two errors: reject the null hypothesis when it is true (type I error) or accept when it is false (type II error). If the sample size &lt;span class=&#34;math inline&#34;&gt;\(n\)&lt;/span&gt; is fixed, it is impossible to construct a test with both types of errors being low, hence the strategy is to fix some level for the type I error (&lt;em&gt;level of significance&lt;/em&gt;) and among those tests find a test with the lowest type II error.&lt;/p&gt;
+&lt;p&gt;Indeed, consider the type I error of a given statistical test &lt;span class=&#34;math inline&#34;&gt;\(\psi.\)&lt;/span&gt; The type I error, denoting it by &lt;span class=&#34;math inline&#34;&gt;\(\alpha(\psi),\)&lt;/span&gt; will be
+&lt;span class=&#34;math display&#34;&gt;\[\alpha(\psi,\theta) = P_\theta(\psi=1)=E_\theta\psi,\ \ \theta\in\Theta_0.\]&lt;/span&gt;
+That is, the probability of rejecting that &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; is in &lt;span class=&#34;math inline&#34;&gt;\(\Theta_0\)&lt;/span&gt; (the decision is &lt;span class=&#34;math inline&#34;&gt;\(\psi=1\)&lt;/span&gt;) while &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; is indeed in &lt;span class=&#34;math inline&#34;&gt;\(\Theta_0.\)&lt;/span&gt; For a given &lt;em&gt;significance level&lt;/em&gt; &lt;span class=&#34;math inline&#34;&gt;\(\alpha\in(0,1)\)&lt;/span&gt;, we consider only tests &lt;span class=&#34;math inline&#34;&gt;\(\psi\)&lt;/span&gt; such that
+&lt;span class=&#34;math display&#34;&gt;\[\alpha(\psi,\theta)\leq\alpha,\ \ \theta\in\Theta_0.\]&lt;/span&gt;
+Among these tests we will try to find the one with the lowest type II error. Or, equivalently, if we denote by &lt;span class=&#34;math inline&#34;&gt;\(\pi(\psi,\theta)=P_\theta(\psi=1)=E_\theta\psi,\ \ \theta\in\Theta\setminus\Theta_0,\)&lt;/span&gt; the &lt;em&gt;power function&lt;/em&gt; of the test &lt;span class=&#34;math inline&#34;&gt;\(\psi,\)&lt;/span&gt; then the problem above can be formulated as finding a test with the highest power in the region &lt;span class=&#34;math inline&#34;&gt;\(\Theta\setminus\Theta_0\)&lt;/span&gt; among the tests with the given significance level &lt;span class=&#34;math inline&#34;&gt;\(\alpha\)&lt;/span&gt; in the region &lt;span class=&#34;math inline&#34;&gt;\(\Theta_0.\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The hypothesis testing will be called &lt;em&gt;simple&lt;/em&gt; if both &lt;span class=&#34;math inline&#34;&gt;\(\Theta_0\)&lt;/span&gt; and its complement consist of only single values.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;neyman-pearson-test&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Neyman-Pearson test&lt;/h3&gt;
+&lt;p&gt;Consider the case of simple hypothesis testing. We observe from a random variable &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt; which has a distribution function &lt;span class=&#34;math inline&#34;&gt;\(F(x),\)&lt;/span&gt; &lt;span class=&#34;math inline&#34;&gt;\(X\sim F(x)\)&lt;/span&gt;. The simple hypothesis to be tested is the following:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[{\mathcal H}_0:\ \ F(x)=F_0(x),\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;and the alternative hypothesis is
+&lt;span class=&#34;math display&#34;&gt;\[{\mathcal H}_a:\ \ F(x)=F_1(x).\]&lt;/span&gt;
+Here &lt;span class=&#34;math inline&#34;&gt;\(F_0(x)\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(F_1(x)\)&lt;/span&gt; are given distribution functions.&lt;/p&gt;
+&lt;p&gt;Suppose the distribution function &lt;span class=&#34;math inline&#34;&gt;\(F_0(x)\)&lt;/span&gt; has a density &lt;span class=&#34;math inline&#34;&gt;\(f_0(x)\)&lt;/span&gt; with respect to some measure &lt;span class=&#34;math inline&#34;&gt;\(\mu\)&lt;/span&gt;, while &lt;span class=&#34;math inline&#34;&gt;\(F_1(x)\)&lt;/span&gt; has a density &lt;span class=&#34;math inline&#34;&gt;\(f_1(x),\)&lt;/span&gt; with respect to the same measure. Such a measure always exists since we can take the measure generated by the distribution function &lt;span class=&#34;math inline&#34;&gt;\(\tilde F(x)=\frac{F_0(x)+F_1(x)}{2}\)&lt;/span&gt;. The &lt;strong&gt;Neyman-Pearson&lt;/strong&gt; fundamental lemma &lt;span class=&#34;citation&#34;&gt;(&lt;a href=&#34;#ref-lehmann2005testing&#34; role=&#34;doc-biblioref&#34;&gt;Lehmann and Romano 2005&lt;/a&gt;)&lt;/span&gt; says that:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;For a given significance level &lt;span class=&#34;math inline&#34;&gt;\(\alpha\in(0,1)\)&lt;/span&gt; there exists a value &lt;span class=&#34;math inline&#34;&gt;\(c_0\in\mathbf{R}\)&lt;/span&gt; such that the following &lt;em&gt;Neyman-Pearson (NP)&lt;/em&gt; test
+&lt;span class=&#34;math display&#34;&gt;\[\tilde\psi_{c_0}(x)=\left\{
+\begin{matrix}
+1, &amp;amp; x\in\{x:\,f_1(x)&amp;gt;c_0f_0(x)\},\\
+\frac{\alpha-\alpha(c_0)}{\alpha(c_0-0)-\alpha(c_0)}, &amp;amp; x\in\{x:\,f_1(x)=c_0f_0(x)\},\\
+0, &amp;amp; x\in\{x:\,f_1(x)&amp;lt;c_0f_0(x)\},
+\end{matrix}\right.
+\]&lt;/span&gt;
+satisfies the equality &lt;span class=&#34;math inline&#34;&gt;\(E_{\theta_0}\tilde\psi_{c_0}(X)=\alpha.\)&lt;/span&gt; Here
+&lt;span class=&#34;math display&#34;&gt;\[\alpha(c)=P_0(f_1(X)&amp;gt;cf_0(X)),\]&lt;/span&gt;
+and &lt;span class=&#34;math inline&#34;&gt;\(c_0\)&lt;/span&gt; is such that &lt;span class=&#34;math inline&#34;&gt;\(\alpha(c_0)\leq \alpha\leq\alpha(c_0-0).\)&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The test &lt;span class=&#34;math inline&#34;&gt;\(\tilde\psi_c\)&lt;/span&gt; is most powerful at the significance level &lt;span class=&#34;math inline&#34;&gt;\(\alpha.\)&lt;/span&gt; Meaning that for any test &lt;span class=&#34;math inline&#34;&gt;\(\psi\)&lt;/span&gt; which is of &lt;span class=&#34;math inline&#34;&gt;\(\alpha\)&lt;/span&gt; level, that is, &lt;span class=&#34;math inline&#34;&gt;\(E_{0}(X)\psi\leq \alpha,\)&lt;/span&gt; the power of that test does not exceed the power of the test &lt;span class=&#34;math inline&#34;&gt;\(\tilde\psi_{c_0}\)&lt;/span&gt;, &lt;span class=&#34;math display&#34;&gt;\[E_{1}\tilde\psi_{c_0}(X)-E_{1}\psi(X)\geq \int\left[\tilde\psi_{c_0}(x)-\psi(x)\right]f_1(x)d \mu\geq 0.\]&lt;/span&gt;
+Indeed, if &lt;span class=&#34;math inline&#34;&gt;\(\tilde \psi_{c_0}(x)&amp;gt;\psi(x)\geq 0,\)&lt;/span&gt; then necessarily &lt;span class=&#34;math inline&#34;&gt;\(\tilde \psi_{c_0}(x)\neq 0\)&lt;/span&gt; hence &lt;span class=&#34;math inline&#34;&gt;\(f_1(x)\geq c_0f_0(x).\)&lt;/span&gt; While, in the same way, if &lt;span class=&#34;math inline&#34;&gt;\(\tilde \psi_{c_0}(x)&amp;lt;\psi(x)\geq 1,\)&lt;/span&gt; then necessarily &lt;span class=&#34;math inline&#34;&gt;\(\tilde \psi_{c_0}(x)\neq 1\)&lt;/span&gt; hence &lt;span class=&#34;math inline&#34;&gt;\(f_1(x)\leq c_0f_0(x).\)&lt;/span&gt; Therefore,
+&lt;span class=&#34;math display&#34;&gt;\[\int\left(\tilde\psi_{c_0}(x)-\psi(x)\right)(f_1(x)-c_0f_0(x))d\mu\geq 0.\]&lt;/span&gt;
+Which entails that
+&lt;span class=&#34;math display&#34;&gt;\[\int\left(\tilde\psi_{c_0}(x)-\psi(x)\right)f_1(x)d\mu\geq c_0\int\left(\tilde\psi_{c_0}(x)-\psi(x)\right)f_0(x)d\mu=c_0[a-E_0\psi(X)]\geq 0.\]&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;If a test &lt;span class=&#34;math inline&#34;&gt;\(\psi\)&lt;/span&gt; is most powerful at level &lt;span class=&#34;math inline&#34;&gt;\(\alpha\)&lt;/span&gt; for testing &lt;span class=&#34;math inline&#34;&gt;\(f_0(x)\)&lt;/span&gt; against &lt;span class=&#34;math inline&#34;&gt;\(f_1(x)\)&lt;/span&gt;, then for some &lt;span class=&#34;math inline&#34;&gt;\(c\)&lt;/span&gt; it can be written as &lt;span class=&#34;math inline&#34;&gt;\(\psi=\tilde\psi_c,\)&lt;/span&gt; almost everywhere on the set &lt;span class=&#34;math inline&#34;&gt;\(\{f_1(x)\neq c_0 f_0(x)\}\)&lt;/span&gt;. Furthermore, for the most powerful test &lt;span class=&#34;math inline&#34;&gt;\(\psi\)&lt;/span&gt; the equality &lt;span class=&#34;math inline&#34;&gt;\(E_{\theta_0}\psi(X)=\alpha\)&lt;/span&gt; will be satisfied unless there exists a test of size &lt;span class=&#34;math inline&#34;&gt;\(&amp;lt;\alpha\)&lt;/span&gt; and with power 1.
+Since the &lt;em&gt;NP&lt;/em&gt; test always exists and is most powerful, this third point essentially means the uniqueness (almost everywhere) of most powerful tests, except possibly on the set &lt;span class=&#34;math inline&#34;&gt;\(\{f_1(x)= c_0 f_0(x)\}\)&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Remark.&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;For a given &lt;span class=&#34;math inline&#34;&gt;\(\alpha\in(0,1)\)&lt;/span&gt; the value &lt;span class=&#34;math inline&#34;&gt;\(c_0\)&lt;/span&gt; always exits since &lt;span class=&#34;math inline&#34;&gt;\(1-\alpha(c)\)&lt;/span&gt; is a distribution function.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The constructed test is &lt;em&gt;randomized&lt;/em&gt;, meaning that it does not take only the values &lt;span class=&#34;math inline&#34;&gt;\({0,1},\)&lt;/span&gt; but can take also a value between 0 and 1, which can be interpreted as the probability of rejecting the null hypothesis. Hence, as a result of this statistical test, the decision to reject or accept the null hypothesis sometimes may not be made, but a probability is assigned to rejecting the null hypothesis.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;If the set &lt;span class=&#34;math inline&#34;&gt;\(\{x:\,f_1(x)=c_0f_0(x)\}\)&lt;/span&gt; has the &lt;span class=&#34;math inline&#34;&gt;\(\mu-\)&lt;/span&gt;measure zero, then the most powerful test is determined uniquely (up to sets of measure zero) by the &lt;em&gt;Neyman-Pearson&lt;/em&gt; lemma. This will happen if, for example, both &lt;span class=&#34;math inline&#34;&gt;\(f_1(x)\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(f_0(x)\)&lt;/span&gt; are continuous and &lt;span class=&#34;math inline&#34;&gt;\(f_0(x)&amp;gt;0,\)&lt;/span&gt; almost everywhere.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;In practice randomization is not considered acceptable and hence an &lt;span class=&#34;math inline&#34;&gt;\(\alpha\)&lt;/span&gt; value is selected so that a &lt;em&gt;non-randomized&lt;/em&gt; test exists.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Example.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Consider a single observation &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt; from a &lt;em&gt;Poisson distribution&lt;/em&gt;, that is&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[f(k,\theta)=P(X=k)=\frac{\theta^k}{k!}e^{-\theta},\ \ k=0,1,2,\cdots.\]&lt;/span&gt;
+We are testing the simple hypothesis&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[{\mathcal H}_0:\ \ \theta=\theta_0,\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;against the alternative hypothesis
+&lt;span class=&#34;math display&#34;&gt;\[{\mathcal H}_a:\ \ \theta=\theta_1&amp;gt;\theta_0.\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;In this case
+&lt;span class=&#34;math display&#34;&gt;\[\frac{f(X,\theta_1)}{f(X,\theta_0)}=\left(\frac{\theta_1}{\theta_0}\right)^Xe^{-(\theta_1-\theta_0)}&amp;gt;\tilde c\]&lt;/span&gt;
+is equivalent to &lt;span class=&#34;math inline&#34;&gt;\(X&amp;gt;c,\)&lt;/span&gt; because of the fact that &lt;span class=&#34;math inline&#34;&gt;\(\theta_1&amp;gt;\theta_0.\)&lt;/span&gt; Hence the most powerful test will be&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\tilde\psi_{c_0}(X)=\left\{
+\begin{matrix}
+&amp;amp;1, &amp;amp; X&amp;gt;c_0,\\
+&amp;amp;\frac{F(c_0,\theta_0)-(1-\alpha)}{F(c_0,\theta_0)-F(c_0-0,\theta_0)}, &amp;amp; X=c_0,\\
+&amp;amp;0, &amp;amp; X&amp;lt;c_0.
+\end{matrix}\right.
+\]&lt;/span&gt;
+Here &lt;span class=&#34;math inline&#34;&gt;\(c_0\)&lt;/span&gt; is such that &lt;span class=&#34;math inline&#34;&gt;\(F(c_0-0,\theta_0)\leq 1-\alpha\leq F(c_0,\theta_0).\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;As noted above, to avoid randomized tests we can select the significance level in a way so that the set &lt;span class=&#34;math inline&#34;&gt;\(\{X=c_0\}\)&lt;/span&gt; has the measure zero. This can be achieved by replacing the given significance level &lt;span class=&#34;math inline&#34;&gt;\(\alpha\)&lt;/span&gt; by a more conservative (lower) significance level &lt;span class=&#34;math inline&#34;&gt;\(\alpha_0\)&lt;/span&gt; so that &lt;span class=&#34;math inline&#34;&gt;\(1-\alpha_0=F(c_0,\theta_0).\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Take the case of &lt;span class=&#34;math inline&#34;&gt;\(\theta_0=1,\,\theta_1=2,\,\alpha=0.05.\)&lt;/span&gt; In this case,&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[F(3-0, 1)\leq 1-\alpha\leq F(3,1),\]&lt;/span&gt;
+therefore, &lt;span class=&#34;math inline&#34;&gt;\(c_0=3.\)&lt;/span&gt; This value can be found as follows&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;alpha &amp;lt;- 0.05
+theta0 &amp;lt;- 1
+theta1 &amp;lt;- 2
+Y &amp;lt;- ppois(1:100, theta0)
+Z &amp;lt;- which(Y &amp;gt; 1- alpha, Y)
+c0 &amp;lt;- Z[1]
+c0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 3&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If we test at the given significance level &lt;span class=&#34;math inline&#34;&gt;\(\alpha=0.05,\)&lt;/span&gt; then the Neyman-Pearson test will be randomized and on the set &lt;span class=&#34;math inline&#34;&gt;\(\{X=3\}\)&lt;/span&gt; it will have the following value&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;(ppois(c0,theta0)-(1-alpha))/(ppois(c0,theta0)-ppois(c0-1,theta0))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.5057936&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Hence, on this set the probability of rejecting the null hypothesis is around 0.5, hence no decision can be made. On the other hand, if we take a more conservative significance level &lt;span class=&#34;math inline&#34;&gt;\(\alpha_0\)&lt;/span&gt; as follows&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;alpha0 &amp;lt;- 1-ppois(c0,theta0)
+alpha0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.01898816&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In this case we can get a non-randomized test with the power equal to&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ppois(c0,theta1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.8571235&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;references&#34; class=&#34;section level3 unnumbered&#34;&gt;
+&lt;h3&gt;References&lt;/h3&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references csl-bib-body hanging-indent&#34;&gt;
+&lt;div id=&#34;ref-lehmann2005testing&#34; class=&#34;csl-entry&#34;&gt;
+Lehmann, Erich Leo, and Joseph P Romano. 2005. &lt;em&gt;Testing Statistical Hypotheses&lt;/em&gt;. 3rd ed. Vol. 3. Springer.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Bayesian Estimation</title>
