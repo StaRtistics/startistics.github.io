@@ -109,8 +109,13 @@ Indeed, if &lt;span class=&#34;math inline&#34;&gt;\(\tilde \psi_{c_0}(x)&amp;gt
 Which entails that
 &lt;span class=&#34;math display&#34;&gt;\[\int\left(\tilde\psi_{c_0}(x)-\psi(x)\right)f_1(x)d\mu\geq c_0\int\left(\tilde\psi_{c_0}(x)-\psi(x)\right)f_0(x)d\mu=c_0[a-E_0\psi(X)]\geq 0.\]&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;If a test &lt;span class=&#34;math inline&#34;&gt;\(\psi\)&lt;/span&gt; is most powerful at level &lt;span class=&#34;math inline&#34;&gt;\(\alpha\)&lt;/span&gt; for testing &lt;span class=&#34;math inline&#34;&gt;\(f_0(x)\)&lt;/span&gt; against &lt;span class=&#34;math inline&#34;&gt;\(f_1(x)\)&lt;/span&gt;, then for some &lt;span class=&#34;math inline&#34;&gt;\(c\)&lt;/span&gt; it can be written as &lt;span class=&#34;math inline&#34;&gt;\(\psi=\tilde\psi_c,\)&lt;/span&gt; almost everywhere on the set &lt;span class=&#34;math inline&#34;&gt;\(\{f_1(x)\neq c_0 f_0(x)\}\)&lt;/span&gt;. Furthermore, for the most powerful test &lt;span class=&#34;math inline&#34;&gt;\(\psi\)&lt;/span&gt; the equality &lt;span class=&#34;math inline&#34;&gt;\(E_{\theta_0}\psi(X)=\alpha\)&lt;/span&gt; will be satisfied unless there exists a test of size &lt;span class=&#34;math inline&#34;&gt;\(&amp;lt;\alpha\)&lt;/span&gt; and with power 1.
-Since the &lt;em&gt;NP&lt;/em&gt; test always exists and is most powerful, this third point essentially means the uniqueness (almost everywhere) of most powerful tests, except possibly on the set &lt;span class=&#34;math inline&#34;&gt;\(\{f_1(x)= c_0 f_0(x)\}\)&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
+Since the &lt;em&gt;NP&lt;/em&gt; test always exists and is most powerful, this third point essentially means the uniqueness (almost everywhere) of most powerful tests, except possibly on the set &lt;span class=&#34;math inline&#34;&gt;\(\{f_1(x)= c_0 f_0(x)\}\)&lt;/span&gt;. Indeed, suppose that &lt;span class=&#34;math inline&#34;&gt;\(\psi\)&lt;/span&gt; is most powerful and &lt;span class=&#34;math inline&#34;&gt;\(\tilde\psi_c\)&lt;/span&gt; is the NP test. Denote by &lt;span class=&#34;math inline&#34;&gt;\(S=\{\tilde\psi_c\neq\psi\}\cap\{f_1(x)\neq c_0f_0(x)\}\)&lt;/span&gt;. As shown above, on this set &lt;span class=&#34;math inline&#34;&gt;\(\left(\tilde\psi_{c_0}(x)-\psi(x)\right)(f_1(x)-c_0f_0(x))&amp;gt; 0.\)&lt;/span&gt; Hence if &lt;span class=&#34;math inline&#34;&gt;\(\mu(S)&amp;gt;0\)&lt;/span&gt; then&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
+&amp;amp;\int\left(\tilde\psi_{c_0}(x)-\psi(x)\right)(f_1(x)-c_0f_0(x))d\mu=\\
+=&amp;amp;\int_S\left(\tilde\psi_{c_0}(x)-\psi(x)\right)(f_1(x)-c_0f_0(x))d\mu&amp;gt; 0.
+\end{align*}\]&lt;/span&gt;
+This contradicts to the fact that &lt;span class=&#34;math inline&#34;&gt;\(\psi\)&lt;/span&gt; is most powerful. Hence &lt;span class=&#34;math inline&#34;&gt;\(\mu(S)=0.\)&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Remark.&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;For a given &lt;span class=&#34;math inline&#34;&gt;\(\alpha\in(0,1)\)&lt;/span&gt; the value &lt;span class=&#34;math inline&#34;&gt;\(c_0\)&lt;/span&gt; always exits since &lt;span class=&#34;math inline&#34;&gt;\(1-\alpha(c)\)&lt;/span&gt; is a distribution function.&lt;/p&gt;&lt;/li&gt;
@@ -311,8 +316,10 @@ where &lt;span class=&#34;math inline&#34;&gt;\(f(\theta|x)\)&lt;/span&gt; is th
 &lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
-&lt;div id=&#34;mann-whitney-estimate-for-the-win-probability&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Mann-Whitney estimate for the win probability&lt;/h2&gt;
+&lt;div id=&#34;continuous-distributions&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Continuous distributions&lt;/h2&gt;
+&lt;div id=&#34;mann-whitney-estimate-for-the-win-probability&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Mann-Whitney estimate for the win probability&lt;/h3&gt;
 &lt;p&gt;Consider two independent, continuous RVs (random variables) &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt;. The following probability is called the &lt;em&gt;win probability&lt;/em&gt; of RV &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt; against the RV &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
 \theta=P(\eta&amp;gt;\xi).
@@ -326,7 +333,7 @@ Here &lt;span class=&#34;math inline&#34;&gt;\(N=n_1+n_2\)&lt;/span&gt; is the t
 &lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
 \hat\theta_N\longrightarrow\theta.
 \end{align*}\]&lt;/span&gt;
-If &lt;span class=&#34;math inline&#34;&gt;\(\frac{n_1}{N}\rightarrow \alpha,\)&lt;/span&gt; as &lt;span class=&#34;math inline&#34;&gt;\(n_1\rightarrow+\infty,\,n_2\rightarrow+\infty,\)&lt;/span&gt; then the win proportion is also asymptotically normal
+If &lt;span class=&#34;math inline&#34;&gt;\(\frac{n_1}{N}\rightarrow \alpha,\)&lt;/span&gt; as &lt;span class=&#34;math inline&#34;&gt;\(n_1\rightarrow+\infty,\,n_2\rightarrow+\infty,\)&lt;/span&gt; then the win proportion is also asymptotically normal &lt;span class=&#34;citation&#34;&gt;(&lt;a href=&#34;#ref-van2000asymptotic&#34; role=&#34;doc-biblioref&#34;&gt;Van der Vaart 2000&lt;/a&gt;)&lt;/span&gt;
 &lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
 \sqrt{N}(\hat\theta_N-\theta)\Longrightarrow{\mathcal N}\left(0,\frac{1}{1-\alpha}\sigma_{10}^2+\frac{1}{\alpha}\sigma_{01}^2\right).
 \end{align*}\]&lt;/span&gt;
@@ -337,8 +344,8 @@ Here,
 \end{align*}\]&lt;/span&gt;
 where &lt;span class=&#34;math inline&#34;&gt;\(\xi&amp;#39;\)&lt;/span&gt; has the same distribution as &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt;, &lt;span class=&#34;math inline&#34;&gt;\(\eta&amp;#39;\)&lt;/span&gt; has the same distribution as &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt;. All &lt;span class=&#34;math inline&#34;&gt;\(\xi,\xi&amp;#39;,\eta,\eta&amp;#39;\)&lt;/span&gt; are independent.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;application-to-exponential-distributions&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Application to exponential distributions&lt;/h2&gt;
+&lt;div id=&#34;application-to-exponential-distributions&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Application to exponential distributions&lt;/h3&gt;
 &lt;p&gt;Suppose now that &lt;span class=&#34;math inline&#34;&gt;\(\xi\sim{\mathbb E}(\lambda)\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\eta\sim{\mathbb E}(\mu).\)&lt;/span&gt; In this case,&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
 \sigma_{10}^2=\frac{2\lambda}{(\lambda+\mu)(2\lambda+\mu)}-\frac{\lambda^2}{(\lambda+\mu)^2}=\frac{\lambda^2\mu}{(\lambda+\mu)^2(2\lambda+\mu)}\\
@@ -359,32 +366,32 @@ alpha &amp;lt;- n1/(n1+n2)
 
 
 k &amp;lt;- lambda/(lambda+mu)
-WR &amp;lt;-NULL
+WR &amp;lt;- NULL
 
 for(i in 1:m){
   set.seed(i)
-  X1 &amp;lt;- rexp(n1,lambda)
-  X2 &amp;lt;- rexp(n2,mu)
-  d &amp;lt;- expand.grid(x=X1,y=X2)
-  d$w &amp;lt;- ifelse(d$y&amp;gt;d$x,1,ifelse(d$y==d$x,0.5,0))
-  WR[i]&amp;lt;-sqrt(N)*(mean(d$w)-k)
+  X1 &amp;lt;- rexp(n1, lambda)
+  X2 &amp;lt;- rexp(n2, mu)
+  d &amp;lt;- expand.grid(x = X1, y = X2)
+  d$w &amp;lt;- ifelse(d$y &amp;gt; d$x, 1, ifelse(d$y == d$x, 0.5, 0))
+  WR[i] &amp;lt;- sqrt(N)*(mean(d$w) - k)
 }
 
 
-x0&amp;lt;-3
-int &amp;lt;- seq(-x0,x0,0.001)
+x0 &amp;lt;- 3
+int &amp;lt;- seq(-x0, x0, 0.001)
 
-Coeff0 &amp;lt;- mu*lambda/(lambda+mu)^2
-Coeff &amp;lt;- Coeff0*(1/(1-alpha)*lambda/(2*lambda+mu)+1/alpha*mu/(lambda+2*mu))
+Coeff0 &amp;lt;- mu*lambda/(lambda + mu)^2
+Coeff &amp;lt;- Coeff0*(1/(1-alpha)*lambda/(2*lambda+mu) + 1/alpha*mu/(lambda + 2*mu))
 
 
-hist(WR, nclass = 20, freq=FALSE, xlim=c(-x0,x0), 
-     ylim=c(0, 1.1), col = &amp;quot;lightblue&amp;quot;, border = &amp;quot;blue&amp;quot;)
-lines(int,dnorm(int, mean = 0, sd=sqrt(Coeff)), col=&amp;quot;2&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+hist(WR, nclass = 20, freq = FALSE, xlim = c(-x0, x0), 
+     ylim = c(0, 1.1), col = &amp;quot;lightblue&amp;quot;, border = &amp;quot;blue&amp;quot;)
+lines(int, dnorm(int, mean = 0, sd = sqrt(Coeff)), col = &amp;quot;2&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/wrci/2020-01-10-r-rmarkdown_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;definition-of-the-win-odds&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Definition of the win odds&lt;/h2&gt;
+&lt;div id=&#34;definition-of-the-win-odds&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Definition of the win odds&lt;/h3&gt;
 &lt;p&gt;Consider two independent, continuous RVs (random variables) &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt;. The odds of the win probability is called the &lt;em&gt;win odds&lt;/em&gt; of RV &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt; against the RV &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
 \omega=\frac{P(\eta&amp;gt;\xi)}{P(\eta&amp;lt;\xi)}=\frac{\theta}{1-\theta}.
@@ -393,8 +400,14 @@ lines(int,dnorm(int, mean = 0, sd=sqrt(Coeff)), col=&amp;quot;2&amp;quot;)&lt;/c
 &lt;p&gt;If &lt;span class=&#34;math inline&#34;&gt;\(\omega=1\)&lt;/span&gt; then the random variables &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt; are stochastically equivalent, while &lt;span class=&#34;math inline&#34;&gt;\(\omega&amp;gt;1\)&lt;/span&gt; means that &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt; is stochastically greater than (wins against) &lt;span class=&#34;math inline&#34;&gt;\(\eta.\)&lt;/span&gt; The case &lt;span class=&#34;math inline&#34;&gt;\(\omega&amp;lt;1\)&lt;/span&gt; means that &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt; loses against &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt;. The asymptotic confidence interval of the win odds can be used to test the hypothesis whether &lt;span class=&#34;math inline&#34;&gt;\(\omega=1\)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;To use the asymptotic normality result described above we need to estimate the asymptotic variance. The package &lt;em&gt;sanon&lt;/em&gt; in &lt;em&gt;R&lt;/em&gt; allows to estimate the asymptotic standard error of the Mann-Whitney estimate.&lt;/p&gt;
 &lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ordinal-random-variables&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Ordinal random variables&lt;/h2&gt;
+&lt;p&gt;&lt;span class=&#34;citation&#34;&gt;(&lt;a href=&#34;#ref-gasparyan2021power&#34; role=&#34;doc-biblioref&#34;&gt;Gasparyan et al. 2021&lt;/a&gt;)&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
 &lt;div id=&#34;the-package-sanon&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;The package sanon&lt;/h2&gt;
+&lt;p&gt;We will be using the package &lt;strong&gt;sanon&lt;/strong&gt; &lt;span class=&#34;citation&#34;&gt;(&lt;a href=&#34;#ref-sanon&#34; role=&#34;doc-biblioref&#34;&gt;Kawaguchi and Koch 2015&lt;/a&gt;)&lt;/span&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#install.packages(&amp;quot;sanon&amp;quot;)
 library(sanon)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The dataset &lt;em&gt;resp&lt;/em&gt; contains data from a randomized clinical trial to compare a test treatment to placebo for a respiratory disorder.&lt;/p&gt;
@@ -441,6 +454,20 @@ fit&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##        Estimate    Lower    Upper
 ## visit4 1.614013 1.071762 2.540746&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;For the win odds the null hypothesis of no treatment difference is &lt;span class=&#34;math inline&#34;&gt;\(\omega=1.\)&lt;/span&gt; The win odds 1.61 characterizes the treatment effect difference.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;references&#34; class=&#34;section level2 unnumbered&#34;&gt;
+&lt;h2&gt;References&lt;/h2&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references csl-bib-body hanging-indent&#34;&gt;
+&lt;div id=&#34;ref-gasparyan2021power&#34; class=&#34;csl-entry&#34;&gt;
+Gasparyan, Samvel B, Elaine K Kowalewski, Folke Folkvaljon, Olof Bengtsson, Joan Buenconsejo, John Adler, and Gary G Koch. 2021. &lt;span&gt;“Power and Sample Size Calculation for the Win Odds Test: Application to an Ordinal Endpoint in COVID-19 Trials.”&lt;/span&gt; &lt;em&gt;Journal of Biopharmaceutical Statistics&lt;/em&gt;, 1–23. &lt;a href=&#34;https://doi.org/10.1080/10543406.2021.1968893&#34;&gt;https://doi.org/10.1080/10543406.2021.1968893&lt;/a&gt;.
+&lt;/div&gt;
+&lt;div id=&#34;ref-sanon&#34; class=&#34;csl-entry&#34;&gt;
+Kawaguchi, Atsushi, and Gary G. Koch. 2015. &lt;span&gt;“&lt;span class=&#34;nocase&#34;&gt;sanon&lt;/span&gt;: An &lt;span&gt;R&lt;/span&gt; Package for Stratified Analysis with Nonparametric Covariable Adjustment.”&lt;/span&gt; &lt;em&gt;Journal of Statistical Software&lt;/em&gt; 67 (9): 1–37. &lt;a href=&#34;https://doi.org/10.18637/jss.v067.i09&#34;&gt;https://doi.org/10.18637/jss.v067.i09&lt;/a&gt;.
+&lt;/div&gt;
+&lt;div id=&#34;ref-van2000asymptotic&#34; class=&#34;csl-entry&#34;&gt;
+Van der Vaart, Aad W. 2000. &lt;em&gt;Asymptotic Statistics&lt;/em&gt;. Vol. 3. Cambridge university press. &lt;a href=&#34;https://doi.org/10.1017/CBO9780511802256&#34;&gt;https://doi.org/10.1017/CBO9780511802256&lt;/a&gt;.
+&lt;/div&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 </description>
     </item>

@@ -846,8 +846,13 @@ Indeed, if <span class="math inline">\(\tilde \psi_{c_0}(x)&gt;\psi(x)\geq 0,\)<
 Which entails that
 <span class="math display">\[\int\left(\tilde\psi_{c_0}(x)-\psi(x)\right)f_1(x)d\mu\geq c_0\int\left(\tilde\psi_{c_0}(x)-\psi(x)\right)f_0(x)d\mu=c_0[a-E_0\psi(X)]\geq 0.\]</span></p></li>
 <li><p>If a test <span class="math inline">\(\psi\)</span> is most powerful at level <span class="math inline">\(\alpha\)</span> for testing <span class="math inline">\(f_0(x)\)</span> against <span class="math inline">\(f_1(x)\)</span>, then for some <span class="math inline">\(c\)</span> it can be written as <span class="math inline">\(\psi=\tilde\psi_c,\)</span> almost everywhere on the set <span class="math inline">\(\{f_1(x)\neq c_0 f_0(x)\}\)</span>. Furthermore, for the most powerful test <span class="math inline">\(\psi\)</span> the equality <span class="math inline">\(E_{\theta_0}\psi(X)=\alpha\)</span> will be satisfied unless there exists a test of size <span class="math inline">\(&lt;\alpha\)</span> and with power 1.
-Since the <em>NP</em> test always exists and is most powerful, this third point essentially means the uniqueness (almost everywhere) of most powerful tests, except possibly on the set <span class="math inline">\(\{f_1(x)= c_0 f_0(x)\}\)</span>.</p></li>
+Since the <em>NP</em> test always exists and is most powerful, this third point essentially means the uniqueness (almost everywhere) of most powerful tests, except possibly on the set <span class="math inline">\(\{f_1(x)= c_0 f_0(x)\}\)</span>. Indeed, suppose that <span class="math inline">\(\psi\)</span> is most powerful and <span class="math inline">\(\tilde\psi_c\)</span> is the NP test. Denote by <span class="math inline">\(S=\{\tilde\psi_c\neq\psi\}\cap\{f_1(x)\neq c_0f_0(x)\}\)</span>. As shown above, on this set <span class="math inline">\(\left(\tilde\psi_{c_0}(x)-\psi(x)\right)(f_1(x)-c_0f_0(x))&gt; 0.\)</span> Hence if <span class="math inline">\(\mu(S)&gt;0\)</span> then</p></li>
 </ol>
+<p><span class="math display">\[\begin{align*}
+&amp;\int\left(\tilde\psi_{c_0}(x)-\psi(x)\right)(f_1(x)-c_0f_0(x))d\mu=\\
+=&amp;\int_S\left(\tilde\psi_{c_0}(x)-\psi(x)\right)(f_1(x)-c_0f_0(x))d\mu&gt; 0.
+\end{align*}\]</span>
+This contradicts to the fact that <span class="math inline">\(\psi\)</span> is most powerful. Hence <span class="math inline">\(\mu(S)=0.\)</span></p>
 <p><strong>Remark.</strong></p>
 <ul>
 <li><p>For a given <span class="math inline">\(\alpha\in(0,1)\)</span> the value <span class="math inline">\(c_0\)</span> always exits since <span class="math inline">\(1-\alpha(c)\)</span> is a distribution function.</p></li>
