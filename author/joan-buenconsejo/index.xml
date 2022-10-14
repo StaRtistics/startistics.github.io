@@ -5,12 +5,20 @@
     <link>https://gasparyan.co/author/joan-buenconsejo/</link>
       <atom:link href="https://gasparyan.co/author/joan-buenconsejo/index.xml" rel="self" type="application/rss+xml" />
     <description>Joan Buenconsejo</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2022 Samvel B. Gasparyan</copyright><lastBuildDate>Thu, 23 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2022 Samvel B. Gasparyan</copyright><lastBuildDate>Mon, 21 Mar 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png</url>
       <title>Joan Buenconsejo</title>
       <link>https://gasparyan.co/author/joan-buenconsejo/</link>
     </image>
+    
+    <item>
+      <title>Dapagliflozin and Kidney Outcomes in Hospitalized Patients with COVID-19 Infection</title>
+      <link>https://gasparyan.co/publication/dare-19-kidney/</link>
+      <pubDate>Mon, 21 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://gasparyan.co/publication/dare-19-kidney/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Power and sample size calculation for the win odds test: application to an ordinal endpoint in COVID-19 trials</title>

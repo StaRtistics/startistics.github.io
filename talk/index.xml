@@ -5,12 +5,20 @@
     <link>https://gasparyan.co/talk/</link>
       <atom:link href="https://gasparyan.co/talk/index.xml" rel="self" type="application/rss+xml" />
     <description>Recent &amp; Upcoming Talks</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2022 Samvel B. Gasparyan</copyright><lastBuildDate>Thu, 23 Sep 2021 00:00:00 +0200</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2022 Samvel B. Gasparyan</copyright><lastBuildDate>Thu, 28 Apr 2022 14:00:00 +0200</lastBuildDate>
     <image>
       <url>https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png</url>
       <title>Recent &amp; Upcoming Talks</title>
       <link>https://gasparyan.co/talk/</link>
     </image>
+    
+    <item>
+      <title>Design and analysis of studies based on hierarchical composite endpoints: Insights from the DARE-19 trial</title>
+      <link>https://gasparyan.co/talk/psi2022/</link>
+      <pubDate>Thu, 28 Apr 2022 14:00:00 +0200</pubDate>
+      <guid>https://gasparyan.co/talk/psi2022/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Hierarchical Composite Endpoints: Definition and Analysis Using the Win Ratio (with ties!)</title>
