@@ -1,0 +1,1724 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  
+  
+  <meta name="generator" content="Wowchemy 5.0.0-beta.0 for Hugo">
+  
+
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Samvel B. Gasparyan">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="IntroductionAbstractIn clinical research the dose–response relationship is often non-linear, therefore advanced fitting models are needed to capture their behavior. The talk will concentrate on fitting non-linear parametric models to the dose–response data and will explain some specificities of this problem.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://gasparyan.co/post/drc/2018-03-19-r-rmarkdown/">
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" integrity="sha512-1xoFisiGdy9nvho8EgXuXvnpR5GAMSjFwp40gSRE3NwdUdIMIKuPa7bqoUhLD0O/5tPNhteAsE5XyyMi5reQVA==" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" integrity="sha512-TmDwFLhg3UA4ZG0Eb4MIyT1O1Mb+Oww5kFG0uHqXsdbyZz9DcvYQhKpGgNkamAI6h2lGGZq2X8ftOJvF/XjTUg==" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+    
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+    
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-134157980-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-134157980-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="https://gasparyan.co/post/drc/2018-03-19-r-rmarkdown/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="Biostatistician">
+  <meta property="og:url" content="https://gasparyan.co/post/drc/2018-03-19-r-rmarkdown/">
+  <meta property="og:title" content="Dose-Response Curves in R | Biostatistician">
+  <meta property="og:description" content="IntroductionAbstractIn clinical research the dose–response relationship is often non-linear, therefore advanced fitting models are needed to capture their behavior. The talk will concentrate on fitting non-linear parametric models to the dose–response data and will explain some specificities of this problem."><meta property="og:image" content="https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png">
+  <meta property="twitter:image" content="https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2018-09-13T09:00:00&#43;04:00">
+    
+    <meta property="article:modified_time" content="2018-09-13T09:00:00&#43;04:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://gasparyan.co/post/drc/2018-03-19-r-rmarkdown/"
+  },
+  "headline": "Dose-Response Curves in R",
+  
+  "datePublished": "2018-09-13T09:00:00+04:00",
+  "dateModified": "2018-09-13T09:00:00+04:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Samvel B. Gasparyan"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Biostatistician",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "Introduction\rAbstract\r\rIn clinical research the dose–response relationship is often non-linear, therefore advanced fitting models are needed to capture their behavior. The talk will concentrate on fitting non-linear parametric models to the dose–response data and will explain some specificities of this problem."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Dose-Response Curves in R | Biostatistician</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper  ">
+
+  
+  
+  
+    <script>window.wcDarkLightEnabled = true;</script>
+  
+  
+    <script>const isSiteThemeDark = false;</script>
+  
+  
+  <script src="/js/load-theme.js"></script>
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Biostatistician</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Biostatistician</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#featured"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/talk/"><span>Talks</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Dose-Response Curves in R</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Sep 13, 2018
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    12 min read
+  </span>
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/statistics/">Statistics</a>, <a href="/category/r/">R</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<div id="abstract" class="section level2">
+<h2>Abstract</h2>
+<ul>
+<li><p>In clinical research the dose–response relationship is often non-linear, therefore advanced fitting models are needed to capture their behavior. The talk will concentrate on fitting non-linear parametric models to the dose–response data and will explain some specificities of this problem.</p></li>
+<li><p>The talk is based on the book by <strong>Christian Ritz, Jens Carl Streibig “Nonlinear regression with R”.</strong></p></li>
+</ul>
+</div>
+</div>
+<div id="purpose-of-dose-response-information" class="section level1">
+<h1>Purpose of Dose-Response Information</h1>
+<div id="ich-e4-harmonized-tripartite-guideline" class="section level2">
+<h2>ICH E4 Harmonized Tripartite Guideline</h2>
+<p>Knowledge of the relationships among dose, drug-concentration in blood, and clinical
+response (effectiveness and undesirable effects) is important for the safe and effective
+use of drugs in individual patients. It helps identify</p>
+<ul>
+<li><p>an appropriate starting dose,</p></li>
+<li><p>the best way to adjust dosage to the needs of a particular patient,</p></li>
+<li><p>a dose beyond which increases would be unlikely to provide added benefit or would
+produce unacceptable side effects.</p></li>
+</ul>
+</div>
+<div id="example" class="section level2">
+<h2>Example</h2>
+<p>There are other fields of studies were concentration analysis can be used.</p>
+<p>Consider the following relationship (<em>Chwirut2</em> is included in the package <strong>NISTnls</strong>),
+where the response variable is ultrasonic response, and the predictor variable is metal distance.</p>
+<pre class="r"><code>#library(NISTnls)
+dim(Chwirut2)</code></pre>
+<pre><code>## [1] 54  2</code></pre>
+<pre class="r"><code>head(Chwirut2)</code></pre>
+<pre><code>##         y     x
+## 1 92.9000 0.500
+## 2 57.1000 1.000
+## 3 31.0500 1.750
+## 4 11.5875 3.750
+## 5  8.0250 5.750
+## 6 63.6000 0.875</code></pre>
+<hr />
+<p>A distance-amplitude relationship of attenuation that an ultrasound beam experiences traveling through a medium</p>
+<pre class="r"><code>#library(ggplot2)
+g &lt;- ggplot(data=Chwirut2,aes(x=x,y=y)) + 
+  geom_point() + xlab(&quot;Metal distance&quot;) + ylab(&quot;Ultrasonic respons&quot;)
+g</code></pre>
+<p><img src="/post/drc/2018-03-19-r-rmarkdown_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+</div>
+<div id="the-built-in-function-nls" class="section level1">
+<h1>The built-in function <em>nls()</em></h1>
+<div id="fitting-a-parametric-family" class="section level2">
+<h2>Fitting a parametric family</h2>
+<p>Suppose we observe the following pair of data points <span class="math inline">\((x_i,y_i),\,i=1,\cdots,n.\)</span> Consider a parametric family (usually non-linear) that we want to fit to the data
+<span class="math display">\[f(x,(\theta_1,\cdots,\theta_k)).\]</span>
+The hypothesis is that there is the following relationship between observed points</p>
+<p><span class="math display">\[y_i=f(x_i,(\theta_1,\cdots,\theta_k))+\varepsilon_i,\ \ i=1,\cdots,n.\]</span></p>
+<p>The fitting method that we are going to use is <em>the Non-linear Least Squares (NLS)</em> method. NLS estimates can be found using this minimization problem.</p>
+<p><span class="math display">\[(\hat\theta_1,\cdots,\hat\theta_k)=\arg\min_{\theta_1,\cdots,\theta_k}\sum_{i=1}^n(y_i-f(x_i,(\theta_1,\cdots,\theta_k)))^2.\]</span></p>
+</div>
+<div id="gauss---newton-algorithm" class="section level2">
+<h2>Gauss - Newton algorithm</h2>
+<p>The Gauss - Newton algorithm is used to solve the optimization problem described above.</p>
+<p>If we denote <span class="math inline">\(g_i(\theta)=y_i-f(x_i,\theta), \ \ \theta=(\theta_1,\cdots,\theta_k),\)</span>
+then the minimization problem is the following
+<span class="math display">\[\min_{\theta\in R^k}\sum_{i=1}^ng_i^2(\theta)=\min_{\theta\in R^k}||g(\theta)||^2.\]</span>
+Choose an initial value <span class="math inline">\(\theta_0\)</span> and linearize the function <span class="math inline">\(g(\theta)\)</span> around <span class="math inline">\(\theta_0\)</span> as follows</p>
+<p><span class="math display">\[\hat g(\theta,\theta_0)=g(\theta_0)+Dg(\theta_0)(\theta-\theta_0).\]</span>
+Solving <span class="math inline">\(\min_{\theta\in R^k}||g(\theta_0)+Dg(\theta_0)(\theta-\theta_0)||^2,\)</span> where <span class="math inline">\(m\times n\)</span> matrix <span class="math inline">\(Dg(\theta)\)</span> is the Jacobian, we get <span class="math inline">\(\theta_1\)</span> and continuing this process interatively, we get the sequence <span class="math inline">\((\theta_m),\,m=0,1,\cdots.\)</span> Moreover, if <span class="math inline">\(Dg(\theta_k)\)</span> has linearly independent columns,</p>
+<p><span class="math display">\[\theta_{k+1}=\theta_k-\left([Dg(\theta_k)]^TDg(\theta_k)\right)^{-1}[Dg(\theta_k)]^Tg(\theta_k).\]</span>
+The question is - how to choose the initial value <span class="math inline">\(\theta_0\)</span> of iteration?</p>
+</div>
+<div id="the-parametric-family" class="section level2">
+<h2>The parametric family</h2>
+<p>The following parametric family was suggested to fit the distance-amplitude relationship</p>
+<p><span class="math display">\[f(x,(\beta_1,\beta_2,\beta_3))=\frac{\exp(-\beta_1x)}{\beta_2+\beta_3x}\]</span>
+Assumptions:</p>
+<ol style="list-style-type: decimal">
+<li><p>correct mean function <span class="math inline">\(f\)</span></p></li>
+<li><p>variance homogeneity (homoscedasticity)</p></li>
+<li><p>normally distributed measurements errors</p></li>
+<li><p>mutually independent measurement errors <span class="math inline">\(\varepsilon_i\)</span></p></li>
+</ol>
+<ul>
+<li>If we take <span class="math inline">\(x=0\)</span> then we get <span class="math inline">\(f(0,(\beta_1,\beta_2,\beta_3))=\frac{1}{\beta_2}\)</span> so the initial estimate of <span class="math inline">\(\beta_2\)</span> can be the reciprocal of the response value closest to the <span class="math inline">\(y\)</span> axis, that is, roughly, <span class="math inline">\(\frac{1}{100}=0.01.\)</span> For the</li>
+</ul>
+</div>
+<div id="fitting-non-linear-parametric-family" class="section level2">
+<h2>Fitting non-linear parametric family</h2>
+<pre class="r"><code>expFct &lt;- function(x,beta1,beta2=0.01,beta3)  exp(-beta1*x)/(beta2+beta3*x)
+l &lt;- list(beta1=0.1, beta2=0.01, beta3=0.001)
+fit &lt;- nls(data=Chwirut2, y ~ expFct(x, beta1, beta2, beta3), start=l)
+fit</code></pre>
+<pre><code>## Nonlinear regression model
+##   model: y ~ expFct(x, beta1, beta2, beta3)
+##    data: Chwirut2
+##    beta1    beta2    beta3 
+## 0.166576 0.005165 0.012150 
+##  residual sum-of-squares: 513
+## 
+## Number of iterations to convergence: 9 
+## Achieved convergence tolerance: 7.467e-07</code></pre>
+<pre class="r"><code>tidy(fit)</code></pre>
+<pre><code>## # A tibble: 3 x 5
+##   term  estimate std.error statistic  p.value
+##   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 beta1  0.167    0.0383        4.35 6.56e- 5
+## 2 beta2  0.00517  0.000666      7.75 3.54e-10
+## 3 beta3  0.0122   0.00153       7.94 1.81e-10</code></pre>
+</div>
+<div id="plotting-the-fitted-non-linear-function" class="section level2">
+<h2>Plotting the fitted non-linear function</h2>
+<p>Hence, we can plot the fitted curve</p>
+<pre class="r"><code>#library(broom)
+values &lt;- tidy(fit)$estimate
+g + stat_function(fun=expFct, args=values, colour=&quot;blue&quot;, lwd=1)</code></pre>
+<p><img src="/post/drc/2018-03-19-r-rmarkdown_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+</div>
+<div id="the-package-nls2" class="section level1">
+<h1>The package <em>nls2</em></h1>
+<div id="searching-a-grid" class="section level2">
+<h2>Searching a grid</h2>
+<p>The procedure of finding initial points for the minimization iteration can be automated in the following way. In case the range of the parameter estimates can be envisaged grid search can be carried out:</p>
+<blockquote>
+<ul>
+<li>the residual sums-of-squares <span class="math inline">\(RSS(\beta),\,\beta=(\beta_1,\cdots,\beta_k)\)</span> is calculated for all the values in the intervals</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>starting values are chosen in the way to provide the smallest value of <span class="math inline">\(RSS(\beta)\)</span>.</li>
+</ul>
+</blockquote>
+<p>In our example, having <span class="math inline">\(\beta_2=0.01,\)</span> for other two parameters, knowing only that they are positive numbers, we can search in the interval <span class="math inline">\([0.1,1]\)</span> taking the step size equal to <span class="math inline">\(0.1.\)</span></p>
+<p>Create a <em>data.frame</em> containing all possible combinations of suggested initial values for the parameters</p>
+<pre class="r"><code>beta1 &lt;- seq(0.1, 1, by = 0.1)
+beta2 &lt;- 0.01
+beta3 &lt;- seq(0.1, 1, by = 0.1)
+grid.Chwirut2 &lt;- expand.grid(list(beta1 = beta1, beta2 = beta2, beta3 = beta3))
+head(grid.Chwirut2)</code></pre>
+<pre><code>##   beta1 beta2 beta3
+## 1   0.1  0.01   0.1
+## 2   0.2  0.01   0.1
+## 3   0.3  0.01   0.1
+## 4   0.4  0.01   0.1
+## 5   0.5  0.01   0.1
+## 6   0.6  0.01   0.1</code></pre>
+</div>
+<div id="the-nls2-function" class="section level2">
+<h2>The <em>nls2()</em> function</h2>
+<p><em>nls2()</em> function differs from the original function by a way that it provides the possibility to specify a data frame of values of starting points. Its argument <em>algorithm=“brute-force”</em> evaluates <em>RSS</em> for the parameter values provided through the <em>start</em> argument.</p>
+<pre class="r"><code>library(nls2)</code></pre>
+<pre class="r"><code>fit2 &lt;- nls2(data = Chwirut2, y ~ expFct(x, beta1, beta2, beta3), 
+             start = grid.Chwirut2, algorithm = &quot;brute-force&quot;)
+fit2</code></pre>
+<pre><code>## Nonlinear regression model
+##   model: y ~ expFct(x, beta1, beta2, beta3)
+##    data: Chwirut2
+## beta1 beta2 beta3 
+##  0.10  0.01  0.10 
+##  residual sum-of-squares: 60696
+## 
+## Number of iterations to convergence: 100 
+## Achieved convergence tolerance: NA</code></pre>
+</div>
+<div id="fitting-using-the-function-nls2" class="section level2">
+<h2>Fitting using the function <em>nls2()</em></h2>
+<p>Fitting procedure can be continued this way: replace the value of the <em>start</em> argument by <em>fit2</em> and leave out the argument <em>algorithm</em></p>
+<pre class="r"><code>tidy(nls2(data = Chwirut2, y ~ expFct(x, beta1, beta2, beta3), start=fit2))</code></pre>
+<pre><code>## # A tibble: 3 x 5
+##   term  estimate std.error statistic  p.value
+##   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 beta1  0.167    0.0383        4.35 6.56e- 5
+## 2 beta2  0.00517  0.000666      7.75 3.54e-10
+## 3 beta3  0.0121   0.00153       7.94 1.81e-10</code></pre>
+</div>
+</div>
+<div id="self-starter-functions" class="section level1">
+<h1>Self-Starter functions</h1>
+<div id="automating-further-the-search-for-initial-points" class="section level2">
+<h2>Automating further the search for initial points</h2>
+<blockquote>
+<ul>
+<li>Self-starter functions are special type of functions. They are implementations of specific given mean functions and designed in a way to calculate starting values for a given dataset. They can be thought as the definition of the parametric family combined with the logic of how to choose initial values based on the given dataset.</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>We have already encountered such example: for the parametric family
+<span class="math display">\[f(x,(\beta_1,\beta_2,\beta_3))=\frac{\exp(-\beta_1x)}{\beta_2+\beta_3x}\]</span>
+we said that the initial estimate of <span class="math inline">\(\beta_2\)</span> can be the reciprocal of the response value closest to the <span class="math inline">\(y\)</span> axis. So, if we find also logic of choosing initial values for <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_3,\)</span> then we can add these logics into the definition of this parametric family and get a Self-Starter function.</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>We will construct a Self-Starter function later, but before that we will explore the built-in Self-Starter functions.</li>
+</ul>
+</blockquote>
+</div>
+<div id="built-in-self-starters" class="section level2">
+<h2>Built-in Self-Starters</h2>
+<p>Consider the following dataset</p>
+<pre class="r"><code>dat &lt;- data.frame(
+  conc = c(2.856829,  5.005303,  7.519473,  22.101664,  
+         27.769976,  39.198025,  45.483269, 203.784238),
+rate = c(14.58342, 24.74123, 31.34551, 72.96985, 77.50099, 
+         96.08794, 96.96624, 108.88374)
+)
+dat</code></pre>
+<pre><code>##         conc      rate
+## 1   2.856829  14.58342
+## 2   5.005303  24.74123
+## 3   7.519473  31.34551
+## 4  22.101664  72.96985
+## 5  27.769976  77.50099
+## 6  39.198025  96.08794
+## 7  45.483269  96.96624
+## 8 203.784238 108.88374</code></pre>
+<hr />
+<pre class="r"><code>g &lt;- ggplot(data = dat, aes(x = conc, y = rate)) + geom_point()
+g</code></pre>
+<p><img src="/post/drc/2018-03-19-r-rmarkdown_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="the-michaelis-menten-model" class="section level2">
+<h2>The Michaelis-Menten model</h2>
+<p>We are going to fit this data using the parametric family of Michaelis-Menten functions</p>
+<p><span class="math display">\[f(x,(V_m,k))=\frac{V_m x}{K+x}.\]</span></p>
+<blockquote>
+<ul>
+<li>Here the constants <span class="math inline">\(V_m\)</span> and <span class="math inline">\(K\)</span> are positive. <span class="math inline">\(V_{m}\)</span> represents the maximum rate achieved by the system, at saturating substrate concentration. The constant <span class="math inline">\(K\)</span> is the substrate concentration at which the reaction rate is half of <span class="math inline">\(V_m.\)</span></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>Again we can interactively find the initial estimates for the parameters to fit the NLS curve. But there is a built-in Self-Starter function called <em>SSmicmen()</em> which has a logic inscribed in it which lets it work with <em>nls()</em> without specifying starting points.</li>
+</ul>
+</blockquote>
+<hr />
+<pre class="r"><code>fit3 &lt;- nls(rate ~ SSmicmen(conc, Vm, K), data = dat)
+tidy(fit3)</code></pre>
+<pre><code>## # A tibble: 2 x 5
+##   term  estimate std.error statistic    p.value
+##   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+## 1 Vm       126.       7.17     17.6  0.00000218
+## 2 K         17.1      2.95      5.78 0.00117</code></pre>
+<pre class="r"><code>g + stat_function(fun = SSmicmen, args = list(Vm = tidy(fit3)$estimate[1],
+                                       K=tidy(fit3)$estimate[2]), 
+                  colour = &quot;darkgreen&quot;)</code></pre>
+<p><img src="/post/drc/2018-03-19-r-rmarkdown_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+</div>
+<div id="defining-self-starter-functions" class="section level1">
+<h1>Defining Self-Starter functions</h1>
+<div id="a-simple-example" class="section level2">
+<h2>A simple example</h2>
+<p>Consider the following parametric family</p>
+<p><span class="math display">\[f(x,(b,y_0))=y_0 e^{\frac{x}{b}}.\]</span></p>
+<blockquote>
+<ul>
+<li>This model can be used to describe radioactive decay. The parameter <span class="math inline">\(y_0\)</span> is
+the initial amount of the radioactive substance (at time <span class="math inline">\(x = 0\)</span>). The rate of
+decay is governed by the second parameter <span class="math inline">\(b\)</span> (the inverse decay constant).</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>The definition of a self-starter contains the formula of the parametric family, a logic of constructing initial values for parameters, a function taking the dataset as argument and other arguments ensuring that the logic of construction of initial values, the definition of parametric family and <em>nls()</em> are tied together.</li>
+</ul>
+</blockquote>
+</div>
+<div id="the-logic-of-construction-of-initial-values" class="section level2">
+<h2>The logic of construction of initial values</h2>
+<p>Apply the log transform on the given mean function</p>
+<p><span class="math display">\[\log f(x,(b,y_0))=\log y_0+\frac{x}{b}.\]</span></p>
+<p>Hence, if we apply the log transform on the response data, we can apply linear regression techniques to estimate the slope and the intercept, then, from the equalities</p>
+<p><span class="math display">\[\log\tilde y_0={\beta_0}, \ \ \tilde \beta_1=\frac{1}{b}\]</span>
+we get</p>
+<p><span class="math display">\[\tilde y_0=e^{\tilde \beta_0}, \ \ \tilde b=\frac{1}{\tilde\beta_1}.\]</span>
+This is the logic of construction of initial parameter values that we need to include in the definition of a Self-Starter.</p>
+<p>(We are not interested in the error structure that will change after the transformation, because we need only initial estimates.)</p>
+</div>
+<div id="the-match.call-function" class="section level2">
+<h2>The <em>match.call()</em> function</h2>
+<p>The function <em>match.call()</em> can be used in the definition of the function to store the call in the resulting object. In addition, if that function is called without specifying the arguments, the function <em>match.call()</em> matches the arguments to their names by their positions. Observe below</p>
+<pre class="r"><code>Func &lt;- function(input, parameter){
+  value &lt;- input^parameter
+  attr(value,&quot;call&quot;) &lt;- match.call()
+  value
+}
+power &lt;- Func(2,16) #observe that we did not specify the names of parameters
+power</code></pre>
+<pre><code>## [1] 65536
+## attr(,&quot;call&quot;)
+## Func(input = 2, parameter = 16)</code></pre>
+<p>Hence, their argument values can be extracted from the call by their names as from a list</p>
+<pre class="r"><code>attr(power,&quot;call&quot;)$parameter</code></pre>
+<pre><code>## [1] 16</code></pre>
+</div>
+<div id="three-steps" class="section level2">
+<h2>Three steps</h2>
+<blockquote>
+<ul>
+<li>Define the mean function</li>
+</ul>
+</blockquote>
+<pre class="r"><code>expModel &lt;- function(predictor,b, y0) {
+  y0 * exp(predictor/b)
+}</code></pre>
+<blockquote>
+<ul>
+<li>Define the function with the initialization logic</li>
+</ul>
+</blockquote>
+<pre class="r"><code>expModelInit &lt;- function(mCall, LHS, data) {
+ xy &lt;- sortedXyData(mCall[[&quot;predictor&quot;]], LHS, data)
+ lmFit &lt;- lm(log(xy[, &quot;y&quot;]) ~ xy[, &quot;x&quot;])
+ coefs &lt;- coef(lmFit)
+ y0 &lt;- exp(coefs[1])
+ b &lt;- 1/coefs[2]
+ value &lt;- c(b, y0)
+ names(value) &lt;- c(&quot;b&quot;,&quot;y0&quot;)
+ value
+}</code></pre>
+</div>
+</div>
+<div id="define-the-self-starter-function" class="section level1">
+<h1>Define the Self-Starter function</h1>
+<div id="specificities-of-working-in-a-markdown-environment" class="section level2">
+<h2>Specificities of working in a Markdown Environment</h2>
+<pre class="r"><code>SSexp &lt;- selfStart(expModel, expModelInit, c(&quot;b&quot;, &quot;y0&quot;))
+class(SSexp)</code></pre>
+<pre><code>## [1] &quot;selfStart&quot;</code></pre>
+<p>RStudio actually creates a separate R session to render the document. This causes problem with the <em>getInitial()</em> function which searches for user created SS functions in the Global environment and cannot find them because they are created in a new environment only for the Markdown use. Hence, we need to ensure that our created Self-Starter is defined in the Global environment.</p>
+<pre class="r"><code>#Only for Markdown execution
+l &lt;- list(SSexp = SSexp)
+list2env(l, envir = .GlobalEnv)</code></pre>
+<pre><code>## &lt;environment: R_GlobalEnv&gt;</code></pre>
+</div>
+<div id="getting-the-inital-values" class="section level2">
+<h2>Getting the inital values</h2>
+<p>Self-starters can be passed as an argument to the function <em>getInitial()</em> to obtain the initial values. Consider the following dataset</p>
+<pre class="r"><code>load(file = &quot;RGRcurve.rda&quot;)
+head(RGRcurve)</code></pre>
+<pre><code>##   Day   RGR
+## 1   0 0.169
+## 2   0 0.164
+## 3   0 0.210
+## 4   0 0.215
+## 5   0 0.183
+## 6   0 0.181</code></pre>
+<p>Then, the initial values, determined according to our logic, will be</p>
+<pre class="r"><code>getInitial(RGR ~ SSexp(Day, b,y0), data = RGRcurve)</code></pre>
+<pre><code>##         b        y0 
+## 3.8450187 0.1674235</code></pre>
+</div>
+<div id="fitting-by-user-defined-ss" class="section level2">
+<h2>Fitting by user defined SS</h2>
+<pre class="r"><code>fit4 &lt;- nls(RGR ~ SSexp(Day, b,y0), data = RGRcurve)
+getInitial(RGR ~ SSexp(Day, b,y0), data = RGRcurve)</code></pre>
+<pre><code>##         b        y0 
+## 3.8450187 0.1674235</code></pre>
+<pre class="r"><code># Compare the initial values with the estimated values
+tidy(fit4)</code></pre>
+<pre><code>## # A tibble: 2 x 5
+##   term  estimate std.error statistic  p.value
+##   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 b        3.76     0.175       21.5 3.40e-23
+## 2 y0       0.164    0.0142      11.5 4.03e-14</code></pre>
+<hr />
+<pre class="r"><code>g &lt;- ggplot(data = RGRcurve, aes(x = Day, y = RGR)) + geom_point()
+g + stat_function(fun = SSexp, args=tidy(fit4)$estimate, colour=&quot;darkgreen&quot;)</code></pre>
+<p><img src="/post/drc/2018-03-19-r-rmarkdown_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+</div>
+</div>
+<div id="difficult-example" class="section level1">
+<h1>Difficult Example</h1>
+<div id="returning-to-the-difficult-example" class="section level2">
+<h2>Returning to the difficult example</h2>
+<p>Considering once again the parametric family</p>
+<p><span class="math display">\[f(x,\beta)=\frac{\exp(-\beta_1x)}{\beta_2+\beta_3x},\ \ \beta=(\beta_1,\beta_2,\beta_3).\]</span>
+We can use Taylor’s formula</p>
+<p><span class="math display">\[f(x,\beta)\approx f(0,\beta)+f&#39;(0,\beta)x,\ \ x\approx 0.\]</span>
+Simplifying this and remembering that <span class="math inline">\(f(0,\beta)=\frac{1}{\beta_2}\)</span> we get
+<span class="math display">\[f(x,\beta)\approx \frac{1}{\beta_2}-\frac{1}{\beta_2}\left(\beta_1+\frac{\beta_3}{\beta_2}\right)x.\]</span>
+Which in turn gives the equality
+<span class="math display">\[1-\beta_2 f(x,\beta)=\left(\beta_1+\frac{\beta_3}{\beta_2}\right)x,\]</span>
+hence, transforming the data according to the left hand side and fitting a linear model without an intercept we can estimate <span class="math inline">\(\left(\beta_1+\frac{\beta_3}{\beta_2}\right).\)</span> For two parameters out of three we have a rule to find starting values, for the third one we still need a guess. Taking <span class="math inline">\(\beta_1=0\)</span> may work.</p>
+</div>
+<div id="section" class="section level2">
+<h2></h2>
+<pre class="r"><code>expFctInit &lt;- function(mCall, LHS, data){
+  xy &lt;- sortedXyData(mCall[[&quot;x&quot;]], LHS, data)
+  beta2 &lt;- 1/xy[1,&quot;y&quot;]
+  coefs &lt;- coef(lm(1-beta2*xy[,&quot;y&quot;]~xy[,&quot;x&quot;]+0))
+  beta1 &lt;- 0
+  beta3 &lt;- coefs*beta2
+  value &lt;- c(beta1, beta2, beta3)
+  names(value) &lt;- c(&quot;beta1&quot;, &quot;beta2&quot;, &quot;beta3&quot;)
+  value
+}
+SSexpFct &lt;- selfStart(expFct, expFctInit, c(&quot;beta1&quot;, &quot;beta2&quot;, &quot;beta3&quot;))
+l &lt;- list(SSexpFct=SSexpFct)
+list2env(l, envir = .GlobalEnv)#Only for Markdown execution</code></pre>
+<pre><code>## &lt;environment: R_GlobalEnv&gt;</code></pre>
+<pre class="r"><code>getInitial(data = Chwirut2, y ~ SSexpFct(x, beta1, beta2, beta3))</code></pre>
+<pre><code>##       beta1       beta2       beta3 
+## 0.000000000 0.012140834 0.002537341</code></pre>
+<pre class="r"><code>fit0 &lt;- nls(data = Chwirut2, y ~ SSexpFct(x, beta1, beta2, beta3))</code></pre>
+<hr />
+<pre class="r"><code>fit0_tidy &lt;- tidy(fit0)
+fit0_tidy$p.value &lt;- format.pval(fit0_tidy$p.value,eps=0.001,digits=3)
+CI &lt;- as.data.frame(suppressMessages(confint(fit0)))
+CI$term &lt;- row.names(CI)
+fit0_tidy &lt;- merge(fit0_tidy,CI,by=&quot;term&quot;)
+fit0_tidy[,!names(fit0_tidy)%in%c(&quot;term&quot;, &quot;p.value&quot;)]&lt;-
+  round(fit0_tidy[,!names(fit0_tidy)%in%c(&quot;term&quot;, &quot;p.value&quot;)], 3)
+fit0_tidy</code></pre>
+<pre><code>##    term estimate std.error statistic p.value  2.5% 97.5%
+## 1 beta1    0.167     0.038     4.349  &lt;0.001 0.094 0.254
+## 2 beta2    0.005     0.001     7.753  &lt;0.001 0.004 0.006
+## 3 beta3    0.012     0.002     7.939  &lt;0.001 0.009 0.015</code></pre>
+<p>Here, we used the generic function <span class="math inline">\(confint()\)</span> on the object of class <span class="math inline">\(nls\)</span> and got the confidence intervals for the parameters estimates. In addition, the function <span class="math inline">\(format.pval()\)</span> was used to simplify the presentation of p.values.</p>
+<hr />
+<pre class="r"><code>values &lt;- tidy(fit0)$estimate
+g &lt;- ggplot(data = Chwirut2, aes(x = x, y = y))+
+  geom_point() + xlab(&quot;Metal distance&quot;) + ylab(&quot;Ultrasonic respons&quot;)
+g + stat_function(fun = expFct, args = values,
+                  colour=&quot;blue&quot;, lwd=1)</code></pre>
+<p><img src="/post/drc/2018-03-19-r-rmarkdown_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<pre class="r"><code>predict(fit0, newdata = data.frame(x=6:7))</code></pre>
+<pre><code>## [1] 4.715006 3.453957</code></pre>
+</div>
+<div id="further-reading" class="section level2">
+<h2>Further Reading</h2>
+<ul>
+<li><p>The package <em>drc</em> (Dose-Response curves) contains much more prespecified parametric families (22, to be exact - run <em>drc::getMeanFunctions()</em> to see the list).</p></li>
+<li><p>The package <em>nlme</em> (Linear and Nonlinear Mixed Effects Models) which allows the inclusion of the donor effect as a random effect in dose-response studies.</p></li>
+<li><p>More robust algorithms for fitting (<em>The Levenberg-Marquardt curve-fitting method</em>)</p></li>
+</ul>
+</div>
+<div id="the-levenberg-marquardt-method" class="section level2">
+<h2>The Levenberg-Marquardt method</h2>
+<ul>
+<li><p>The Levenberg-Marquardt curve-fitting method is a combination of the two other minimization methods: the gradient descent method and the Gauss-Newton method.</p></li>
+<li><p>In the gradient descent method, the sum of the squared errors is reduced by updating the parameters in the steepest-descent direction.</p></li>
+<li><p>In the Gauss-Newton method, the sum of the squared errors is reduced by assuming the least squares function is locally quadratic, and finding the minimum of the quadratic.</p></li>
+<li><p>The Levenberg-Marquardt method acts more like a gradient-descent method when the parameters are far from their optimal value, and acts more like the Gauss-Newton method when the parameters are close to their optimal value.</p></li>
+<li><p><a href="http://people.duke.edu/~hpgavin/ce281/lm.pdf"><em>Henri P. Gavin, The Levenberg-Marquardt method for nonlinear least squares curve-fitting problems</em></a></p></li>
+</ul>
+</div>
+</div>
+<div id="presentation" class="section level1">
+<h1>Presentation</h1>
+<p>Below is a presentation version of this lecture which contains also interactive applications for curve fitting.</p>
+</div>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/drc/">drc</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://gasparyan.co/post/drc/2018-03-19-r-rmarkdown/&amp;text=Dose-Response%20Curves%20in%20R" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://gasparyan.co/post/drc/2018-03-19-r-rmarkdown/&amp;t=Dose-Response%20Curves%20in%20R" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Dose-Response%20Curves%20in%20R&amp;body=https://gasparyan.co/post/drc/2018-03-19-r-rmarkdown/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://gasparyan.co/post/drc/2018-03-19-r-rmarkdown/&amp;title=Dose-Response%20Curves%20in%20R" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Dose-Response%20Curves%20in%20R%20https://gasparyan.co/post/drc/2018-03-19-r-rmarkdown/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://gasparyan.co/post/drc/2018-03-19-r-rmarkdown/&amp;title=Dose-Response%20Curves%20in%20R" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://gasparyan.co/"><img class="avatar mr-3 avatar-circle" src="/author/samvel-b.-gasparyan/avatar_hu805be2d0cd11b3293ad906453806c9b9_1001537_270x270_fill_q90_lanczos_center.jpg" alt="Samvel B. Gasparyan"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://gasparyan.co/">Samvel B. Gasparyan</a></h5>
+      <h6 class="card-subtitle">Biostatistician</h6>
+      <p class="card-text">Biostatistician in cardiovascular trials.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/media/resume20220321.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.fr/citations?user=E-wGuxwAAAAJ&amp;hl=en&amp;oi=ao" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/samve" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://orcid.org/0000-0002-4797-2208" target="_blank" rel="noopener">
+        <i class="ai ai-orcid"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="http://linkedin.com/in/sgasparyan" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/talk/aua2018/">Dose Response Curves in R</a></li>
+      
+      <li><a href="/post/ump/2021-12-30-r-rmarkdown/">Neyman-Pearson and some other Uniformly Most Powerful Tests</a></li>
+      
+      <li><a href="/post/bayes/2020-11-14-r-rmarkdown/">Bayesian Estimation</a></li>
+      
+      <li><a href="/post/maraca/2022-10-15-r-rmarkdown/">Win Odds Confidence Intervals in R</a></li>
+      
+      <li><a href="/post/wrci/2020-01-10-r-rmarkdown/">Win Odds Confidence Intervals in R</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    © 2022 Samvel B. Gasparyan
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+    Published with
+    <a href="https://wowchemy.com" target="_blank" rel="noopener">Wowchemy</a>  —
+    the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">
+    open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js" integrity="sha512-SeiQaaDh73yrb56sTW/RgVdi/mMqNeM2oBwubFHagc5BkixSpP1fvqF47mKzPGWYSSy4RwbBunrJBQ4Co8fRWA==" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/wowchemy.min.d9d80f811e95b4b4f6df1eaaf297b05f.js"></script>
+
+    
+
+
+
+
+
+
+</body>
+</html>

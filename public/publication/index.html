@@ -1,0 +1,1660 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  
+  
+  <meta name="generator" content="Wowchemy 5.0.0-beta.0 for Hugo">
+  
+
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Samvel B. Gasparyan">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Biostatistician">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://gasparyan.co/publication/">
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" integrity="sha512-1xoFisiGdy9nvho8EgXuXvnpR5GAMSjFwp40gSRE3NwdUdIMIKuPa7bqoUhLD0O/5tPNhteAsE5XyyMi5reQVA==" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" integrity="sha512-TmDwFLhg3UA4ZG0Eb4MIyT1O1Mb+Oww5kFG0uHqXsdbyZz9DcvYQhKpGgNkamAI6h2lGGZq2X8ftOJvF/XjTUg==" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+    
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+    
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-134157980-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-134157980-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+  
+
+
+  
+  
+
+  
+  <link rel="alternate" href="/publication/index.xml" type="application/rss+xml" title="Biostatistician">
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="https://gasparyan.co/publication/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="Biostatistician">
+  <meta property="og:url" content="https://gasparyan.co/publication/">
+  <meta property="og:title" content="Publications | Biostatistician">
+  <meta property="og:description" content="Biostatistician"><meta property="og:image" content="https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png">
+  <meta property="twitter:image" content="https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
+  
+    <meta property="og:updated_time" content="2022-08-27T00:00:00&#43;00:00">
+  
+
+  
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Publications | Biostatistician</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper  ">
+
+  
+  
+  
+    <script>window.wcDarkLightEnabled = true;</script>
+  
+  
+    <script>const isSiteThemeDark = false;</script>
+  
+  
+  <script src="/js/load-theme.js"></script>
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Biostatistician</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Biostatistician</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#featured"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/talk/"><span>Talks</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+    
+  
+<div class="universal-wrapper pt-3">
+  <h1>Publications</h1>
+
+  
+
+  
+</div>
+
+
+
+<div class="universal-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+
+      
+
+      
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+
+      <div class="form-row mb-4">
+        <div class="col-auto">
+          <input type="search" class="filter-search" placeholder="Search..." autocapitalize="off"
+          autocomplete="off" autocorrect="off" role="textbox" spellcheck="false">
+        </div>
+        <div class="col-auto">
+          <select class="pub-filters pubtype-select form-control form-control-sm" data-filter-group="pubtype">
+            <option value="*">Type</option>
+            
+            
+            <option value=".pubtype-2">
+              Journal article
+            </option>
+            
+            <option value=".pubtype-7">
+              Thesis
+            </option>
+            
+          </select>
+        </div>
+        <div class="col-auto">
+          <select class="pub-filters form-control form-control-sm" data-filter-group="year">
+            <option value="*">Date</option>
+            
+            
+            
+            <option value=".year-2022">
+              2022
+            </option>
+            
+            <option value=".year-2021">
+              2021
+            </option>
+            
+            <option value=".year-2020">
+              2020
+            </option>
+            
+            <option value=".year-2012">
+              2012
+            </option>
+            
+            
+          </select>
+        </div>
+      </div>
+
+      <div id="container-publications">
+        
+
+        
+          
+        
+
+        <div class="grid-sizer col-lg-12 isotope-item pubtype-2 year-2022">
+          
+            <div class="pub-list-item" style="margin-bottom: 1rem">
+  <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
+
+  
+  
+
+  <span class="article-metadata li-cite-author">
+    
+
+  
+  <span ><a href="/author/pardeep-s.-jhund/">Pardeep S. Jhund</a></span>, <span ><a href="/author/toru-kondo/">Toru Kondo</a></span>, <span ><a href="/author/jawad-h.-butt/">Jawad H. Butt</a></span>, <span ><a href="/author/kieran-f.-docherty/">Kieran F. Docherty</a></span>, <span ><a href="/author/brian-l.-claggett/">Brian L. Claggett</a></span>, <span ><a href="/author/akshay-s.-desai/">Akshay S. Desai</a></span>, <span ><a href="/author/muthiah-vaduganathan/">Muthiah Vaduganathan</a></span>, <span ><a href="/author/samvel-b.-gasparyan/">Samvel B. Gasparyan</a></span>, <span ><a href="/author/olof-bengtsson/">Olof Bengtsson</a></span>, <span ><a href="/author/daniel-lindholm/">Daniel Lindholm</a></span>, <span ><a href="/author/magnus-petersson/">Magnus Petersson</a></span>, <span ><a href="/author/anna-maria-langkilde/">Anna Maria Langkilde</a></span>, <span ><a href="/author/rudolf-a.-de-boer/">Rudolf A. de Boer</a></span>, <span ><a href="/author/david-demets/">David DeMets</a></span>, <span ><a href="/author/adrian-f.-hernandez/">Adrian F. Hernandez</a></span>, <span ><a href="/author/silvio-e.-inzucchi/">Silvio E. Inzucchi</a></span>, <span ><a href="/author/mikhail-n.-kosiborod/">Mikhail N. Kosiborod</a></span>, <span ><a href="/author/lars-k%C3%B8ber/">Lars Køber</a></span>, <span ><a href="/author/carolyn-s.-p.-lam/">Carolyn S. P. Lam</a></span>, <span ><a href="/author/felipe-a.-martinez/">Felipe A. Martinez</a></span>, <span ><a href="/author/marc-s.-sabatine/">Marc S. Sabatine</a></span>, <span ><a href="/author/sanjiv-j.-shah/">Sanjiv J. Shah</a></span>, <span ><a href="/author/scott-d.-solomon/">Scott D. Solomon</a></span>, <span ><a href="/author/john-j.-v.-mcmurray/">John J. V. McMurray</a></span>
+  </span>
+  (2022).
+  <a href="/publication/dapa-hf-deliver-pooled/">Dapagliflozin across the range of ejection fraction in patients with heart failure: a patient-level, pooled meta-analysis of DAPA-HF and DELIVER</a>.
+  
+  <p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<button type="button" class="btn btn-outline-primary my-1 mr-1 btn-sm js-cite-modal"
+        data-filename="/publication/dapa-hf-deliver-pooled/cite.bib">
+  Cite
+</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="btn btn-outline-primary my-1 mr-1 btn-sm" href="https://doi.org/10.1038/s41591-022-01971-4" target="_blank" rel="noopener">
+  DOI
+</a>
+
+
+</p>
+
+  
+  
+</div>
+
+          
+        </div>
+
+        
+
+        
+          
+        
+
+        <div class="grid-sizer col-lg-12 isotope-item pubtype-2 year-2022">
+          
+            <div class="pub-list-item" style="margin-bottom: 1rem">
+  <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
+
+  
+  
+
+  <span class="article-metadata li-cite-author">
+    
+
+  
+  <span ><a href="/author/samvel-b.-gasparyan/">Samvel B. Gasparyan</a></span>, <span ><a href="/author/elaine-k.-kowalewski/">Elaine K. Kowalewski</a></span>, <span ><a href="/author/gary-g.-koch/">Gary G. Koch</a></span>
+  </span>
+  (2022).
+  <a href="/publication/comments-on-win-ratio/">Comments on &#39;Sample size formula for a win ratio endpoint&#39; by RX Yu and J. Ganju</a>.
+  
+  <p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<button type="button" class="btn btn-outline-primary my-1 mr-1 btn-sm js-cite-modal"
+        data-filename="/publication/comments-on-win-ratio/cite.bib">
+  Cite
+</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="btn btn-outline-primary my-1 mr-1 btn-sm" href="https://doi.org/10.1002/sim.9379" target="_blank" rel="noopener">
+  DOI
+</a>
+
+
+</p>
+
+  
+  
+</div>
+
+          
+        </div>
+
+        
+
+        
+          
+        
+
+        <div class="grid-sizer col-lg-12 isotope-item pubtype-2 year-2022">
+          
+            <div class="pub-list-item" style="margin-bottom: 1rem">
+  <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
+
+  
+  
+
+  <span class="article-metadata li-cite-author">
+    
+
+  
+  <span ><a href="/author/samvel-b.-gasparyan/">Samvel B. Gasparyan</a></span>, <span ><a href="/author/joan-buenconsejo/">Joan Buenconsejo</a></span>, <span ><a href="/author/elaine-k.-kowalewski/">Elaine K. Kowalewski</a></span>, <span ><a href="/author/jan-oscarsson/">Jan Oscarsson</a></span>, <span ><a href="/author/olof-bengtsson/">Olof Bengtsson</a></span>, <span ><a href="/author/russell-esterline/">Russell Esterline</a></span>, <span ><a href="/author/gary-g.-koch/">Gary G. Koch</a></span>, <span ><a href="/author/otavio-berwanger/">Otavio Berwanger</a></span>, <span ><a href="/author/mikhail-n.-kosiborod/">Mikhail N. Kosiborod</a></span>
+  </span>
+  (2022).
+  <a href="/publication/hce-design/">Design and Analysis of Studies Based on Hierarchical Composite Endpoints: Insights from the DARE-19 Trial</a>.
+  
+  <p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<button type="button" class="btn btn-outline-primary my-1 mr-1 btn-sm js-cite-modal"
+        data-filename="/publication/hce-design/cite.bib">
+  Cite
+</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="btn btn-outline-primary my-1 mr-1 btn-sm" href="https://doi.org/10.1007/s43441-022-00420-1" target="_blank" rel="noopener">
+  DOI
+</a>
+
+
+</p>
+
+  
+  
+</div>
+
+          
+        </div>
+
+        
+
+        
+          
+        
+
+        <div class="grid-sizer col-lg-12 isotope-item pubtype-2 year-2022">
+          
+            <div class="pub-list-item" style="margin-bottom: 1rem">
+  <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
+
+  
+  
+
+  <span class="article-metadata li-cite-author">
+    
+
+  
+  <span ><a href="/author/hiddo-j.l.-heerspink/">Hiddo J.L. Heerspink</a></span>, <span ><a href="/author/remo-hm-furtado/">Remo HM Furtado</a></span>, <span ><a href="/author/otavio-berwanger/">Otavio Berwanger</a></span>, <span ><a href="/author/gary-g.-koch/">Gary G. Koch</a></span>, <span ><a href="/author/felipe-martinez/">Felipe Martinez</a></span>, <span ><a href="/author/omar-mukhtar/">Omar Mukhtar</a></span>, <span ><a href="/author/subodh-verma/">Subodh Verma</a></span>, <span ><a href="/author/samvel-b.-gasparyan/">Samvel B. Gasparyan</a></span>, <span ><a href="/author/joan-buenconsejo/">Joan Buenconsejo</a></span>, <span ><a href="/author/russell-esterline/">Russell Esterline</a></span>, <span ><a href="/author/jan-oscarsson/">Jan Oscarsson</a></span>, <span ><a href="/author/philip-ambery/">Philip Ambery</a></span>, <span ><a href="/author/anna-maria-langkilde/">Anna Maria Langkilde</a></span>, <span ><a href="/author/mikhail-n.-kosiborod/">Mikhail N. Kosiborod</a></span>
+  </span>
+  (2022).
+  <a href="/publication/dare-19-kidney/">Dapagliflozin and Kidney Outcomes in Hospitalized Patients with COVID-19 Infection</a>.
+  
+  <p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<button type="button" class="btn btn-outline-primary my-1 mr-1 btn-sm js-cite-modal"
+        data-filename="/publication/dare-19-kidney/cite.bib">
+  Cite
+</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="btn btn-outline-primary my-1 mr-1 btn-sm" href="https://doi.org//10.2215/CJN.14231021" target="_blank" rel="noopener">
+  DOI
+</a>
+
+
+</p>
+
+  
+  
+</div>
+
+          
+        </div>
+
+        
+
+        
+          
+        
+
+        <div class="grid-sizer col-lg-12 isotope-item pubtype-2 year-2021">
+          
+            <div class="pub-list-item" style="margin-bottom: 1rem">
+  <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
+
+  
+  
+
+  <span class="article-metadata li-cite-author">
+    
+
+  
+  <span ><a href="/author/samvel-b.-gasparyan/">Samvel B. Gasparyan</a></span>, <span ><a href="/author/elaine-k.-kowalewski/">Elaine K. Kowalewski</a></span>, <span ><a href="/author/folke-folkvaljon/">Folke Folkvaljon</a></span>, <span ><a href="/author/olof-bengtsson/">Olof Bengtsson</a></span>, <span ><a href="/author/joan-buenconsejo/">Joan Buenconsejo</a></span>, <span ><a href="/author/john-adler/">John Adler</a></span>, <span ><a href="/author/gary-g.-koch/">Gary G. Koch</a></span>
+  </span>
+  (2021).
+  <a href="/publication/power-win-odds/">Power and sample size calculation for the win odds test: application to an ordinal endpoint in COVID-19 trials</a>.
+  
+  <p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<button type="button" class="btn btn-outline-primary my-1 mr-1 btn-sm js-cite-modal"
+        data-filename="/publication/power-win-odds/cite.bib">
+  Cite
+</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="btn btn-outline-primary my-1 mr-1 btn-sm" href="https://doi.org/10.1080/10543406.2021.1968893" target="_blank" rel="noopener">
+  DOI
+</a>
+
+
+</p>
+
+  
+  
+</div>
+
+          
+        </div>
+
+        
+
+        
+          
+        
+
+        <div class="grid-sizer col-lg-12 isotope-item pubtype-2 year-2021">
+          
+            <div class="pub-list-item" style="margin-bottom: 1rem">
+  <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
+
+  
+  
+
+  <span class="article-metadata li-cite-author">
+    
+
+  
+  <span ><a href="/author/mikhail-n.-kosiborod/">Mikhail N. Kosiborod</a></span>, <span ><a href="/author/russell-esterline/">Russell Esterline</a></span>, <span ><a href="/author/remo-hm-furtado/">Remo HM Furtado</a></span>, <span ><a href="/author/jan-oscarsson/">Jan Oscarsson</a></span>, <span ><a href="/author/samvel-b.-gasparyan/">Samvel B. Gasparyan</a></span>, <span ><a href="/author/gary-g.-koch/">Gary G. Koch</a></span>, <span ><a href="/author/felipe-martinez/">Felipe Martinez</a></span>, <span ><a href="/author/omar-mukhtar/">Omar Mukhtar</a></span>, <span ><a href="/author/subodh-verma/">Subodh Verma</a></span>, <span ><a href="/author/vijay-chopra/">Vijay Chopra</a></span>, <span ><a href="/author/joan-buenconsejo/">Joan Buenconsejo</a></span>, <span ><a href="/author/anna-maria-langkilde/">Anna Maria Langkilde</a></span>, <span ><a href="/author/philip-ambery/">Philip Ambery</a></span>, <span ><a href="/author/fengming-tang/">Fengming Tang</a></span>, <span ><a href="/author/kensey-gosch/">Kensey Gosch</a></span>, <span ><a href="/author/sheryl-l-windsor/">Sheryl L Windsor</a></span>, <span ><a href="/author/emily-e-akin/">Emily E Akin</a></span>, <span ><a href="/author/ronaldo-v-p-soares/">Ronaldo V P Soares</a></span>, <span ><a href="/author/diogo-d-f-moia/">Diogo D F Moia</a></span>, <span ><a href="/author/matthew-aboudara/">Matthew Aboudara</a></span>, <span ><a href="/author/conrado-roberto/">Conrado Roberto</a></span>, <span ><a href="/author/hoffmann-filho/">Hoffmann Filho</a></span>, <span ><a href="/author/audes-d-m-feitosa/">Audes D M Feitosa</a></span>, <span ><a href="/author/alberto-fonseca/">Alberto Fonseca</a></span>, <span ><a href="/author/vishnu-garla/">Vishnu Garla</a></span>, <span ><a href="/author/robert-a-gordon/">Robert A Gordon</a></span>, <span ><a href="/author/ali-javaheri/">Ali Javaheri</a></span>, <span ><a href="/author/cristiano-p-jaeger/">Cristiano P Jaeger</a></span>, <span ><a href="/author/paulo-e-leaes/">Paulo E Leaes</a></span>, <span ><a href="/author/michael-nassif/">Michael Nassif</a></span>, <span ><a href="/author/michael-pursley/">Michael Pursley</a></span>, <span ><a href="/author/fabio-serra-silveira/">Fabio Serra Silveira</a></span>, <span ><a href="/author/weimar-kunz-sebba-barroso/">Weimar Kunz Sebba Barroso</a></span>, <span ><a href="/author/jose-roberto/">José Roberto</a></span>, <span ><a href="/author/lazcano-soto/">Lazcano Soto</a></span>, <span ><a href="/author/lilia-nigro-maia/">Lilia Nigro Maia</a></span>, <span ><a href="/author/otavio-berwanger/">Otavio Berwanger</a></span>
+  </span>
+  (2021).
+  <a href="/publication/dare-19-primary/">Dapagliflozin in patients with cardiometabolic risk factors hospitalised with COVID-19 (DARE-19)</a>.
+  
+  <p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<button type="button" class="btn btn-outline-primary my-1 mr-1 btn-sm js-cite-modal"
+        data-filename="/publication/dare-19-primary/cite.bib">
+  Cite
+</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="btn btn-outline-primary my-1 mr-1 btn-sm" href="https://doi.org/10.1016/S2213-8587%2821%2900180-7" target="_blank" rel="noopener">
+  DOI
+</a>
+
+
+</p>
+
+  
+  
+</div>
+
+          
+        </div>
+
+        
+
+        
+          
+        
+
+        <div class="grid-sizer col-lg-12 isotope-item pubtype-2 year-2021">
+          
+            <div class="pub-list-item" style="margin-bottom: 1rem">
+  <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
+
+  
+  
+
+  <span class="article-metadata li-cite-author">
+    
+
+  
+  <span ><a href="/author/pardeep-s.-jhund/">Pardeep S. Jhund</a></span>, <span ><a href="/author/piotr-ponikowski/">Piotr Ponikowski</a></span>, <span ><a href="/author/kieran-f.-docherty/">Kieran F. Docherty</a></span>, <span ><a href="/author/samvel-b.-gasparyan/">Samvel B. Gasparyan</a></span>, <span ><a href="/author/michael-bohm/">Michael Böhm</a></span>, <span ><a href="/author/chern-en-chiang/">Chern-En Chiang</a></span>, <span ><a href="/author/akshay-s.-desai/">Akshay S. Desai</a></span>, <span ><a href="/author/jonathon-howlett/">Jonathon Howlett</a></span>, <span ><a href="/author/masafumi-kitakaze/">Masafumi Kitakaze</a></span>, <span ><a href="/author/mark-c.-petrie/">Mark C. Petrie</a></span>, <span ><a href="/author/subodh-verma/">Subodh Verma</a></span>, <span ><a href="/author/olof-bengtsson/">Olof Bengtsson</a></span>, <span ><a href="/author/anna-maria-langkilde/">Anna Maria Langkilde</a></span>, <span ><a href="/author/mikaela-sjostrand/">Mikaela Sjöstrand</a></span>, <span ><a href="/author/silvio-e.-inzucchi/">Silvio E. Inzucchi</a></span>, <span ><a href="/author/lars-k%C3%B8ber/">Lars Køber</a></span>, <span ><a href="/author/mikhail-n.-kosiborod/">Mikhail N. Kosiborod</a></span>, <span ><a href="/author/felipe-a.-martinez/">Felipe A. Martinez</a></span>, <span ><a href="/author/marc-s.-sabatine/">Marc S. Sabatine</a></span>, <span ><a href="/author/scott-d.-solomon/">Scott D. Solomon</a></span>, <span ><a href="/author/john-j.v.-mcmurray/">John J.V. McMurray</a></span>
+  </span>
+  (2021).
+  <a href="/publication/dapa-hf-recurrent/">Dapagliflozin and Recurrent Heart Failure Hospitalizations in Heart Failure With Reduced Ejection Fraction: An Analysis of DAPA-HF</a>.
+  
+  <p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<button type="button" class="btn btn-outline-primary my-1 mr-1 btn-sm js-cite-modal"
+        data-filename="/publication/dapa-hf-recurrent/cite.bib">
+  Cite
+</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="btn btn-outline-primary my-1 mr-1 btn-sm" href="https://doi.org/10.1161/CIRCULATIONAHA.121.053659" target="_blank" rel="noopener">
+  DOI
+</a>
+
+
+</p>
+
+  
+  
+</div>
+
+          
+        </div>
+
+        
+
+        
+          
+        
+
+        <div class="grid-sizer col-lg-12 isotope-item pubtype-2 year-2020">
+          
+            <div class="pub-list-item" style="margin-bottom: 1rem">
+  <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
+
+  
+  
+
+  <span class="article-metadata li-cite-author">
+    
+
+  
+  <span ><a href="/author/mikhail-n.-kosiborod/">Mikhail N. Kosiborod</a></span>, <span ><a href="/author/otavio-berwanger/">Otavio Berwanger</a></span>, <span ><a href="/author/gary-g.-koch/">Gary G. Koch</a></span>, <span ><a href="/author/felipe-martinez/">Felipe Martinez</a></span>, <span ><a href="/author/subodh-verma/">Subodh Verma</a></span>, <span ><a href="/author/vijay-chopra/">Vijay Chopra</a></span>, <span ><a href="/author/ali-javaheri/">Ali Javaheri</a></span>, <span ><a href="/author/philip-ambery/">Philip Ambery</a></span>, <span ><a href="/author/samvel-b.-gasparyan/">Samvel B. Gasparyan</a></span>, <span ><a href="/author/joan-buenconsejo/">Joan Buenconsejo</a></span>, <span ><a href="/author/david-sjostrom/">David Sjöström</a></span>, <span ><a href="/author/anna-maria-langkilde/">Anna Maria Langkilde</a></span>, <span ><a href="/author/jan-oscarsson/">Jan Oscarsson</a></span>, <span ><a href="/author/russell-esterline/">Russell Esterline</a></span>
+  </span>
+  (2020).
+  <a href="/publication/dare-19-design/">Effects of dapagliflozin on prevention of major clinical events and recovery in patients with respiratory failure because of COVID‐19: Design and rationale for the DARE‐19 study</a>.
+  
+  <p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<button type="button" class="btn btn-outline-primary my-1 mr-1 btn-sm js-cite-modal"
+        data-filename="/publication/dare-19-design/cite.bib">
+  Cite
+</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="btn btn-outline-primary my-1 mr-1 btn-sm" href="https://doi.org/10.1111/dom.14296" target="_blank" rel="noopener">
+  DOI
+</a>
+
+
+</p>
+
+  
+  
+</div>
+
+          
+        </div>
+
+        
+
+        
+          
+        
+
+        <div class="grid-sizer col-lg-12 isotope-item pubtype-2 year-2020">
+          
+            <div class="pub-list-item" style="margin-bottom: 1rem">
+  <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
+
+  
+  
+
+  <span class="article-metadata li-cite-author">
+    
+
+  
+  <span ><a href="/author/samvel-b.-gasparyan/">Samvel B. Gasparyan</a></span>, <span ><a href="/author/folke-folkvaljon/">Folke Folkvaljon</a></span>, <span ><a href="/author/olof-bengtsson/">Olof Bengtsson</a></span>, <span ><a href="/author/joan-buenconsejo/">Joan Buenconsejo</a></span>, <span ><a href="/author/gary-g.-koch/">Gary G. Koch</a></span>
+  </span>
+  (2020).
+  <a href="/publication/adjusted-win-ratio/">Adjusted win ratio with stratification: Calculation methods and interpretation</a>.
+  
+  <p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<button type="button" class="btn btn-outline-primary my-1 mr-1 btn-sm js-cite-modal"
+        data-filename="/publication/adjusted-win-ratio/cite.bib">
+  Cite
+</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="btn btn-outline-primary my-1 mr-1 btn-sm" href="https://doi.org/10.1177/0962280220942558" target="_blank" rel="noopener">
+  DOI
+</a>
+
+
+</p>
+
+  
+  
+</div>
+
+          
+        </div>
+
+        
+
+        
+          
+        
+
+        <div class="grid-sizer col-lg-12 isotope-item pubtype-7 year-2012">
+          
+            <div class="pub-list-item" style="margin-bottom: 1rem">
+  <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
+
+  
+  
+
+  <span class="article-metadata li-cite-author">
+    
+
+  
+  <span ><a href="/author/samvel-b.-gasparyan/">Samvel B. Gasparyan</a></span><i class="author-notes fas fa-info-circle" data-toggle="tooltip" title="Equal contribution"></i>, <span ><a href="/author/yury-kutoyants/">Yury Kutoyants</a></span><i class="author-notes fas fa-info-circle" data-toggle="tooltip" title="Equal contribution"></i>
+  </span>
+  (2012).
+  <a href="/publication/phd-thesis/">Publications related to the PhD thesis</a>.
+  
+  <p>
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+<a class="btn btn-outline-primary my-1 mr-1 btn-sm" href="https://tel.archives-ouvertes.fr/tel-01648364/document" target="_blank" rel="noopener">
+  PDF
+</a>
+
+
+
+<button type="button" class="btn btn-outline-primary my-1 mr-1 btn-sm js-cite-modal"
+        data-filename="/publication/phd-thesis/cite.bib">
+  Cite
+</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+
+  
+  
+</div>
+
+          
+        </div>
+
+        
+      </div>
+
+    </div>
+  </div>
+</div>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    © 2022 Samvel B. Gasparyan
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+    Published with
+    <a href="https://wowchemy.com" target="_blank" rel="noopener">Wowchemy</a>  —
+    the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">
+    open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js" integrity="sha512-SeiQaaDh73yrb56sTW/RgVdi/mMqNeM2oBwubFHagc5BkixSpP1fvqF47mKzPGWYSSy4RwbBunrJBQ4Co8fRWA==" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/wowchemy.min.d9d80f811e95b4b4f6df1eaaf297b05f.js"></script>
+
+    
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,1385 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  
+  
+  <meta name="generator" content="Wowchemy 5.0.0-beta.0 for Hugo">
+  
+
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Samvel B. Gasparyan">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="IntroductionSuppose data consisting of i.i.d. observations \(X^n=(X_1,X_2,\cdots,X_n)\) are available from a distribution \(F(x,\theta),\,\theta\in\Theta\subset\mathbf{R}.\) The exact value \(\theta\) corresponding to the distribution that generated the observations is unknown. The problem is, using the available data \(X^n,\) construct tests for making decisions on the possible value of unknown parameter \(\theta\).">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://gasparyan.co/post/ump/2021-12-30-r-rmarkdown/">
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" integrity="sha512-1xoFisiGdy9nvho8EgXuXvnpR5GAMSjFwp40gSRE3NwdUdIMIKuPa7bqoUhLD0O/5tPNhteAsE5XyyMi5reQVA==" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" integrity="sha512-TmDwFLhg3UA4ZG0Eb4MIyT1O1Mb+Oww5kFG0uHqXsdbyZz9DcvYQhKpGgNkamAI6h2lGGZq2X8ftOJvF/XjTUg==" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+    
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+    
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-134157980-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-134157980-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="https://gasparyan.co/post/ump/2021-12-30-r-rmarkdown/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="Biostatistician">
+  <meta property="og:url" content="https://gasparyan.co/post/ump/2021-12-30-r-rmarkdown/">
+  <meta property="og:title" content="Neyman-Pearson and some other Uniformly Most Powerful Tests | Biostatistician">
+  <meta property="og:description" content="IntroductionSuppose data consisting of i.i.d. observations \(X^n=(X_1,X_2,\cdots,X_n)\) are available from a distribution \(F(x,\theta),\,\theta\in\Theta\subset\mathbf{R}.\) The exact value \(\theta\) corresponding to the distribution that generated the observations is unknown. The problem is, using the available data \(X^n,\) construct tests for making decisions on the possible value of unknown parameter \(\theta\)."><meta property="og:image" content="https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png">
+  <meta property="twitter:image" content="https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2021-12-30T10:00:00&#43;04:00">
+    
+    <meta property="article:modified_time" content="2021-12-30T10:00:00&#43;04:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://gasparyan.co/post/ump/2021-12-30-r-rmarkdown/"
+  },
+  "headline": "Neyman-Pearson and some other Uniformly Most Powerful Tests",
+  
+  "datePublished": "2021-12-30T10:00:00+04:00",
+  "dateModified": "2021-12-30T10:00:00+04:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Samvel B. Gasparyan"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Biostatistician",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "Introduction\rSuppose data consisting of i.i.d. observations \\(X^n=(X_1,X_2,\\cdots,X_n)\\) are available from a distribution \\(F(x,\\theta),\\,\\theta\\in\\Theta\\subset\\mathbf{R}.\\) The exact value \\(\\theta\\) corresponding to the distribution that generated the observations is unknown. The problem is, using the available data \\(X^n,\\) construct tests for making decisions on the possible value of unknown parameter \\(\\theta\\)."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Neyman-Pearson and some other Uniformly Most Powerful Tests | Biostatistician</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper  ">
+
+  
+  
+  
+    <script>window.wcDarkLightEnabled = true;</script>
+  
+  
+    <script>const isSiteThemeDark = false;</script>
+  
+  
+  <script src="/js/load-theme.js"></script>
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Biostatistician</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Biostatistician</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#featured"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/talk/"><span>Talks</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Neyman-Pearson and some other Uniformly Most Powerful Tests</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Dec 30, 2021
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    7 min read
+  </span>
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/r/">R</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div id="introduction" class="section level3">
+<h3>Introduction</h3>
+<p>Suppose data consisting of i.i.d. observations <span class="math inline">\(X^n=(X_1,X_2,\cdots,X_n)\)</span> are available from a distribution <span class="math inline">\(F(x,\theta),\,\theta\in\Theta\subset\mathbf{R}.\)</span> The exact value <span class="math inline">\(\theta\)</span> corresponding to the distribution that generated the observations is unknown. The problem is, using the available data <span class="math inline">\(X^n,\)</span> construct tests for making decisions on the possible value of unknown parameter <span class="math inline">\(\theta\)</span>. Unlike the estimation problems where an estimator is constructed based on data which can be used as an approximate value of the unknown parameter <span class="math inline">\(\theta\)</span>, the hypothesis testing deals with decisions, for example, whether the unknown parameter is in a given subset (the null hypothesis)
+<span class="math display">\[{\mathcal H}_0:\ \ \theta\in\Theta_0\subset\Theta,\]</span></p>
+<p>or, alternatively, in its supplement
+<span class="math display">\[{\mathcal H}_a:\ \ \theta\in\Theta\setminus\Theta_0.\]</span>
+Therefore, hypothesis testing is interested in knowing whether the unknown value is in a given set <span class="math inline">\(\Theta_0\)</span>. We may define this set as containing only one value <span class="math inline">\(\Theta_0=\{\theta_0\}\)</span> in which case the test will be whether the unknown value is equal to the given known value <span class="math inline">\(\theta_0\)</span>. The statistical tests that make the decisions are based on the data and the construction of statistical tests can be formalized as follows.</p>
+<p>Suppose <span class="math inline">\(\psi:\mathbf{R^n}\rightarrow\{0,1\}\)</span> is a measurable function defined for all observations <span class="math inline">\(X^n\)</span> and takes only the values 0 and 1. Any such function will be called a <em>statistical test.</em> We will use the convention that the value 1 corresponds to the decision of rejecting the null hypothesis (hence the alternative hypothesis should be accepted), while the value 0 means a decision that the null hypothesis should be accepted. Hence using the available observations <span class="math inline">\(X^n\)</span> we can make a decision based on the value of <span class="math inline">\(\psi(X^n).\)</span></p>
+<p>As we have seen from the definition of a statistical test, any measurable function is a test, including the functions that are constant <span class="math inline">\(\psi\equiv1\)</span> (data independent tests), which are not good tests at all since those will always give the same answer regardless of the data, and hence, will very likely be wrong in most cases. Therefore, we need to define tests that have good properties (give reliable answers), and before this we need to define what a good test should be in a formal way. We will be dealing only with small sample statistical tests, meaning the sample size <span class="math inline">\(n\)</span> is fixed and the properties of statistical test will be considered under this condition only (unlike the asymptotic theory, where a large sample inference is done under the condition when <span class="math inline">\(n\rightarrow+\infty\)</span>).</p>
+</div>
+<div id="type-i-and-ii-errors" class="section level3">
+<h3>Type I and II errors</h3>
+<p>For each statistical test <span class="math inline">\(\psi\)</span> we may either make a correct decision (correctly identify the set to which the unknown value <span class="math inline">\(\theta\)</span> belongs) or commit one of two errors: reject the null hypothesis when it is true (type I error) or accept when it is false (type II error). If the sample size <span class="math inline">\(n\)</span> is fixed, it is impossible to construct a test with both types of errors being low, hence the strategy is to fix some level for the type I error (<em>level of significance</em>) and among those tests find a test with the lowest type II error.</p>
+<p>Indeed, consider the type I error of a given statistical test <span class="math inline">\(\psi.\)</span> The type I error, denoting it by <span class="math inline">\(\alpha(\psi),\)</span> will be
+<span class="math display">\[\alpha(\psi,\theta) = P_\theta(\psi=1)=E_\theta\psi,\ \ \theta\in\Theta_0.\]</span>
+That is, the probability of rejecting that <span class="math inline">\(\theta\)</span> is in <span class="math inline">\(\Theta_0\)</span> (the decision is <span class="math inline">\(\psi=1\)</span>) while <span class="math inline">\(\theta\)</span> is indeed in <span class="math inline">\(\Theta_0.\)</span> For a given <em>significance level</em> <span class="math inline">\(\alpha\in(0,1)\)</span>, we consider only tests <span class="math inline">\(\psi\)</span> such that
+<span class="math display">\[\alpha(\psi,\theta)\leq\alpha,\ \ \theta\in\Theta_0.\]</span>
+Among these tests we will try to find the one with the lowest type II error. Or, equivalently, if we denote by <span class="math inline">\(\pi(\psi,\theta)=P_\theta(\psi=1)=E_\theta\psi,\ \ \theta\in\Theta\setminus\Theta_0,\)</span> the <em>power function</em> of the test <span class="math inline">\(\psi,\)</span> then the problem above can be formulated as finding a test with the highest power in the region <span class="math inline">\(\Theta\setminus\Theta_0\)</span> among the tests with the given significance level <span class="math inline">\(\alpha\)</span> in the region <span class="math inline">\(\Theta_0.\)</span></p>
+<p>The hypothesis testing will be called <em>simple</em> if both <span class="math inline">\(\Theta_0\)</span> and its complement consist of only single values.</p>
+</div>
+<div id="neyman-pearson-test" class="section level3">
+<h3>Neyman-Pearson test</h3>
+<p>Consider the case of simple hypothesis testing. We observe from a random variable <span class="math inline">\(X\)</span> which has a distribution function <span class="math inline">\(F(x),\)</span> <span class="math inline">\(X\sim F(x)\)</span>. The simple hypothesis to be tested is the following:</p>
+<p><span class="math display">\[{\mathcal H}_0:\ \ F(x)=F_0(x),\]</span></p>
+<p>and the alternative hypothesis is
+<span class="math display">\[{\mathcal H}_a:\ \ F(x)=F_1(x).\]</span>
+Here <span class="math inline">\(F_0(x)\)</span> and <span class="math inline">\(F_1(x)\)</span> are given distribution functions.</p>
+<p>Suppose the distribution function <span class="math inline">\(F_0(x)\)</span> has a density <span class="math inline">\(f_0(x)\)</span> with respect to some measure <span class="math inline">\(\mu\)</span>, while <span class="math inline">\(F_1(x)\)</span> has a density <span class="math inline">\(f_1(x),\)</span> with respect to the same measure. Such a measure always exists since we can take the measure generated by the distribution function <span class="math inline">\(\tilde F(x)=\frac{F_0(x)+F_1(x)}{2}\)</span>. The <strong>Neyman-Pearson</strong> fundamental lemma <span class="citation">(<a href="#ref-lehmann2005testing" role="doc-biblioref">Lehmann and Romano 2005</a>)</span> says that:</p>
+<ol style="list-style-type: decimal">
+<li><p>For a given significance level <span class="math inline">\(\alpha\in(0,1)\)</span> there exists a value <span class="math inline">\(c_0\in\mathbf{R}\)</span> such that the following <em>Neyman-Pearson (NP)</em> test
+<span class="math display">\[\tilde\psi_{c_0}(x)=\left\{
+\begin{matrix}
+1, &amp; x\in\{x:\,f_1(x)&gt;c_0f_0(x)\},\\
+\frac{\alpha-\alpha(c_0)}{\alpha(c_0-0)-\alpha(c_0)}, &amp; x\in\{x:\,f_1(x)=c_0f_0(x)\},\\
+0, &amp; x\in\{x:\,f_1(x)&lt;c_0f_0(x)\},
+\end{matrix}\right.
+\]</span>
+satisfies the equality <span class="math inline">\(E_{\theta_0}\tilde\psi_{c_0}(X)=\alpha.\)</span> Here
+<span class="math display">\[\alpha(c)=P_0(f_1(X)&gt;cf_0(X)),\]</span>
+and <span class="math inline">\(c_0\)</span> is such that <span class="math inline">\(\alpha(c_0)\leq \alpha\leq\alpha(c_0-0).\)</span></p></li>
+<li><p>The test <span class="math inline">\(\tilde\psi_c\)</span> is most powerful at the significance level <span class="math inline">\(\alpha.\)</span> Meaning that for any test <span class="math inline">\(\psi\)</span> which is of <span class="math inline">\(\alpha\)</span> level, that is, <span class="math inline">\(E_{0}(X)\psi\leq \alpha,\)</span> the power of that test does not exceed the power of the test <span class="math inline">\(\tilde\psi_{c_0}\)</span>, <span class="math display">\[E_{1}\tilde\psi_{c_0}(X)-E_{1}\psi(X)\geq \int\left[\tilde\psi_{c_0}(x)-\psi(x)\right]f_1(x)d \mu\geq 0.\]</span>
+Indeed, if <span class="math inline">\(\tilde \psi_{c_0}(x)&gt;\psi(x)\geq 0,\)</span> then necessarily <span class="math inline">\(\tilde \psi_{c_0}(x)\neq 0\)</span> hence <span class="math inline">\(f_1(x)\geq c_0f_0(x).\)</span> While, in the same way, if <span class="math inline">\(\tilde \psi_{c_0}(x)&lt;\psi(x)\geq 1,\)</span> then necessarily <span class="math inline">\(\tilde \psi_{c_0}(x)\neq 1\)</span> hence <span class="math inline">\(f_1(x)\leq c_0f_0(x).\)</span> Therefore,
+<span class="math display">\[\int\left(\tilde\psi_{c_0}(x)-\psi(x)\right)(f_1(x)-c_0f_0(x))d\mu\geq 0.\]</span>
+Which entails that
+<span class="math display">\[\int\left(\tilde\psi_{c_0}(x)-\psi(x)\right)f_1(x)d\mu\geq c_0\int\left(\tilde\psi_{c_0}(x)-\psi(x)\right)f_0(x)d\mu=c_0[a-E_0\psi(X)]\geq 0.\]</span></p></li>
+<li><p>If a test <span class="math inline">\(\psi\)</span> is most powerful at level <span class="math inline">\(\alpha\)</span> for testing <span class="math inline">\(f_0(x)\)</span> against <span class="math inline">\(f_1(x)\)</span>, then for some <span class="math inline">\(c\)</span> it can be written as <span class="math inline">\(\psi=\tilde\psi_c,\)</span> almost everywhere on the set <span class="math inline">\(\{f_1(x)\neq c_0 f_0(x)\}\)</span>. Furthermore, for the most powerful test <span class="math inline">\(\psi\)</span> the equality <span class="math inline">\(E_{\theta_0}\psi(X)=\alpha\)</span> will be satisfied unless there exists a test of size <span class="math inline">\(&lt;\alpha\)</span> and with power 1.
+Since the <em>NP</em> test always exists and is most powerful, this third point essentially means the uniqueness (almost everywhere) of most powerful tests, except possibly on the set <span class="math inline">\(\{f_1(x)= c_0 f_0(x)\}\)</span>. Indeed, suppose that <span class="math inline">\(\psi\)</span> is most powerful and <span class="math inline">\(\tilde\psi_c\)</span> is the NP test. Denote by <span class="math inline">\(S=\{\tilde\psi_c\neq\psi\}\cap\{f_1(x)\neq c_0f_0(x)\}\)</span>. As shown above, on this set <span class="math inline">\(\left(\tilde\psi_{c_0}(x)-\psi(x)\right)(f_1(x)-c_0f_0(x))&gt; 0.\)</span> Hence if <span class="math inline">\(\mu(S)&gt;0\)</span> then</p></li>
+</ol>
+<p><span class="math display">\[\begin{align*}
+&amp;\int\left(\tilde\psi_{c_0}(x)-\psi(x)\right)(f_1(x)-c_0f_0(x))d\mu=\\
+=&amp;\int_S\left(\tilde\psi_{c_0}(x)-\psi(x)\right)(f_1(x)-c_0f_0(x))d\mu&gt; 0.
+\end{align*}\]</span>
+This contradicts to the fact that <span class="math inline">\(\psi\)</span> is most powerful. Hence <span class="math inline">\(\mu(S)=0.\)</span></p>
+<p><strong>Remark.</strong></p>
+<ul>
+<li><p>For a given <span class="math inline">\(\alpha\in(0,1)\)</span> the value <span class="math inline">\(c_0\)</span> always exits since <span class="math inline">\(1-\alpha(c)\)</span> is a distribution function.</p></li>
+<li><p>The constructed test is <em>randomized</em>, meaning that it does not take only the values <span class="math inline">\({0,1},\)</span> but can take also a value between 0 and 1, which can be interpreted as the probability of rejecting the null hypothesis. Hence, as a result of this statistical test, the decision to reject or accept the null hypothesis sometimes may not be made, but a probability is assigned to rejecting the null hypothesis.</p></li>
+<li><p>If the set <span class="math inline">\(\{x:\,f_1(x)=c_0f_0(x)\}\)</span> has the <span class="math inline">\(\mu-\)</span>measure zero, then the most powerful test is determined uniquely (up to sets of measure zero) by the <em>Neyman-Pearson</em> lemma. This will happen if, for example, both <span class="math inline">\(f_1(x)\)</span> and <span class="math inline">\(f_0(x)\)</span> are continuous and <span class="math inline">\(f_0(x)&gt;0,\)</span> almost everywhere.</p></li>
+<li><p>In practice randomization is not considered acceptable and hence an <span class="math inline">\(\alpha\)</span> value is selected so that a <em>non-randomized</em> test exists.</p></li>
+</ul>
+<p><strong>Example.</strong></p>
+<p>Consider a single observation <span class="math inline">\(X\)</span> from a <em>Poisson distribution</em>, that is</p>
+<p><span class="math display">\[f(k,\theta)=P(X=k)=\frac{\theta^k}{k!}e^{-\theta},\ \ k=0,1,2,\cdots.\]</span>
+We are testing the simple hypothesis</p>
+<p><span class="math display">\[{\mathcal H}_0:\ \ \theta=\theta_0,\]</span></p>
+<p>against the alternative hypothesis
+<span class="math display">\[{\mathcal H}_a:\ \ \theta=\theta_1&gt;\theta_0.\]</span></p>
+<p>In this case
+<span class="math display">\[\frac{f(X,\theta_1)}{f(X,\theta_0)}=\left(\frac{\theta_1}{\theta_0}\right)^Xe^{-(\theta_1-\theta_0)}&gt;\tilde c\]</span>
+is equivalent to <span class="math inline">\(X&gt;c,\)</span> because of the fact that <span class="math inline">\(\theta_1&gt;\theta_0.\)</span> Hence the most powerful test will be</p>
+<p><span class="math display">\[\tilde\psi_{c_0}(X)=\left\{
+\begin{matrix}
+&amp;1, &amp; X&gt;c_0,\\
+&amp;\frac{F(c_0,\theta_0)-(1-\alpha)}{F(c_0,\theta_0)-F(c_0-0,\theta_0)}, &amp; X=c_0,\\
+&amp;0, &amp; X&lt;c_0.
+\end{matrix}\right.
+\]</span>
+Here <span class="math inline">\(c_0\)</span> is such that <span class="math inline">\(F(c_0-0,\theta_0)\leq 1-\alpha\leq F(c_0,\theta_0).\)</span></p>
+<p>As noted above, to avoid randomized tests we can select the significance level in a way so that the set <span class="math inline">\(\{X=c_0\}\)</span> has the measure zero. This can be achieved by replacing the given significance level <span class="math inline">\(\alpha\)</span> by a more conservative (lower) significance level <span class="math inline">\(\alpha_0\)</span> so that <span class="math inline">\(1-\alpha_0=F(c_0,\theta_0).\)</span></p>
+<p>Take the case of <span class="math inline">\(\theta_0=1,\,\theta_1=2,\,\alpha=0.05.\)</span> In this case,</p>
+<p><span class="math display">\[F(3-0, 1)\leq 1-\alpha\leq F(3,1),\]</span>
+therefore, <span class="math inline">\(c_0=3.\)</span> This value can be found as follows</p>
+<pre class="r"><code>alpha &lt;- 0.05
+theta0 &lt;- 1
+theta1 &lt;- 2
+Y &lt;- ppois(1:100, theta0)
+Z &lt;- which(Y &gt; 1- alpha, Y)
+c0 &lt;- Z[1]
+c0</code></pre>
+<pre><code>## [1] 3</code></pre>
+<p>If we test at the given significance level <span class="math inline">\(\alpha=0.05,\)</span> then the Neyman-Pearson test will be randomized and on the set <span class="math inline">\(\{X=3\}\)</span> it will have the following value</p>
+<pre class="r"><code>(ppois(c0,theta0)-(1-alpha))/(ppois(c0,theta0)-ppois(c0-1,theta0))</code></pre>
+<pre><code>## [1] 0.5057936</code></pre>
+<p>Hence, on this set the probability of rejecting the null hypothesis is around 0.5, hence no decision can be made. On the other hand, if we take a more conservative significance level <span class="math inline">\(\alpha_0\)</span> as follows</p>
+<pre class="r"><code>alpha0 &lt;- 1-ppois(c0,theta0)
+alpha0</code></pre>
+<pre><code>## [1] 0.01898816</code></pre>
+<p>In this case we can get a non-randomized test with the power equal to</p>
+<pre class="r"><code>ppois(c0,theta1)</code></pre>
+<pre><code>## [1] 0.8571235</code></pre>
+</div>
+<div id="monotone-likelihood-ratios" class="section level3">
+<h3>Monotone likelihood ratios</h3>
+<p>In this section we will consider some generalizations of the <em>NP</em> test for composite hypotheses, to obtain Uniformly Most Powerful (UMP) tests.</p>
+</div>
+<div id="references" class="section level3 unnumbered">
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-lehmann2005testing" class="csl-entry">
+Lehmann, Erich Leo, and Joseph P Romano. 2005. <em>Testing Statistical Hypotheses</em>. 3rd ed. Vol. 3. Springer.
+</div>
+</div>
+</div>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/r/">R</a>
+  
+  <a class="badge badge-light" href="/tag/statistics/">Statistics</a>
+  
+  <a class="badge badge-light" href="/tag/simulations/">Simulations</a>
+  
+  <a class="badge badge-light" href="/tag/hypothesis-testing/">hypothesis testing</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://gasparyan.co/post/ump/2021-12-30-r-rmarkdown/&amp;text=Neyman-Pearson%20and%20some%20other%20Uniformly%20Most%20Powerful%20Tests" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://gasparyan.co/post/ump/2021-12-30-r-rmarkdown/&amp;t=Neyman-Pearson%20and%20some%20other%20Uniformly%20Most%20Powerful%20Tests" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Neyman-Pearson%20and%20some%20other%20Uniformly%20Most%20Powerful%20Tests&amp;body=https://gasparyan.co/post/ump/2021-12-30-r-rmarkdown/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://gasparyan.co/post/ump/2021-12-30-r-rmarkdown/&amp;title=Neyman-Pearson%20and%20some%20other%20Uniformly%20Most%20Powerful%20Tests" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Neyman-Pearson%20and%20some%20other%20Uniformly%20Most%20Powerful%20Tests%20https://gasparyan.co/post/ump/2021-12-30-r-rmarkdown/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://gasparyan.co/post/ump/2021-12-30-r-rmarkdown/&amp;title=Neyman-Pearson%20and%20some%20other%20Uniformly%20Most%20Powerful%20Tests" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://gasparyan.co/"><img class="avatar mr-3 avatar-circle" src="/author/samvel-b.-gasparyan/avatar_hu805be2d0cd11b3293ad906453806c9b9_1001537_270x270_fill_q90_lanczos_center.jpg" alt="Samvel B. Gasparyan"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://gasparyan.co/">Samvel B. Gasparyan</a></h5>
+      <h6 class="card-subtitle">Biostatistician</h6>
+      <p class="card-text">Biostatistician in cardiovascular trials.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/media/resume20220321.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.fr/citations?user=E-wGuxwAAAAJ&amp;hl=en&amp;oi=ao" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/samve" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://orcid.org/0000-0002-4797-2208" target="_blank" rel="noopener">
+        <i class="ai ai-orcid"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="http://linkedin.com/in/sgasparyan" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/wrci/2020-01-10-r-rmarkdown/">Win Odds Confidence Intervals in R</a></li>
+      
+      <li><a href="/post/maraca/2022-10-15-r-rmarkdown/">Win Odds Confidence Intervals in R</a></li>
+      
+      <li><a href="/post/exp/2019-12-20-r-rmarkdown/">Exponential Distribution</a></li>
+      
+      <li><a href="/post/bayes/2020-11-14-r-rmarkdown/">Bayesian Estimation</a></li>
+      
+      <li><a href="/talk/aua2018/">Dose Response Curves in R</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    © 2022 Samvel B. Gasparyan
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+    Published with
+    <a href="https://wowchemy.com" target="_blank" rel="noopener">Wowchemy</a>  —
+    the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">
+    open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js" integrity="sha512-SeiQaaDh73yrb56sTW/RgVdi/mMqNeM2oBwubFHagc5BkixSpP1fvqF47mKzPGWYSSy4RwbBunrJBQ4Co8fRWA==" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/wowchemy.min.d9d80f811e95b4b4f6df1eaaf297b05f.js"></script>
+
+    
+
+
+
+
+
+
+</body>
+</html>

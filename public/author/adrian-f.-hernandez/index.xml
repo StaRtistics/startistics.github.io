@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Adrian F. Hernandez | Biostatistician</title>
+    <link>https://gasparyan.co/author/adrian-f.-hernandez/</link>
+      <atom:link href="https://gasparyan.co/author/adrian-f.-hernandez/index.xml" rel="self" type="application/rss+xml" />
+    <description>Adrian F. Hernandez</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2022 Samvel B. Gasparyan</copyright><lastBuildDate>Sat, 27 Aug 2022 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png</url>
+      <title>Adrian F. Hernandez</title>
+      <link>https://gasparyan.co/author/adrian-f.-hernandez/</link>
+    </image>
+    
+    <item>
+      <title>Dapagliflozin across the range of ejection fraction in patients with heart failure: a patient-level, pooled meta-analysis of DAPA-HF and DELIVER</title>
+      <link>https://gasparyan.co/publication/dapa-hf-deliver-pooled/</link>
+      <pubDate>Sat, 27 Aug 2022 00:00:00 +0000</pubDate>
+      <guid>https://gasparyan.co/publication/dapa-hf-deliver-pooled/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
