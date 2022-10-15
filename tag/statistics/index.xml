@@ -5,12 +5,137 @@
     <link>https://gasparyan.co/tag/statistics/</link>
       <atom:link href="https://gasparyan.co/tag/statistics/index.xml" rel="self" type="application/rss+xml" />
     <description>Statistics</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2022 Samvel B. Gasparyan</copyright><lastBuildDate>Thu, 30 Dec 2021 10:00:00 +0400</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2022 Samvel B. Gasparyan</copyright><lastBuildDate>Sat, 15 Oct 2022 10:00:00 +0400</lastBuildDate>
     <image>
       <url>https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png</url>
       <title>Statistics</title>
       <link>https://gasparyan.co/tag/statistics/</link>
     </image>
+    
+    <item>
+      <title>Maraca Plots - Basic Usage</title>
+      <link>https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown/</link>
+      <pubDate>Sat, 15 Oct 2022 10:00:00 +0400</pubDate>
+      <guid>https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown/</guid>
+      <description>
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;Hierarchical composite endpoints (HCE) are complex endpoints combining events of different clinical importance into an ordinal outcome that prioritize the most severe event of a patient. Up to now, one of the difficulties in interpreting HCEs has been the lack of proper tools for visualizing the treatment effect captured by HCE. This package makes it possible to visualize endpoints consisting of the combination of one to several time-to-event (TTE) outcomes (like Death, Hospitalization for heart failure, …) with one continuous outcome (like a symptom score).&lt;/p&gt;
+&lt;p&gt;The &lt;em&gt;maraca plot&lt;/em&gt; (introduced in &lt;span class=&#34;citation&#34;&gt;(&lt;a href=&#34;#ref-maraca1&#34; role=&#34;doc-biblioref&#34;&gt;Martin Karpefors, Lindholm Daniel, and Samvel B. Gasparyan 2022&lt;/a&gt;)&lt;/span&gt;) captures all important features of how the HCE measures the treatment effect:
+&lt;em&gt;1.&lt;/em&gt; the percentage of time-to-event outcomes in the overall population,
+&lt;em&gt;2.&lt;/em&gt; the treatment effect on the combined and individual time-to-event outcomes, and
+&lt;em&gt;3.&lt;/em&gt; the treatment effect on the continuous component.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;basic-usage&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Basic usage&lt;/h1&gt;
+&lt;p&gt;Plotting with &lt;em&gt;maraca&lt;/em&gt; package &lt;span class=&#34;citation&#34;&gt;(&lt;a href=&#34;#ref-maraca2&#34; role=&#34;doc-biblioref&#34;&gt;Martin Karpefors and Samvel B. Gasparyan 2022&lt;/a&gt;)&lt;/span&gt; requires to have the data in an appropriate format.
+We provide a few scenarios in the package, named &lt;code&gt;hce_scenario_a&lt;/code&gt;,
+&lt;code&gt;hce_scenario_b&lt;/code&gt;, &lt;code&gt;hce_scenario_c&lt;/code&gt; and &lt;code&gt;hce_scenario_d&lt;/code&gt;. These scenarios cover four cases: a) Treatment effect is driven by a combination of TTE outcomes and continuous outcome, b) No treatment effect on neither the TTE outcomes nor on the continuous outcome, c) A large treatment effect on time-to-event outcomes, but no effect on continuous outcome, and finally d) A small treatment effect on time-to-event outcomes, with a larger effect on continuous outcomes, respectively.
+Other HCE scenarios can easily be simulated with the &lt;a href=&#34;https://cran.r-project.org/package=hce&#34;&gt;hce package&lt;/a&gt; &lt;span class=&#34;citation&#34;&gt;(&lt;a href=&#34;#ref-hce&#34; role=&#34;doc-biblioref&#34;&gt;Gasparyan 2022&lt;/a&gt;)&lt;/span&gt;. The hce package is also used for win odds calculations in the maraca package.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(maraca)
+
+data(hce_scenario_a, package = &amp;quot;maraca&amp;quot;)
+
+data &amp;lt;- hce_scenario_a
+head(data)
+##   X SUBJID              GROUP GROUPN      AVAL0       AVAL    TRTP
+## 1 1      1          Outcome I      0 120.440921   120.4409  Active
+## 2 2      2 Continuous outcome  40000   3.345229 40003.3452 Control
+## 3 3      3 Continuous outcome  40000  22.802615 40022.8026  Active
+## 4 4      4          Outcome I      0 577.311386   577.3114 Control
+## 5 5      5         Outcome II  10000 781.758081 10781.7581  Active
+## 6 6      6        Outcome III  20000 985.097981 20985.0980 Control&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;data&lt;/code&gt; data frame contains information on various columns. These columns
+may have arbitrary names, so the &lt;code&gt;maraca&lt;/code&gt; function allows you to specify
+these names and how they map to the internal nomenclature using the
+&lt;code&gt;column_names&lt;/code&gt; parameter. This parameter is a named character vector, mapping
+the standard names used by maraca with the column names in your dataset.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;column_names &amp;lt;- c(
+    outcome = &amp;quot;GROUP&amp;quot;,
+    arm = &amp;quot;TRTP&amp;quot;,
+    value = &amp;quot;AVAL0&amp;quot;
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;the &lt;code&gt;outcome&lt;/code&gt; column must be a character column containing the outcome
+for each entry.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;unique(data[[&amp;quot;GROUP&amp;quot;]])
+## [1] &amp;quot;Outcome I&amp;quot;          &amp;quot;Continuous outcome&amp;quot; &amp;quot;Outcome II&amp;quot;        
+## [4] &amp;quot;Outcome III&amp;quot;        &amp;quot;Outcome IV&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The strings associated to each entry are arbitrary, so maraca
+allows you to specify them in the &lt;code&gt;tte_outcomes&lt;/code&gt; and &lt;code&gt;continuous_outcome&lt;/code&gt;
+parameters. Make sure to specify the TTE outcomes in the correct order, starting from the most severe outcome to the least severe outcome. There can only be one continuous outcome.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tte_outcomes &amp;lt;- c(
+  &amp;quot;Outcome I&amp;quot;, &amp;quot;Outcome II&amp;quot;, &amp;quot;Outcome III&amp;quot;, &amp;quot;Outcome IV&amp;quot;
+)
+continuous_outcome &amp;lt;- &amp;quot;Continuous outcome&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;the &lt;code&gt;arm&lt;/code&gt; column must also be a character column describing to which arm
+each row belongs.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;unique(data[[&amp;quot;TRTP&amp;quot;]])
+## [1] &amp;quot;Active&amp;quot;  &amp;quot;Control&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The strings associated to each entry are arbitrary, so maraca
+allows you to specify them in the &lt;code&gt;arm_levels&lt;/code&gt; parameter, as a named
+vector of character strings. In this example, our file contains “Active”
+and “Control” as identifiers, as seen in the output above, so we will specify&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;arm_levels = c(active = &amp;quot;Active&amp;quot;, control = &amp;quot;Control&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally, the &lt;code&gt;original&lt;/code&gt; column must contain numerical values.&lt;/p&gt;
+&lt;p&gt;All of the above can be aggregated in the call to create a maraca object from
+the given dataset&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mar &amp;lt;- maraca(
+  data, tte_outcomes, continuous_outcome, arm_levels, column_names, compute_win_odds = TRUE
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The win odds can be calculated and will be annotated in the maraca plot if available. However, it is not calculated by default. Please set the &lt;code&gt;compute_win_odds = TRUE&lt;/code&gt; to make the calculation. The resulting estimate, 95% confidence levels and p-value will be shown in the maraca object and can also be retrieved with&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mar$win_odds
+##     estimate        lower        upper      p-value 
+## 1.643265e+00 1.419395e+00 1.912789e+00 9.578560e-12&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;plotting-the-resulting-object&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Plotting the resulting object&lt;/h1&gt;
+&lt;p&gt;To create a maraca plot, simply pass the maraca object as the first argument to the &lt;code&gt;plot&lt;/code&gt; function. In addition to the maraca object, the user can optionally supply input parameters for selecting the &lt;code&gt;continuous_grid_spacing&lt;/code&gt;; transforming the x-axis using “sqrt” in the &lt;code&gt;trans&lt;/code&gt; argument; selecting different representations of the continuous distribution density in the &lt;code&gt;density_plot_type&lt;/code&gt;; and setting &lt;code&gt;vline_type&lt;/code&gt; to “mean” or “median”.&lt;/p&gt;
+&lt;p&gt;The following types of plots that are available: “default”, “violin”, “box”, “scatter”. The default type is just a nested combination of violin and box plot. Figure 1A-D in reference 1 below, can be recreated through applying the maraca function with subsequent plotting on each of the scenario A-D datasets provided in this package. As an example scenario A is shown in the following plot.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(mar, continuous_grid_spacing_x = 20)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/maraca8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div style=&#34;page-break-after: always;&#34;&gt;&lt;/div&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(mar, continuous_grid_spacing_x = 20, density_plot_type = &amp;quot;box&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/maraca9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div style=&#34;page-break-after: always;&#34;&gt;&lt;/div&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(mar, continuous_grid_spacing_x = 20, density_plot_type = &amp;quot;scatter&amp;quot;, vline_type = &amp;quot;mean&amp;quot;)
+## Warning: Removed 1 rows containing missing values (geom_point).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/maraca10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div style=&#34;page-break-after: always;&#34;&gt;&lt;/div&gt;
+&lt;p&gt;The plot_maraca function returns a ggplot2 object. This function will not render the plot immediately so you will have to print() it.
+Conveniently, you can customize your maraca plot with the comprehensive toolbox of ggplot2. For example:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p &amp;lt;- plot_maraca(mar, continuous_grid_spacing_x = 20, density_plot_type = &amp;quot;scatter&amp;quot;, vline_type = &amp;quot;mean&amp;quot;)
+p + 
+  theme_bw() + scale_color_manual(values=c(&amp;quot;#999999&amp;quot;, &amp;quot;#E69F00&amp;quot;)) + 
+  theme(axis.text.x.bottom = element_text(vjust = 0.5, hjust = 0.5))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/maraca11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div style=&#34;page-break-after: always;&#34;&gt;&lt;/div&gt;
+&lt;p&gt;Additionally, there are a few supporting plots that can be used to look closer at the time-to-event outcomes.
+&lt;code&gt;plot_tte_components&lt;/code&gt; provides a one-row grid of the TTE outcomes Kaplan-Meier plots.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot_tte_components(mar)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/maraca12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div style=&#34;page-break-after: always;&#34;&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;plot_tte_composite&lt;/code&gt; plots the Kaplan-Meier plot for the composite of all specified events. The plot is also annotated with the hazard ratio (more info in &lt;code&gt;mar$survmod_complete&lt;/code&gt;).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot_tte_composite(mar)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/maraca13-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;references&#34; class=&#34;section level2 unnumbered&#34;&gt;
+&lt;h2&gt;References&lt;/h2&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references csl-bib-body hanging-indent&#34;&gt;
+&lt;div id=&#34;ref-hce&#34; class=&#34;csl-entry&#34;&gt;
+Gasparyan, Samvel B. 2022. &lt;em&gt;Hce: Design and Analysis of Hierarchical Composite Endpoints&lt;/em&gt;. &lt;a href=&#34;https://CRAN.R-project.org/package=hce&#34;&gt;https://CRAN.R-project.org/package=hce&lt;/a&gt;.
+&lt;/div&gt;
+&lt;div id=&#34;ref-maraca1&#34; class=&#34;csl-entry&#34;&gt;
+Martin Karpefors, Lindholm Daniel, and Samvel B. Gasparyan. 2022. &lt;span&gt;“&lt;a href=&#34;&#34;&gt;The Maraca Plot - a Novel Visualization of Hierarchical Composite Endpoints&lt;/a&gt;.”&lt;/span&gt; &lt;em&gt;Clinical Trials&lt;/em&gt;.
+&lt;/div&gt;
+&lt;div id=&#34;ref-maraca2&#34; class=&#34;csl-entry&#34;&gt;
+Martin Karpefors, and Samvel B. Gasparyan. 2022. &lt;em&gt;Maraca: The Maraca Plot: Visualization of Hierarchical Composite Endpoints in Clinical Trials&lt;/em&gt;. &lt;a href=&#34;https://CRAN.R-project.org/package=maraca&#34;&gt;https://CRAN.R-project.org/package=maraca&lt;/a&gt;.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Neyman-Pearson and some other Uniformly Most Powerful Tests</title>
@@ -212,170 +337,6 @@ where &lt;span class=&#34;math inline&#34;&gt;\(f(\theta|x)\)&lt;/span&gt; is th
 &lt;li&gt;&lt;p&gt;Suppose that &lt;span class=&#34;math inline&#34;&gt;\(X_i\sim {\mathbb U}(0,\theta)\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\theta\sim Pa(\theta_0, a)\)&lt;/span&gt;. Show that the Bayes estimator has the form&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\hat\theta^B_n=\frac{a+n}{a+n-1}\max(\theta_0,X_1,\cdots,X_n).\]&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Win Odds Confidence Intervals in R</title>
-      <link>https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown/</link>
-      <pubDate>Fri, 10 Jan 2020 10:00:00 +0400</pubDate>
-      <guid>https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown/</guid>
-      <description>
-
-
-&lt;div id=&#34;continuous-distributions&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Continuous distributions&lt;/h2&gt;
-&lt;div id=&#34;mann-whitney-estimate-for-the-win-probability&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Mann-Whitney estimate for the win probability&lt;/h3&gt;
-&lt;p&gt;Consider two independent, continuous RVs (random variables) &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt;. The following probability is called the &lt;em&gt;win probability&lt;/em&gt; of RV &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt; against the RV &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
-\theta=P(\eta&amp;gt;\xi).
-\end{align*}\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;Given an i.i.d. (independent, identically distributed) random sample from &lt;span class=&#34;math inline&#34;&gt;\(\xi,\)&lt;/span&gt; denoted by &lt;span class=&#34;math inline&#34;&gt;\(X=(X_1,\cdots,X_{n_1})\)&lt;/span&gt; and an i.i.d. sample from &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt; denoted by &lt;span class=&#34;math inline&#34;&gt;\(Y=(Y_1,\cdots,Y_{n_2})\)&lt;/span&gt; we are interested in estimating the unknown parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta.\)&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;The following estimator is called the &lt;em&gt;Mann-Whitney&lt;/em&gt; estimator (or, the &lt;em&gt;win proportion&lt;/em&gt;) for the win probability&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
-\hat\theta_N=\frac{1}{n_1n_2}\sum_{i=1}^{n_1}\sum_{j=1}^{n_2}I(X_i&amp;lt;Y_j).
-\end{align*}\]&lt;/span&gt;
-Here &lt;span class=&#34;math inline&#34;&gt;\(N=n_1+n_2\)&lt;/span&gt; is the total sample size, whereas &lt;span class=&#34;math inline&#34;&gt;\(I(\cdot)\)&lt;/span&gt; is the indicator function which takes the value 1 if the underlying inequality is true and 0 otherwise. When &lt;span class=&#34;math inline&#34;&gt;\(n_1\rightarrow+\infty,\,n_2\rightarrow+\infty\)&lt;/span&gt; then the win proportion is a consistent estimator (convergence in probability) for the win probability
-&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
-\hat\theta_N\longrightarrow\theta.
-\end{align*}\]&lt;/span&gt;
-If &lt;span class=&#34;math inline&#34;&gt;\(\frac{n_1}{N}\rightarrow \alpha,\)&lt;/span&gt; as &lt;span class=&#34;math inline&#34;&gt;\(n_1\rightarrow+\infty,\,n_2\rightarrow+\infty,\)&lt;/span&gt; then the win proportion is also asymptotically normal &lt;span class=&#34;citation&#34;&gt;(&lt;a href=&#34;#ref-van2000asymptotic&#34; role=&#34;doc-biblioref&#34;&gt;Van der Vaart 2000&lt;/a&gt;)&lt;/span&gt;
-&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
-\sqrt{N}(\hat\theta_N-\theta)\Longrightarrow{\mathcal N}\left(0,\frac{1}{1-\alpha}\sigma_{10}^2+\frac{1}{\alpha}\sigma_{01}^2\right).
-\end{align*}\]&lt;/span&gt;
-Here,
-&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
-\sigma_{10}^2=Cov(I(\xi&amp;lt;\eta),I(\xi&amp;#39;&amp;lt;\eta))=P(\xi&amp;lt;\eta,\xi&amp;#39;&amp;lt;\eta)-P(\xi&amp;lt;\eta)^2,\\
-\sigma_{01}^2=Cov(I(\xi&amp;lt;\eta),I(\xi&amp;lt;\eta&amp;#39;))=P(\xi&amp;lt;\eta,\xi&amp;lt;\eta&amp;#39;)-P(\xi&amp;lt;\eta)^2,
-\end{align*}\]&lt;/span&gt;
-where &lt;span class=&#34;math inline&#34;&gt;\(\xi&amp;#39;\)&lt;/span&gt; has the same distribution as &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt;, &lt;span class=&#34;math inline&#34;&gt;\(\eta&amp;#39;\)&lt;/span&gt; has the same distribution as &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt;. All &lt;span class=&#34;math inline&#34;&gt;\(\xi,\xi&amp;#39;,\eta,\eta&amp;#39;\)&lt;/span&gt; are independent.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;application-to-exponential-distributions&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Application to exponential distributions&lt;/h3&gt;
-&lt;p&gt;Suppose now that &lt;span class=&#34;math inline&#34;&gt;\(\xi\sim{\mathbb E}(\lambda)\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\eta\sim{\mathbb E}(\mu).\)&lt;/span&gt; In this case,&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
-\sigma_{10}^2=\frac{2\lambda}{(\lambda+\mu)(2\lambda+\mu)}-\frac{\lambda^2}{(\lambda+\mu)^2}=\frac{\lambda^2\mu}{(\lambda+\mu)^2(2\lambda+\mu)}\\
-\sigma_{01}^2=\frac{\lambda}{\lambda+2\mu}-\frac{\lambda^2}{(\lambda+\mu)^2}=\frac{\lambda\mu^2}{(\lambda+\mu)^2(\lambda+2\mu)},
-\end{align*}\]&lt;/span&gt;
-therefore, the asymptotic variance of the win proportion will be
-&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
-\sigma^2=\frac{\lambda\mu}{(\lambda+\mu)^2}\left(\frac{1}{1-\alpha}\frac{\lambda}{2\lambda+\mu}+\frac{1}{\alpha}\frac{\mu}{\lambda+2\mu}\right).
-\end{align*}\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;We can check this by the following simulations&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;n1 &amp;lt;- 700
-n2 &amp;lt;- 100
-N &amp;lt;- n1 + n2
-m &amp;lt;- 1000
-lambda &amp;lt;- 2
-mu &amp;lt;- 10
-alpha &amp;lt;- n1/(n1+n2)
-
-
-k &amp;lt;- lambda/(lambda+mu)
-WR &amp;lt;- NULL
-
-for(i in 1:m){
-  set.seed(i)
-  X1 &amp;lt;- rexp(n1, lambda)
-  X2 &amp;lt;- rexp(n2, mu)
-  d &amp;lt;- expand.grid(x = X1, y = X2)
-  d$w &amp;lt;- ifelse(d$y &amp;gt; d$x, 1, ifelse(d$y == d$x, 0.5, 0))
-  WR[i] &amp;lt;- sqrt(N)*(mean(d$w) - k)
-}
-
-
-x0 &amp;lt;- 3
-int &amp;lt;- seq(-x0, x0, 0.001)
-
-Coeff0 &amp;lt;- mu*lambda/(lambda + mu)^2
-Coeff &amp;lt;- Coeff0*(1/(1-alpha)*lambda/(2*lambda+mu) + 1/alpha*mu/(lambda + 2*mu))
-
-
-hist(WR, nclass = 20, freq = FALSE, xlim = c(-x0, x0), 
-     ylim = c(0, 1.1), col = &amp;quot;lightblue&amp;quot;, border = &amp;quot;blue&amp;quot;)
-lines(int, dnorm(int, mean = 0, sd = sqrt(Coeff)), col = &amp;quot;2&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;definition-of-the-win-odds&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Definition of the win odds&lt;/h3&gt;
-&lt;p&gt;Consider two independent, continuous RVs (random variables) &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt;. The odds of the win probability is called the &lt;em&gt;win odds&lt;/em&gt; of RV &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt; against the RV &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
-\omega=\frac{P(\eta&amp;gt;\xi)}{P(\eta&amp;lt;\xi)}=\frac{\theta}{1-\theta}.
-\end{align*}\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;The Mann-Whitney estimate of the win probability can be transformed by the function &lt;span class=&#34;math inline&#34;&gt;\(f(x)=\frac{x}{1-x},\ \ x\in(0,1)\)&lt;/span&gt; to get an estimate for the win odds. Using the same transformation and the asymptotic normality of the Mann-Whitney estimate it is possible to construct asymptotic confidence intervals for the win odds, for a given asymptotic confidence level.&lt;/p&gt;
-&lt;p&gt;If &lt;span class=&#34;math inline&#34;&gt;\(\omega=1\)&lt;/span&gt; then the random variables &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt; are stochastically equivalent, while &lt;span class=&#34;math inline&#34;&gt;\(\omega&amp;gt;1\)&lt;/span&gt; means that &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt; is stochastically greater than (wins against) &lt;span class=&#34;math inline&#34;&gt;\(\eta.\)&lt;/span&gt; The case &lt;span class=&#34;math inline&#34;&gt;\(\omega&amp;lt;1\)&lt;/span&gt; means that &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt; loses against &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt;. The asymptotic confidence interval of the win odds can be used to test the hypothesis whether &lt;span class=&#34;math inline&#34;&gt;\(\omega=1\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;To use the asymptotic normality result described above we need to estimate the asymptotic variance. The package &lt;em&gt;sanon&lt;/em&gt; in &lt;em&gt;R&lt;/em&gt; allows to estimate the asymptotic standard error of the Mann-Whitney estimate.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;ordinal-random-variables&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Ordinal random variables&lt;/h2&gt;
-&lt;p&gt;&lt;span class=&#34;citation&#34;&gt;(&lt;a href=&#34;#ref-gasparyan2021power&#34; role=&#34;doc-biblioref&#34;&gt;Gasparyan et al. 2021&lt;/a&gt;)&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;the-package-sanon&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;The package sanon&lt;/h2&gt;
-&lt;p&gt;We will be using the package &lt;strong&gt;sanon&lt;/strong&gt; &lt;span class=&#34;citation&#34;&gt;(&lt;a href=&#34;#ref-sanon&#34; role=&#34;doc-biblioref&#34;&gt;Kawaguchi and Koch 2015&lt;/a&gt;)&lt;/span&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#install.packages(&amp;quot;sanon&amp;quot;)
-library(sanon)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The dataset &lt;em&gt;resp&lt;/em&gt; contains data from a randomized clinical trial to compare a test treatment to placebo for a respiratory disorder.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data(resp, package = &amp;quot;sanon&amp;quot;)
-
-head(resp)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##   center treatment sex age baseline visit1 visit2 visit3 visit4
-## 1      1         A   F  32        1      2      2      4      2
-## 2      2         A   F  37        1      3      4      4      4
-## 3      1         A   F  47        2      2      3      4      4
-## 4      2         A   F  39        2      3      4      4      4
-## 5      1         A   M  11        4      4      4      4      2
-## 6      2         A   F  60        4      4      3      3      4&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The column &lt;em&gt;visit4&lt;/em&gt; is a numeric vector for patient global ratings of symptom control according to 5 categories (4 = excellent, 3 = good, 2 = fair, 1 = poor, 0 = terrible), measured at visit 4. To compare the effect of active treatment against the placebo we will use the win probability, which, as we defined previously, is an unknown theoretical quantity. The null hypothesis is that there is no treatment difference which can be written in terms of the win probability as &lt;span class=&#34;math inline&#34;&gt;\(\theta=0.5.\)&lt;/span&gt; The Mann-Whitney estimate of the win probability can be calculated as follows&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit &amp;lt;- sanon(visit4 ~ grp(treatment, ref=&amp;quot;P&amp;quot;), data = resp)
-
-fit&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Call:
-## sanon.formula(formula = visit4 ~ grp(treatment, ref = &amp;quot;P&amp;quot;), data = resp)
-## 
-## Sample size: 111
-## 
-## Response levels:
-## [visit4; 5 levels] (lower) 0, 1, 2, 3, 4 (higher)
-## 
-## Design Matrix:
-##        [,1]
-## visit4    1
-## 
-## Mann-Whitney Estimate 
-##  for comparison [ A / P ] :
-## visit4 
-## 0.6174&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;confint(fit)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## M-W Estimate and 95% Confidence Intervals 
-## :
-##        Estimate  Lower  Upper
-## visit4   0.6174 0.5173 0.7176&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit$p&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##            [,1]
-## [1,] 0.02150601&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The p-value based on the asymptotic confidence interval of level 0.05 is less than 0.05, hence the null hypothesis of no treatment difference is rejected. The Mann-Whitney estimate can be transformed to get an estimate for the win odds.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;confint(fit)$ci/(1-confint(fit)$ci)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##        Estimate    Lower    Upper
-## visit4 1.614013 1.071762 2.540746&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;For the win odds the null hypothesis of no treatment difference is &lt;span class=&#34;math inline&#34;&gt;\(\omega=1.\)&lt;/span&gt; The win odds 1.61 characterizes the treatment effect difference.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;references&#34; class=&#34;section level2 unnumbered&#34;&gt;
-&lt;h2&gt;References&lt;/h2&gt;
-&lt;div id=&#34;refs&#34; class=&#34;references csl-bib-body hanging-indent&#34;&gt;
-&lt;div id=&#34;ref-gasparyan2021power&#34; class=&#34;csl-entry&#34;&gt;
-Gasparyan, Samvel B, Elaine K Kowalewski, Folke Folkvaljon, Olof Bengtsson, Joan Buenconsejo, John Adler, and Gary G Koch. 2021. &lt;span&gt;“Power and Sample Size Calculation for the Win Odds Test: Application to an Ordinal Endpoint in COVID-19 Trials.”&lt;/span&gt; &lt;em&gt;Journal of Biopharmaceutical Statistics&lt;/em&gt;, 1–23. &lt;a href=&#34;https://doi.org/10.1080/10543406.2021.1968893&#34;&gt;https://doi.org/10.1080/10543406.2021.1968893&lt;/a&gt;.
-&lt;/div&gt;
-&lt;div id=&#34;ref-sanon&#34; class=&#34;csl-entry&#34;&gt;
-Kawaguchi, Atsushi, and Gary G. Koch. 2015. &lt;span&gt;“&lt;span class=&#34;nocase&#34;&gt;sanon&lt;/span&gt;: An &lt;span&gt;R&lt;/span&gt; Package for Stratified Analysis with Nonparametric Covariable Adjustment.”&lt;/span&gt; &lt;em&gt;Journal of Statistical Software&lt;/em&gt; 67 (9): 1–37. &lt;a href=&#34;https://doi.org/10.18637/jss.v067.i09&#34;&gt;https://doi.org/10.18637/jss.v067.i09&lt;/a&gt;.
-&lt;/div&gt;
-&lt;div id=&#34;ref-van2000asymptotic&#34; class=&#34;csl-entry&#34;&gt;
-Van der Vaart, Aad W. 2000. &lt;em&gt;Asymptotic Statistics&lt;/em&gt;. Vol. 3. Cambridge university press. &lt;a href=&#34;https://doi.org/10.1017/CBO9780511802256&#34;&gt;https://doi.org/10.1017/CBO9780511802256&lt;/a&gt;.
-&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>

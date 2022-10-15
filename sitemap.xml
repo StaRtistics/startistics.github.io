@@ -18,6 +18,56 @@
   </url>
   
   <url>
+    <loc>https://gasparyan.co/</loc>
+    <lastmod>2022-10-15T10:00:00+04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gasparyan.co/categories/</loc>
+    <lastmod>2022-10-15T10:00:00+04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gasparyan.co/tag/maraca/</loc>
+    <lastmod>2022-10-15T10:00:00+04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown/</loc>
+    <lastmod>2022-10-15T10:00:00+04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gasparyan.co/post/</loc>
+    <lastmod>2022-10-15T10:00:00+04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gasparyan.co/tag/r/</loc>
+    <lastmod>2022-10-15T10:00:00+04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gasparyan.co/category/r/</loc>
+    <lastmod>2022-10-15T10:00:00+04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gasparyan.co/tag/statistics/</loc>
+    <lastmod>2022-10-15T10:00:00+04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gasparyan.co/tags/</loc>
+    <lastmod>2022-10-15T10:00:00+04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gasparyan.co/tag/visualization/</loc>
+    <lastmod>2022-10-15T10:00:00+04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://gasparyan.co/publication-type/2/</loc>
     <lastmod>2022-08-27T00:00:00+00:00</lastmod>
   </url>
@@ -39,11 +89,6 @@
   
   <url>
     <loc>https://gasparyan.co/authors/</loc>
-    <lastmod>2022-08-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gasparyan.co/</loc>
     <lastmod>2022-08-27T00:00:00+00:00</lastmod>
   </url>
   
@@ -168,11 +213,6 @@
   </url>
   
   <url>
-    <loc>https://gasparyan.co/tags/</loc>
-    <lastmod>2022-08-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://gasparyan.co/author/toru-kondo/</loc>
     <lastmod>2022-08-27T00:00:00+00:00</lastmod>
   </url>
@@ -268,11 +308,6 @@
   </url>
   
   <url>
-    <loc>https://gasparyan.co/categories/</loc>
-    <lastmod>2021-12-30T10:00:00+04:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://gasparyan.co/tag/hypothesis-testing/</loc>
     <lastmod>2021-12-30T10:00:00+04:00</lastmod>
   </url>
@@ -283,27 +318,7 @@
   </url>
   
   <url>
-    <loc>https://gasparyan.co/post/</loc>
-    <lastmod>2021-12-30T10:00:00+04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gasparyan.co/tag/r/</loc>
-    <lastmod>2021-12-30T10:00:00+04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gasparyan.co/category/r/</loc>
-    <lastmod>2021-12-30T10:00:00+04:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://gasparyan.co/tag/simulations/</loc>
-    <lastmod>2021-12-30T10:00:00+04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gasparyan.co/tag/statistics/</loc>
     <lastmod>2021-12-30T10:00:00+04:00</lastmod>
   </url>
   
@@ -549,11 +564,6 @@
   
   <url>
     <loc>https://gasparyan.co/tag/sanon/</loc>
-    <lastmod>2020-01-10T10:00:00+04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown/</loc>
     <lastmod>2020-01-10T10:00:00+04:00</lastmod>
   </url>
   

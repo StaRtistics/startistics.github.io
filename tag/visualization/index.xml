@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>visualization | Biostatistician</title>
+    <link>https://gasparyan.co/tag/visualization/</link>
+      <atom:link href="https://gasparyan.co/tag/visualization/index.xml" rel="self" type="application/rss+xml" />
+    <description>visualization</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2022 Samvel B. Gasparyan</copyright><lastBuildDate>Sat, 15 Oct 2022 10:00:00 +0400</lastBuildDate>
+    <image>
+      <url>https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png</url>
+      <title>visualization</title>
+      <link>https://gasparyan.co/tag/visualization/</link>
+    </image>
+    
+    <item>
+      <title>Maraca Plots - Basic Usage</title>
+      <link>https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown/</link>
+      <pubDate>Sat, 15 Oct 2022 10:00:00 +0400</pubDate>
+      <guid>https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown/</guid>
+      <description>
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;Hierarchical composite endpoints (HCE) are complex endpoints combining events of different clinical importance into an ordinal outcome that prioritize the most severe event of a patient. Up to now, one of the difficulties in interpreting HCEs has been the lack of proper tools for visualizing the treatment effect captured by HCE. This package makes it possible to visualize endpoints consisting of the combination of one to several time-to-event (TTE) outcomes (like Death, Hospitalization for heart failure, …) with one continuous outcome (like a symptom score).&lt;/p&gt;
+&lt;p&gt;The &lt;em&gt;maraca plot&lt;/em&gt; (introduced in &lt;span class=&#34;citation&#34;&gt;(&lt;a href=&#34;#ref-maraca1&#34; role=&#34;doc-biblioref&#34;&gt;Martin Karpefors, Lindholm Daniel, and Samvel B. Gasparyan 2022&lt;/a&gt;)&lt;/span&gt;) captures all important features of how the HCE measures the treatment effect:
+&lt;em&gt;1.&lt;/em&gt; the percentage of time-to-event outcomes in the overall population,
+&lt;em&gt;2.&lt;/em&gt; the treatment effect on the combined and individual time-to-event outcomes, and
+&lt;em&gt;3.&lt;/em&gt; the treatment effect on the continuous component.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;basic-usage&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Basic usage&lt;/h1&gt;
+&lt;p&gt;Plotting with &lt;em&gt;maraca&lt;/em&gt; package &lt;span class=&#34;citation&#34;&gt;(&lt;a href=&#34;#ref-maraca2&#34; role=&#34;doc-biblioref&#34;&gt;Martin Karpefors and Samvel B. Gasparyan 2022&lt;/a&gt;)&lt;/span&gt; requires to have the data in an appropriate format.
+We provide a few scenarios in the package, named &lt;code&gt;hce_scenario_a&lt;/code&gt;,
+&lt;code&gt;hce_scenario_b&lt;/code&gt;, &lt;code&gt;hce_scenario_c&lt;/code&gt; and &lt;code&gt;hce_scenario_d&lt;/code&gt;. These scenarios cover four cases: a) Treatment effect is driven by a combination of TTE outcomes and continuous outcome, b) No treatment effect on neither the TTE outcomes nor on the continuous outcome, c) A large treatment effect on time-to-event outcomes, but no effect on continuous outcome, and finally d) A small treatment effect on time-to-event outcomes, with a larger effect on continuous outcomes, respectively.
+Other HCE scenarios can easily be simulated with the &lt;a href=&#34;https://cran.r-project.org/package=hce&#34;&gt;hce package&lt;/a&gt; &lt;span class=&#34;citation&#34;&gt;(&lt;a href=&#34;#ref-hce&#34; role=&#34;doc-biblioref&#34;&gt;Gasparyan 2022&lt;/a&gt;)&lt;/span&gt;. The hce package is also used for win odds calculations in the maraca package.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(maraca)
+
+data(hce_scenario_a, package = &amp;quot;maraca&amp;quot;)
+
+data &amp;lt;- hce_scenario_a
+head(data)
+##   X SUBJID              GROUP GROUPN      AVAL0       AVAL    TRTP
+## 1 1      1          Outcome I      0 120.440921   120.4409  Active
+## 2 2      2 Continuous outcome  40000   3.345229 40003.3452 Control
+## 3 3      3 Continuous outcome  40000  22.802615 40022.8026  Active
+## 4 4      4          Outcome I      0 577.311386   577.3114 Control
+## 5 5      5         Outcome II  10000 781.758081 10781.7581  Active
+## 6 6      6        Outcome III  20000 985.097981 20985.0980 Control&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;data&lt;/code&gt; data frame contains information on various columns. These columns
+may have arbitrary names, so the &lt;code&gt;maraca&lt;/code&gt; function allows you to specify
+these names and how they map to the internal nomenclature using the
+&lt;code&gt;column_names&lt;/code&gt; parameter. This parameter is a named character vector, mapping
+the standard names used by maraca with the column names in your dataset.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;column_names &amp;lt;- c(
+    outcome = &amp;quot;GROUP&amp;quot;,
+    arm = &amp;quot;TRTP&amp;quot;,
+    value = &amp;quot;AVAL0&amp;quot;
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;the &lt;code&gt;outcome&lt;/code&gt; column must be a character column containing the outcome
+for each entry.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;unique(data[[&amp;quot;GROUP&amp;quot;]])
+## [1] &amp;quot;Outcome I&amp;quot;          &amp;quot;Continuous outcome&amp;quot; &amp;quot;Outcome II&amp;quot;        
+## [4] &amp;quot;Outcome III&amp;quot;        &amp;quot;Outcome IV&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The strings associated to each entry are arbitrary, so maraca
+allows you to specify them in the &lt;code&gt;tte_outcomes&lt;/code&gt; and &lt;code&gt;continuous_outcome&lt;/code&gt;
+parameters. Make sure to specify the TTE outcomes in the correct order, starting from the most severe outcome to the least severe outcome. There can only be one continuous outcome.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tte_outcomes &amp;lt;- c(
+  &amp;quot;Outcome I&amp;quot;, &amp;quot;Outcome II&amp;quot;, &amp;quot;Outcome III&amp;quot;, &amp;quot;Outcome IV&amp;quot;
+)
+continuous_outcome &amp;lt;- &amp;quot;Continuous outcome&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;the &lt;code&gt;arm&lt;/code&gt; column must also be a character column describing to which arm
+each row belongs.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;unique(data[[&amp;quot;TRTP&amp;quot;]])
+## [1] &amp;quot;Active&amp;quot;  &amp;quot;Control&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The strings associated to each entry are arbitrary, so maraca
+allows you to specify them in the &lt;code&gt;arm_levels&lt;/code&gt; parameter, as a named
+vector of character strings. In this example, our file contains “Active”
+and “Control” as identifiers, as seen in the output above, so we will specify&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;arm_levels = c(active = &amp;quot;Active&amp;quot;, control = &amp;quot;Control&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally, the &lt;code&gt;original&lt;/code&gt; column must contain numerical values.&lt;/p&gt;
+&lt;p&gt;All of the above can be aggregated in the call to create a maraca object from
+the given dataset&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mar &amp;lt;- maraca(
+  data, tte_outcomes, continuous_outcome, arm_levels, column_names, compute_win_odds = TRUE
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The win odds can be calculated and will be annotated in the maraca plot if available. However, it is not calculated by default. Please set the &lt;code&gt;compute_win_odds = TRUE&lt;/code&gt; to make the calculation. The resulting estimate, 95% confidence levels and p-value will be shown in the maraca object and can also be retrieved with&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mar$win_odds
+##     estimate        lower        upper      p-value 
+## 1.643265e+00 1.419395e+00 1.912789e+00 9.578560e-12&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;plotting-the-resulting-object&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Plotting the resulting object&lt;/h1&gt;
+&lt;p&gt;To create a maraca plot, simply pass the maraca object as the first argument to the &lt;code&gt;plot&lt;/code&gt; function. In addition to the maraca object, the user can optionally supply input parameters for selecting the &lt;code&gt;continuous_grid_spacing&lt;/code&gt;; transforming the x-axis using “sqrt” in the &lt;code&gt;trans&lt;/code&gt; argument; selecting different representations of the continuous distribution density in the &lt;code&gt;density_plot_type&lt;/code&gt;; and setting &lt;code&gt;vline_type&lt;/code&gt; to “mean” or “median”.&lt;/p&gt;
+&lt;p&gt;The following types of plots that are available: “default”, “violin”, “box”, “scatter”. The default type is just a nested combination of violin and box plot. Figure 1A-D in reference 1 below, can be recreated through applying the maraca function with subsequent plotting on each of the scenario A-D datasets provided in this package. As an example scenario A is shown in the following plot.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(mar, continuous_grid_spacing_x = 20)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/maraca8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div style=&#34;page-break-after: always;&#34;&gt;&lt;/div&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(mar, continuous_grid_spacing_x = 20, density_plot_type = &amp;quot;box&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/maraca9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div style=&#34;page-break-after: always;&#34;&gt;&lt;/div&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(mar, continuous_grid_spacing_x = 20, density_plot_type = &amp;quot;scatter&amp;quot;, vline_type = &amp;quot;mean&amp;quot;)
+## Warning: Removed 1 rows containing missing values (geom_point).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/maraca10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div style=&#34;page-break-after: always;&#34;&gt;&lt;/div&gt;
+&lt;p&gt;The plot_maraca function returns a ggplot2 object. This function will not render the plot immediately so you will have to print() it.
+Conveniently, you can customize your maraca plot with the comprehensive toolbox of ggplot2. For example:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p &amp;lt;- plot_maraca(mar, continuous_grid_spacing_x = 20, density_plot_type = &amp;quot;scatter&amp;quot;, vline_type = &amp;quot;mean&amp;quot;)
+p + 
+  theme_bw() + scale_color_manual(values=c(&amp;quot;#999999&amp;quot;, &amp;quot;#E69F00&amp;quot;)) + 
+  theme(axis.text.x.bottom = element_text(vjust = 0.5, hjust = 0.5))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/maraca11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div style=&#34;page-break-after: always;&#34;&gt;&lt;/div&gt;
+&lt;p&gt;Additionally, there are a few supporting plots that can be used to look closer at the time-to-event outcomes.
+&lt;code&gt;plot_tte_components&lt;/code&gt; provides a one-row grid of the TTE outcomes Kaplan-Meier plots.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot_tte_components(mar)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/maraca12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div style=&#34;page-break-after: always;&#34;&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;plot_tte_composite&lt;/code&gt; plots the Kaplan-Meier plot for the composite of all specified events. The plot is also annotated with the hazard ratio (more info in &lt;code&gt;mar$survmod_complete&lt;/code&gt;).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot_tte_composite(mar)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/maraca13-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;references&#34; class=&#34;section level2 unnumbered&#34;&gt;
+&lt;h2&gt;References&lt;/h2&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references csl-bib-body hanging-indent&#34;&gt;
+&lt;div id=&#34;ref-hce&#34; class=&#34;csl-entry&#34;&gt;
+Gasparyan, Samvel B. 2022. &lt;em&gt;Hce: Design and Analysis of Hierarchical Composite Endpoints&lt;/em&gt;. &lt;a href=&#34;https://CRAN.R-project.org/package=hce&#34;&gt;https://CRAN.R-project.org/package=hce&lt;/a&gt;.
+&lt;/div&gt;
+&lt;div id=&#34;ref-maraca1&#34; class=&#34;csl-entry&#34;&gt;
+Martin Karpefors, Lindholm Daniel, and Samvel B. Gasparyan. 2022. &lt;span&gt;“&lt;a href=&#34;&#34;&gt;The Maraca Plot - a Novel Visualization of Hierarchical Composite Endpoints&lt;/a&gt;.”&lt;/span&gt; &lt;em&gt;Clinical Trials&lt;/em&gt;.
+&lt;/div&gt;
+&lt;div id=&#34;ref-maraca2&#34; class=&#34;csl-entry&#34;&gt;
+Martin Karpefors, and Samvel B. Gasparyan. 2022. &lt;em&gt;Maraca: The Maraca Plot: Visualization of Hierarchical Composite Endpoints in Clinical Trials&lt;/em&gt;. &lt;a href=&#34;https://CRAN.R-project.org/package=maraca&#34;&gt;https://CRAN.R-project.org/package=maraca&lt;/a&gt;.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
