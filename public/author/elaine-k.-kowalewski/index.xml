@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Elaine K. Kowalewski | Biostatistician</title>
+    <link>https://gasparyan.co/author/elaine-k.-kowalewski/</link>
+      <atom:link href="https://gasparyan.co/author/elaine-k.-kowalewski/index.xml" rel="self" type="application/rss+xml" />
+    <description>Elaine K. Kowalewski</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2022 Samvel B. Gasparyan</copyright><lastBuildDate>Fri, 17 Jun 2022 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png</url>
+      <title>Elaine K. Kowalewski</title>
+      <link>https://gasparyan.co/author/elaine-k.-kowalewski/</link>
+    </image>
+    
+    <item>
+      <title>Comments on &#39;Sample size formula for a win ratio endpoint&#39; by RX Yu and J. Ganju</title>
+      <link>https://gasparyan.co/publication/comments-on-win-ratio/</link>
+      <pubDate>Fri, 17 Jun 2022 00:00:00 +0000</pubDate>
+      <guid>https://gasparyan.co/publication/comments-on-win-ratio/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Design and Analysis of Studies Based on Hierarchical Composite Endpoints: Insights from the DARE-19 Trial</title>
+      <link>https://gasparyan.co/publication/hce-design/</link>
+      <pubDate>Tue, 14 Jun 2022 00:00:00 +0000</pubDate>
+      <guid>https://gasparyan.co/publication/hce-design/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Power and sample size calculation for the win odds test: application to an ordinal endpoint in COVID-19 trials</title>
+      <link>https://gasparyan.co/publication/power-win-odds/</link>
+      <pubDate>Thu, 23 Sep 2021 00:00:00 +0000</pubDate>
+      <guid>https://gasparyan.co/publication/power-win-odds/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

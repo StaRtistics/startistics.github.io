@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Method of Moments | Biostatistician</title>
+    <link>https://gasparyan.co/tag/method-of-moments/</link>
+      <atom:link href="https://gasparyan.co/tag/method-of-moments/index.xml" rel="self" type="application/rss+xml" />
+    <description>Method of Moments</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2022 Samvel B. Gasparyan</copyright><lastBuildDate>Sat, 14 Nov 2020 09:00:00 +0400</lastBuildDate>
+    <image>
+      <url>https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png</url>
+      <title>Method of Moments</title>
+      <link>https://gasparyan.co/tag/method-of-moments/</link>
+    </image>
+    
+    <item>
+      <title>Bayesian Estimation</title>
+      <link>https://gasparyan.co/post/bayes/2020-11-14-r-rmarkdown/</link>
+      <pubDate>Sat, 14 Nov 2020 09:00:00 +0400</pubDate>
+      <guid>https://gasparyan.co/post/bayes/2020-11-14-r-rmarkdown/</guid>
+      <description>
+&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;ceo-salary-estimation-problem&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;CEO Salary Estimation Problem&lt;/h2&gt;
+&lt;p&gt;Consider the following problem. An investigative reporter wants to figure out how much salary makes the CEO of an investment bank X. For this he conducts interviews with some of the employees of that bank and writes down their salaries, which forms the following sample&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[X^n=(X_1,\cdots,X_n).\]&lt;/span&gt;
+The reporter knows only that the salaries in that bank can range from 0 (unpaid interns) to &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; which is the salary of the CEO that the reporter wants to estimate. Since he has no information about the structure of salaries in the bank X, he assumes that the salaries have uniform distribution in the interval &lt;span class=&#34;math inline&#34;&gt;\([0,\theta],\)&lt;/span&gt;
+&lt;span class=&#34;math display&#34;&gt;\[X^n=(X_1,\cdots,X_n),\ \ X_i\sim {\mathbb U}(0,\theta),\,\theta&amp;gt;0.\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The uniform distribution is the maximum entropy probability distribution under no constraint other than that it is contained in the distribution’s support (according to the principle of maximum entropy, if nothing is known about a distribution except that it belongs to a certain class (usually defined in terms of specified properties or measures), then the distribution with the largest entropy should be chosen as the least-informative default.)&lt;/p&gt;
+&lt;div id=&#34;frequentist-and-bayesian-estimation&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Frequentist and Bayesian Estimation&lt;/h3&gt;
+&lt;p&gt;Since no other information is known about the possible values of the CEO’s salary, the reporter needs to estimate the unknown &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; using the sample &lt;span class=&#34;math inline&#34;&gt;\(X^n.\)&lt;/span&gt; For the uniform distribution the maximum likelihood estimator (MLE) for &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; will be
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n=X_{(n)}=\max(X_1,\cdots,X_n).\]&lt;/span&gt;
+Therefore, the reporter needs to ask for salary information from as many employees of bank X as possible and take the maximum of these values, which will serve as an estimate for the CEO’s salary.&lt;/p&gt;
+&lt;p&gt;Now suppose that the investigative reporter wants to get a Pulitzer prize for his reporting and remembers that he has a minor in Statistics. He reads economics literature and finds out that economists established that nationally the salaries of CEOs of banks follow the Pareto distribution &lt;span class=&#34;math inline&#34;&gt;\(\theta\sim Pa(\theta_0, a)\)&lt;/span&gt;, because of the Pareto principle, which states that a large portion of wealth of CEOs is held by a small fraction of them. Using this prior distribution, a Bayesian estimator for the salary of CEO of bank X will be&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\hat\theta^B_n=\frac{a+n}{a+n-1}\max(\theta_0,X_1,\cdots,X_n).\]&lt;/span&gt;
+Here &lt;span class=&#34;math inline&#34;&gt;\(a\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\theta_0\)&lt;/span&gt; are unknown as well and can be estimated using the available data of CEO salaries of other banks. Therefore, the investigative reporter decides to use the work of his colleagues - other investigative reporters - who conducted studies in other banks and reported estimates for salaries of CEOs. Denote this new sample of salaries of other CEOs as
+&lt;span class=&#34;math display&#34;&gt;\[\vartheta^m=(\vartheta_1,\cdots,\vartheta_m).\]&lt;/span&gt;
+Since &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; follows the Pareto distribution then the parameters &lt;span class=&#34;math inline&#34;&gt;\(\theta_0\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(a\)&lt;/span&gt; can be estimated as follows:
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_0=\vartheta_{(1)}=\min(\vartheta_1,\cdots,\vartheta_m),\ \ \hat a=\frac{m}{\sum_{i=1}^m\ln\frac{\vartheta_i}{\vartheta_{(1)}}}.\]&lt;/span&gt;
+Therefore, drawing on reports from other investigations and his own survey, the investigative reporter can obtain the following estimator of the salary of the CEO&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\hat\theta^B_n=\frac{\hat a+n}{\hat a+n-1}\max(\vartheta_{(1)},X_1,\cdots,X_n).\]&lt;/span&gt;
+Therefore, each time a new salary of some CEO is reported &lt;span class=&#34;math inline&#34;&gt;\((\vartheta_{m+1}),\)&lt;/span&gt; this new data can be used by the investigative reporter to update the estimate of the salary of the CEO of bank X.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;conjugate-priors&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Conjugate priors&lt;/h2&gt;
+&lt;p&gt;In the example above the prior distribution of the unknown parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; was chosen because of theoretical considerations, based on an economic law (the Pareto rule). In most cases, it is not possible to give preference to one prior over the others based on some principle, &lt;em&gt;conjugate&lt;/em&gt; priors are selected for computational simplicity.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The prior distribution &lt;span class=&#34;math inline&#34;&gt;\(\theta\sim\pi(\theta),\,\theta\in\Theta\)&lt;/span&gt; (with the density &lt;span class=&#34;math inline&#34;&gt;\(p(\theta)\)&lt;/span&gt;) is called &lt;em&gt;conjugate&lt;/em&gt; prior for the likelihood function &lt;span class=&#34;math inline&#34;&gt;\(f(x|\theta)\)&lt;/span&gt; if its posterior density function &lt;span class=&#34;math inline&#34;&gt;\(f(\theta|x)\)&lt;/span&gt; is from the same family as the likelihood function.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The &lt;strong&gt;Bayes’&lt;/strong&gt; theorem specifies the following relationship between the likelihood function &lt;span class=&#34;math inline&#34;&gt;\(f(x|\theta)\)&lt;/span&gt; and the posterior function &lt;span class=&#34;math inline&#34;&gt;\(f(\theta|x),\)&lt;/span&gt; for the given prior density &lt;span class=&#34;math inline&#34;&gt;\(p(\theta)\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[f(\theta|x)=\frac{f(x|\theta) p(\theta)}{\int_\Theta f(x|\vartheta) p(\vartheta) d\vartheta}.\]&lt;/span&gt;
+Therefore, the density &lt;span class=&#34;math inline&#34;&gt;\(p(\theta)\)&lt;/span&gt; is a conjugate prior for &lt;span class=&#34;math inline&#34;&gt;\(f(x|\theta),\)&lt;/span&gt; if &lt;span class=&#34;math inline&#34;&gt;\(f(x|\theta)\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(f(\theta|x)\)&lt;/span&gt; are from the same family.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;appendix&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Appendix&lt;/h1&gt;
+&lt;div id=&#34;pareto-distributions&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Pareto distributions&lt;/h2&gt;
+&lt;p&gt;The random variable &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt; has a Pareto distribution with parameters &lt;span class=&#34;math inline&#34;&gt;\(\theta&amp;gt;0\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(a&amp;gt;0\)&lt;/span&gt;, &lt;span class=&#34;math inline&#34;&gt;\(\xi\sim Pa(\theta,a)\)&lt;/span&gt; if the distribution function is given by the formula
+&lt;span class=&#34;math display&#34;&gt;\[F(x)=1-\left(\frac{\theta}{x}\right)^a,\,x&amp;gt;\theta,\]&lt;/span&gt;
+and &lt;span class=&#34;math inline&#34;&gt;\(F(x)=0,\,x\leq \theta.\)&lt;/span&gt; The density function will have the form
+&lt;span class=&#34;math display&#34;&gt;\[f(x)=a\frac{\theta^a}{x^{a+1}},\,x&amp;gt;\theta.\]&lt;/span&gt;
+In the case of &lt;span class=&#34;math inline&#34;&gt;\(a&amp;gt;1\)&lt;/span&gt; the expectation of a Pareto random variable is
+&lt;span class=&#34;math display&#34;&gt;\[E\xi=\frac{a}{a-1}\theta.\]&lt;/span&gt;
+If &lt;span class=&#34;math inline&#34;&gt;\(a&amp;gt;2\)&lt;/span&gt; then the variance exists as well and equals to
+&lt;span class=&#34;math display&#34;&gt;\[Var(\xi)=\frac{a}{(a-1)^2(a-2)}\theta^2.\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;problems&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Problems&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;Show that if &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; follows the Pareto distribution &lt;span class=&#34;math inline&#34;&gt;\(\theta\sim Pa(\theta_0, a),\)&lt;/span&gt; then the parameters &lt;span class=&#34;math inline&#34;&gt;\(\theta_0\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(a\)&lt;/span&gt; can be estimated as follows:
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_0=\vartheta_{(1)}=\min(\vartheta_1,\cdots,\vartheta_m),\ \ \hat a=\frac{m}{\sum_{i=1}^m\ln\frac{\vartheta_i}{\vartheta_{(1)}}},\]&lt;/span&gt;
+where &lt;span class=&#34;math inline&#34;&gt;\(\vartheta^m=(\vartheta_1,\cdots,\vartheta_m)\)&lt;/span&gt; is an i.i.d. sample from &lt;span class=&#34;math inline&#34;&gt;\(Pa(\theta_0,a).\)&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Suppose that an i.i.d. sample is observed
+&lt;span class=&#34;math display&#34;&gt;\[X^n=(X_1,\cdots,X_n),\,X_i\sim F(x,\theta),\,\theta\in\Theta,\,x\in R.\]&lt;/span&gt;
+Consider an estimator for &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; based on the sample &lt;span class=&#34;math inline&#34;&gt;\(X^n\)&lt;/span&gt;
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n(X^n)=\hat\theta_n(X_1,\cdots,X_n).\]&lt;/span&gt;
+Mean Squared Error (MSE, &lt;span class=&#34;math inline&#34;&gt;\(L(\theta,\hat\theta)\)&lt;/span&gt;) for this estimator is defined as
+&lt;span class=&#34;math display&#34;&gt;\[E_\theta(\hat\theta_n-\theta)^2=\int_{R^n}(\hat\theta_n(x^n)-\theta)^2dF(x_1,\theta)\cdots dF(x_n,\theta).\]&lt;/span&gt;
+If the prior distribution of the unknown parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; is given &lt;span class=&#34;math inline&#34;&gt;\(\theta\sim \pi(\theta),\,\theta\in\Theta,\)&lt;/span&gt; then the Bayesian risk of the estimator &lt;span class=&#34;math inline&#34;&gt;\(\hat\theta_n\)&lt;/span&gt; is defined as
+&lt;span class=&#34;math display&#34;&gt;\[E_\pi L(\theta,\hat\theta)=\int_\Theta E_\theta(\hat\theta_n-\theta)^2d \pi(\theta).\]&lt;/span&gt;
+Show that the Bayes estimator, defined as the one which minimizes the Bayesian risk, has the form
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n^B=\arg_{\hat\theta_n}\min_{\theta\in\Theta} E_\pi L(\theta,\hat\theta)=\int_{\Theta}\theta f(\theta|x)d\theta,\]&lt;/span&gt;
+where &lt;span class=&#34;math inline&#34;&gt;\(f(\theta|x)\)&lt;/span&gt; is the posterior distribution of &lt;span class=&#34;math inline&#34;&gt;\(\theta.\)&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Suppose that &lt;span class=&#34;math inline&#34;&gt;\(X_i\sim {\mathbb U}(0,\theta)\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\theta\sim Pa(\theta_0, a)\)&lt;/span&gt;. Show that the Bayes estimator has the form&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\hat\theta^B_n=\frac{a+n}{a+n-1}\max(\theta_0,X_1,\cdots,X_n).\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Optimality of Estimators in Regular Models</title>
+      <link>https://gasparyan.co/post/regmod/2018-09-13-r-rmarkdown/</link>
+      <pubDate>Mon, 19 Mar 2018 09:00:00 +0400</pubDate>
+      <guid>https://gasparyan.co/post/regmod/2018-09-13-r-rmarkdown/</guid>
+      <description>
+&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://gasparyan.co/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;consistent-estimators&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Consistent Estimators&lt;/h2&gt;
+In the estimation problem of a one-dimensional parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; from an i.i.d. sample &lt;span class=&#34;math display&#34;&gt;\[X^n=(X_1,\cdots,X_n),\ \ X_i\sim F(x,\theta),\,\theta\in\Theta\subset R\]&lt;/span&gt;
+we introduced the notion of consistency of an estimator.
+&lt;p&gt;This means that whatever the unknown value of &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; is, this estimator is going to be close to that value in higher probability as &lt;span class=&#34;math inline&#34;&gt;\(n\)&lt;/span&gt; increases
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n\approx\theta, \text{ for large } n.\]&lt;/span&gt;
+Now our goal is to quantify this closeness.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;asymptotically-normal-estimators&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Asymptotically Normal Estimators&lt;/h2&gt;
+&lt;p&gt;We say that the estimator &lt;span class=&#34;math inline&#34;&gt;\(\hat\theta_n\)&lt;/span&gt; is asymptotically normal if
+&lt;span class=&#34;math display&#34;&gt;\[\frac{\hat\theta_n-\theta}{\sqrt{Var(\hat\theta_n)}}\stackrel{d}{\rightarrow}N (0,1),\]&lt;/span&gt;
+which means that
+&lt;span class=&#34;math display&#34;&gt;\[P\left(\frac{\hat\theta_n-\theta}{\sqrt{Var(\hat\theta_n)}}&amp;lt;x\right)\rightarrow P(\xi&amp;lt;x),\,x\in R,\,\xi\sim N(0,1).\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;asymptotically-normal-estimators-example-1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Asymptotically Normal Estimators (Example 1)&lt;/h2&gt;
+&lt;p&gt;Suppose that&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[X^n=(X_1,\cdots,X_n),\ \ X_i\sim N(\theta,\sigma^2),\,\theta\in R,\,\sigma&amp;gt;0.\]&lt;/span&gt;
+We know that the estimator &lt;span class=&#34;math inline&#34;&gt;\(\hat\theta_n=\bar X_n=\frac{1}{n}\sum_{i=1}^nX_i\)&lt;/span&gt; is an unbiased, consistent estimator for &lt;span class=&#34;math inline&#34;&gt;\(\theta.\)&lt;/span&gt; By central limit theorem, as &lt;span class=&#34;math inline&#34;&gt;\(n\rightarrow+\infty,\)&lt;/span&gt;
+&lt;span class=&#34;math display&#34;&gt;\[\sqrt{n}\frac{\bar X_n-\theta}{\sigma}\stackrel{d}{\rightarrow}N(0,1),\]&lt;/span&gt;
+hence this estimator is also asymptotically normal. The convergence above can be written as (when &lt;span class=&#34;math inline&#34;&gt;\(n\rightarrow+\infty\)&lt;/span&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\sqrt{n}(\bar X_n-\theta)\stackrel{d}{\rightarrow}N(0,\sigma^2).\]&lt;/span&gt;
+Here &lt;span class=&#34;math inline&#34;&gt;\(\sqrt{n}\)&lt;/span&gt; is rate of convergence of the estimator and &lt;span class=&#34;math inline&#34;&gt;\(\sigma^2\)&lt;/span&gt; is the asymptotic variance.
+Hence, higher the rate of convergence or smaller the asymptotic variance, better is the estimator.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;method-of-moments&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Method of Moments&lt;/h2&gt;
+&lt;p&gt;Consider again the estimation problem of a one-dimensional parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; from an i.i.d. sample &lt;span class=&#34;math display&#34;&gt;\[X^n=(X_1,\cdots,X_n),\ \ X_i\sim F(x,\theta),\,\theta\in\Theta\subset R.\]&lt;/span&gt;
+The idea of the method of moments is based on the fact that we can estimate the mathematical expectation, that is, for any given function &lt;span class=&#34;math inline&#34;&gt;\(g(\cdot),\)&lt;/span&gt; so that &lt;span class=&#34;math inline&#34;&gt;\(E|g(X_1)|&amp;lt;+\infty,\)&lt;/span&gt;
+the following convergence is true
+&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
+\frac{1}{n}\sum_{j=1}^n g(X_j)\stackrel{P}{\rightarrow} E g(X_1).
+\end{align*}\]&lt;/span&gt;
+Hence, for the estimation of the parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta,\)&lt;/span&gt; for some &lt;span class=&#34;math inline&#34;&gt;\(g(\cdot)\)&lt;/span&gt; we can calculate &lt;span class=&#34;math inline&#34;&gt;\(E_\theta g(X_1)=T(\theta).\)&lt;/span&gt; That will ensure the convergence
+&lt;span class=&#34;math display&#34;&gt;\[
+\frac{1}{n}\sum_{j=1}^n g(X_j)\stackrel{P}{\rightarrow}T(\theta).
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;method-of-moments-page-2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Method of Moments (Page 2)&lt;/h2&gt;
+&lt;p&gt;Therefore, if the function &lt;span class=&#34;math inline&#34;&gt;\(T(\cdot)\)&lt;/span&gt; has continuous inverse function &lt;span class=&#34;math inline&#34;&gt;\(h=T^{-1},\)&lt;/span&gt; then &lt;span class=&#34;math inline&#34;&gt;\(\hat\theta_n\)&lt;/span&gt; will be a consistent estimator
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n=h\left(\frac{1}{n}\sum_{j=1}^n g(X_j)\right)\stackrel{P}{\rightarrow}\theta.\]&lt;/span&gt;
+Furthermore, if the function &lt;span class=&#34;math inline&#34;&gt;\(h(\cdot)\)&lt;/span&gt; is also differentiable and &lt;span class=&#34;math inline&#34;&gt;\(E_\theta g^2(X_1)&amp;lt;+\infty,\)&lt;/span&gt; then the delta method ensures that the MM estimator is also asymptotically normal
+&lt;span class=&#34;math display&#34;&gt;\[\sqrt{n}(\hat\theta_n-\theta)\stackrel{d}{\rightarrow}N\left(0,[h&amp;#39;(E_\theta(X_1))]^2 Var_\theta(g(X_1))\right).\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;method-of-moments-example-2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Method of Moments (Example 2)&lt;/h2&gt;
+&lt;p&gt;Consider the problem of parameter estimation in uniform distribution&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[X_1,\cdots,X_n,\ \ X_i\sim U[0,\theta],\,\theta&amp;gt;0.\]&lt;/span&gt;
+Construct MM estimators using the functions &lt;span class=&#34;math inline&#34;&gt;\(g(x)=x,\ \ g(x)=x^2.\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;For &lt;span class=&#34;math inline&#34;&gt;\(g(x)=x\)&lt;/span&gt; we have &lt;span class=&#34;math inline&#34;&gt;\(E_\theta X_1=\frac{\theta}{2}=t,\)&lt;/span&gt; were the last equality is a notation. Then, &lt;span class=&#34;math inline&#34;&gt;\(\theta=2t=h(t),\)&lt;/span&gt; again, the last equality is a notation and
+&lt;span class=&#34;math display&#34;&gt;\[\frac{1}{n}\sum_{i=1}^n X_i\stackrel{P_\theta}{\rightarrow}E_\theta X_1=t.\]&lt;/span&gt;
+Therefore,
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n^1=\frac{2}{n}\sum_{i=1}^n X_i\stackrel{P_\theta}{\rightarrow}2t=\theta,\]&lt;/span&gt;
+and
+&lt;span class=&#34;math display&#34;&gt;\[\sqrt{n}(\hat\theta_n^1-\theta)\stackrel{d}{\rightarrow}N\left(0,\frac{\theta^2}{3}\right).\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;method-of-moments-example-2-page-2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Method of Moments (Example 2, Page 2)&lt;/h2&gt;
+&lt;p&gt;For &lt;span class=&#34;math inline&#34;&gt;\(g(x)=x^2\)&lt;/span&gt; we have &lt;span class=&#34;math inline&#34;&gt;\(E_\theta X_1^2=\frac{\theta^2}{3}=t,\)&lt;/span&gt; were the last equality is a notation. Then, &lt;span class=&#34;math inline&#34;&gt;\(\theta=\sqrt{3t}=h(t), \ \ (\theta&amp;gt;0)\)&lt;/span&gt; again, the last equality is a notation and
+&lt;span class=&#34;math display&#34;&gt;\[\frac{1}{n}\sum_{i=1}^n X_i^2\stackrel{P_\theta}{\rightarrow}E_\theta X_1^2=t.\]&lt;/span&gt;
+Therefore,
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n^2=\sqrt{\frac{3}{n}\sum_{i=1}^n X_i^2}\stackrel{P_\theta}{\rightarrow}\sqrt{3t}=\theta,\]&lt;/span&gt;
+and
+&lt;span class=&#34;math display&#34;&gt;\[\sqrt{n}(\hat\theta_n^2-\theta)\stackrel{d}{\rightarrow}N\left(0,\frac{\theta^2}{5}\right).\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;method-of-moments-example-2-page-3&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Method of Moments (Example 2, Page 3)&lt;/h2&gt;
+&lt;p&gt;Hence, in the estimation problem of a one-dimensional parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; from a uniform distribution&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[X_1,\cdots,X_n,\ \ X_i\sim U[0,\theta],\,\theta&amp;gt;0,\]&lt;/span&gt;
+we have constructed two estimators using the MM
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n^1=\frac{2}{n}\sum_{i=1}^n X_i, \ \ \hat\theta_n^2=\sqrt{\frac{3}{n}\sum_{i=1}^n X_i^2},\]&lt;/span&gt;
+with the following properties
+&lt;span class=&#34;math display&#34;&gt;\[
+\sqrt{n}(\hat\theta_n^1-\theta)\stackrel{d}{\rightarrow}N\left(0,\frac{\theta^2}{3}\right), \ \
+\sqrt{n}(\hat\theta_n^2-\theta)\stackrel{d}{\rightarrow}N\left(0,\frac{\theta^2}{5}\right).\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Both have the same rate of convergence, but the second one has smaller asymptotic variance, so, asymptotically, the second one is better, although the first one is computationally easier to implement (an important trade-off in Statistics).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;method-of-moments-page-2-1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Method of Moments (Page 2)&lt;/h2&gt;
+&lt;p&gt;Therefore, if the function &lt;span class=&#34;math inline&#34;&gt;\(T(\cdot)\)&lt;/span&gt; has continuous inverse function &lt;span class=&#34;math inline&#34;&gt;\(h=T^{-1},\)&lt;/span&gt; then &lt;span class=&#34;math inline&#34;&gt;\(\hat\theta_n\)&lt;/span&gt; will be a consistent estimator
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n=h\left(\frac{1}{n}\sum_{j=1}^n g(X_j)\right)\stackrel{P}{\rightarrow}\theta.\]&lt;/span&gt;
+Furthermore, if the function &lt;span class=&#34;math inline&#34;&gt;\(h(\cdot)\)&lt;/span&gt; is also differentiable and &lt;span class=&#34;math inline&#34;&gt;\(E_\theta g^2(X_1)&amp;lt;+\infty,\)&lt;/span&gt; then the delta method ensures that the MM estimator is also asymptotically normal
+&lt;span class=&#34;math display&#34;&gt;\[\sqrt{n}(\hat\theta_n-\theta)\stackrel{d}{\rightarrow}N\left(0,[h&amp;#39;(E_\theta(X_1))]^2Var_\theta(g(X_1))\right).\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;method-of-moments-example-2-1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Method of Moments (Example 2)&lt;/h2&gt;
+&lt;p&gt;Consider the problem of parameter estimation in uniform distribution&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[X_1,\cdots,X_n,\ \ X_i\sim U[0,\theta],\,\theta&amp;gt;0.\]&lt;/span&gt;
+Construct MM estimators using the functions &lt;span class=&#34;math inline&#34;&gt;\(g(x)=x,\ \ g(x)=x^2.\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;For &lt;span class=&#34;math inline&#34;&gt;\(g(x)=x\)&lt;/span&gt; we have &lt;span class=&#34;math inline&#34;&gt;\(E_\theta X_1=\frac{\theta}{2}=t,\)&lt;/span&gt; were the last equality is a notation. Then, &lt;span class=&#34;math inline&#34;&gt;\(\theta=2t=h(t),\)&lt;/span&gt; again, the last equality is a notation and
+&lt;span class=&#34;math display&#34;&gt;\[\frac{1}{n}\sum_{i=1}^n X_i\stackrel{P_\theta}{\rightarrow}E_\theta X_1=t.\]&lt;/span&gt;
+Therefore,
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n^1=\frac{2}{n}\sum_{i=1}^n X_i\stackrel{P_\theta}{\rightarrow}2t=\theta,\]&lt;/span&gt;
+and
+&lt;span class=&#34;math display&#34;&gt;\[\sqrt{n}(\hat\theta_n^1-\theta)\stackrel{d}{\rightarrow}N\left(0,\frac{\theta^2}{3}\right).\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;method-of-moments-example-2-page-2-1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Method of Moments (Example 2, Page 2)&lt;/h2&gt;
+&lt;p&gt;For &lt;span class=&#34;math inline&#34;&gt;\(g(x)=x^2\)&lt;/span&gt; we have &lt;span class=&#34;math inline&#34;&gt;\(E_\theta X_1^2=\frac{\theta^2}{3}=t,\)&lt;/span&gt; were the last equality is a notation. Then, &lt;span class=&#34;math inline&#34;&gt;\(\theta=\sqrt{3t}=h(t), \ \ (\theta&amp;gt;0)\)&lt;/span&gt; again, the last equality is a notation and
+&lt;span class=&#34;math display&#34;&gt;\[\frac{1}{n}\sum_{i=1}^n X_i^2\stackrel{P_\theta}{\rightarrow}E_\theta X_1^2=t.\]&lt;/span&gt;
+Therefore,
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n^2=\sqrt{\frac{3}{n}\sum_{i=1}^n X_i^2}\stackrel{P_\theta}{\rightarrow}\sqrt{3t}=\theta,\]&lt;/span&gt;
+and
+&lt;span class=&#34;math display&#34;&gt;\[\sqrt{n}(\hat\theta_n^2-\theta)\stackrel{d}{\rightarrow}N\left(0,\frac{\theta^2}{5}\right).\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;method-of-moments-example-2-page-3-1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Method of Moments (Example 2, Page 3)&lt;/h2&gt;
+&lt;p&gt;Hence, in the estimation problem of a one-dimensional parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; from a uniform distribution&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[X_1,\cdots,X_n,\ \ X_i\sim U[0,\theta],\,\theta&amp;gt;0,\]&lt;/span&gt;
+we have constructed two estimators using the MM
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n^1=\frac{2}{n}\sum_{i=1}^n X_i, \ \ \hat\theta_n^2=\sqrt{\frac{3}{n}\sum_{i=1}^n X_i^2},\]&lt;/span&gt;
+with the following properties
+&lt;span class=&#34;math display&#34;&gt;\[
+\sqrt{n}(\hat\theta_n^1-\theta)\stackrel{d}{\rightarrow}N\left(0,\frac{\theta^2}{3}\right), \ \
+\sqrt{n}(\hat\theta_n^2-\theta)\stackrel{d}{\rightarrow}N\left(0,\frac{\theta^2}{5}\right).\]&lt;/span&gt;
+Both have the same rate of convergence, but the second one has smaller asymptotic variance, so, asymptotically, the second one is better, although the first one is computationally easier to implement (an important trade-off in Statistics).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-maximum-likelihood-estimator&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The Maximum Likelihood Estimator&lt;/h2&gt;
+&lt;p&gt;Consider again the estimation problem of a one-dimensional parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; from an i.i.d. sample &lt;span class=&#34;math display&#34;&gt;\[X^n=(X_1,\cdots,X_n),\ \ X_i\sim F(x,\theta),\,\theta\in\Theta\subset R.\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The second method to construct estimators is the Maximum Likelihood Estimator. Here we need the existence of the density functions &lt;span class=&#34;math inline&#34;&gt;\(\{f(x,\theta,\,\theta\in\Theta)\}.\)&lt;/span&gt;
+The following function is called the Likelihood function of the above model&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[L(X^n,\theta)=\prod_{i=1}^n f(X_i,\theta).\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The Maximum Likelihood Estimator (the MLE) is defined as the point of maximum of the likelihood function
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n^{MLE}=\arg\max_{\theta\in\Theta}L(X^n,\theta).\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;regular-models&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Regular Models&lt;/h2&gt;
+&lt;p&gt;We call the model &lt;span class=&#34;math inline&#34;&gt;\(\{f(x,\theta),\,\theta\in\Theta\}\)&lt;/span&gt; a regular if the derivative of the density functions &lt;span class=&#34;math inline&#34;&gt;\(f(\cdot,\theta)\)&lt;/span&gt; exists with respect to &lt;span class=&#34;math inline&#34;&gt;\(\theta.\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Beware that there are other technical conditions as well in the definition of regular models, but we will check only the condition above.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt; The uniform distribution has the density function
+&lt;span class=&#34;math display&#34;&gt;\[f(x,\theta)=\frac{1}{\theta}I_{[0,\theta]}(x)=\frac{1}{\theta}I_{[0,+\infty)}(x)I_{[x,+\infty)}(\theta).\]&lt;/span&gt;
+This function is not differentiable w.r.t. the unknown parameter &lt;span class=&#34;math inline&#34;&gt;\(\theta,\)&lt;/span&gt; hence this is not a regular model.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-properties-of-the-mle&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The Properties of the MLE&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Since the natural logarithm is an increasing function, then we can define (if &lt;span class=&#34;math inline&#34;&gt;\(f(x,\theta)&amp;gt;0,\,(x,\theta)\in\Theta\times R\)&lt;/span&gt;)
+&lt;span class=&#34;math display&#34;&gt;\[V(X^n,\theta)=\ln L(X^n,\theta)=\sum_{i=1}^n\ln f(X_i,\theta)\]&lt;/span&gt;
+and for the MLE we will have
+&lt;span class=&#34;math display&#34;&gt;\[\hat\theta_n^{MLE}=\arg\max_{\theta\in\Theta}V(X^n,\theta)=\arg\max_{\theta\in\Theta}\sum_{i=1}^n\ln f(X_i,\theta).\]&lt;/span&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-properties-of-the-mle-page-2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The Properties of the MLE (Page 2)&lt;/h2&gt;
+&lt;ol start=&#34;2&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;In the regular models the MLE is consistent and asymptotically normal with the asymptotic variance equal to the inverse of the Fisher information &lt;span class=&#34;math inline&#34;&gt;\(I^{-1}(\theta)\)&lt;/span&gt;
+&lt;span class=&#34;math display&#34;&gt;\[\sqrt{n}(\hat\theta_n^{MLE}-\theta)\stackrel{d}{\rightarrow}N(0,I^{-1}(\theta)),\]&lt;/span&gt;
+where the Fisher information is defined as
+&lt;span class=&#34;math display&#34;&gt;\[I(\theta)=\int_{R}\left[\frac{\partial(\ln f(x,\theta))}{\partial\theta}\right]^2f(x,\theta){\rm d} x.\]&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;If the second derivative of the density functions &lt;span class=&#34;math inline&#34;&gt;\(f(x,\theta)\)&lt;/span&gt; with respect to &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; exists then the Fisher information can be calculated by the following formula&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[I(\theta)=-\int_{R}\left[\frac{\partial^2(\ln f(x,\theta))}{\partial\theta^2}\right]f(x,\theta){\rm d} x.\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;an-example-of-a-non-regular-model&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;An Example of a Non-Regular Model&lt;/h2&gt;
+&lt;p&gt;Consider again the problem of parameter estimation in uniform distribution
+&lt;span class=&#34;math display&#34;&gt;\[X_1,\cdots,X_n,\ \ X_i\sim U[0,\theta],\,\theta&amp;gt;0.\]&lt;/span&gt;
+The density function of the uniform distribution is given by the formula
+&lt;span class=&#34;math display&#34;&gt;\[f(x,\theta)=\frac{1}{\theta}I_{[0,\theta]}(x),\]&lt;/span&gt;
+hence the likelihood function will be
+&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
+L(X^n,\theta)&amp;amp;=\frac{1}{\theta^n}\prod_{i=1}^n I_{[0,\theta]}(X_i)=\frac{1}{\theta^n}I_{[0,+\infty)}(X_{(1)})I_{[0,\theta]}(X_{(n)})=\\
+&amp;amp;=\frac{1}{\theta^n}I_{[0,+\infty)}(X_{(1)})I_{[X_{(n)},+\infty)}(\theta)\stackrel{a.s.}{=}\frac{1}{\theta^n}I_{[X_{(n)},+\infty)}(\theta),
+\end{align*}\]&lt;/span&gt;
+which attains its maximum at the point &lt;span class=&#34;math inline&#34;&gt;\(\hat\theta_n^\ast=X_{(n)},\)&lt;/span&gt; so that is the MLE.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;an-example-of-a-non-regular-model-page-2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;An Example of a Non-Regular Model (Page 2)&lt;/h2&gt;
+&lt;p&gt;Calculate the distribution function of this estimator
+&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
+P(X_{(n)}&amp;lt; x)&amp;amp;=P(\max\{X_1,\cdots,X_n\}&amp;lt;x)=P(X_1&amp;lt;x,\cdots,X_n&amp;lt;x)=\\
+&amp;amp;=P(X_1&amp;lt;x)\cdots P(X_n&amp;lt;x)=F^n(x),
+\end{align*}\]&lt;/span&gt;
+hence
+&lt;span class=&#34;math display&#34;&gt;\[P(n(\theta-X_{(n)})&amp;lt;x)=P\left(\theta-\frac{x}{n}&amp;lt;X_{(n)}\right)=1-F^n\left(\theta-\frac{x}{n}\right),\]&lt;/span&gt;
+therefore, &lt;span class=&#34;math inline&#34;&gt;\(P(n(\theta-X_{(n)})&amp;lt;x)=0,\)&lt;/span&gt; for &lt;span class=&#34;math inline&#34;&gt;\(x\leq0,\)&lt;/span&gt; and for &lt;span class=&#34;math inline&#34;&gt;\(x&amp;gt;0\)&lt;/span&gt;
+&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
+&amp;amp;P(n(\theta-X_{(n)})&amp;lt;x)=P\left(\theta-\frac{x}{n}&amp;lt;X_{(n)}\right)=1-F^n\left(\theta-\frac{x}{n}\right)=\\
+&amp;amp;=1-\left(\frac{\theta-\frac{x}{n}}{\theta}\right)^n=1-\left[\left(1-\frac{x}{\theta n}\right)^{-\frac{n\theta}{x}}\right]^{-\frac{x}{\theta}}\rightarrow1-e^{-\frac{x}{\theta}}.
+\end{align*}\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;an-example-of-a-non-regular-model-page-3&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;An Example of a Non-Regular Model (Page 3)&lt;/h2&gt;
+&lt;p&gt;So, for the MLE we have the following convergence to the exponential distribution
+&lt;span class=&#34;math display&#34;&gt;\[n(\theta-\hat\theta_n^\ast)\stackrel{d}{\rightarrow}E\left(\frac{1}{\theta}\right),\]&lt;/span&gt;
+which means that the rate of convergence for the MLE is &lt;span class=&#34;math inline&#34;&gt;\(n,\)&lt;/span&gt; unlike the two previous estimators constructed by the method of moments for which the rate of convergence was &lt;span class=&#34;math inline&#34;&gt;\(\sqrt{n}.\)&lt;/span&gt; In fact, we can show that even non-asymptotically&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
+E_\theta(\hat\theta^\ast_n-\theta)^2=\frac{2\theta^2}{(n+1)(n+2)}&amp;lt;\frac{\theta^2}{3n}=E_\theta(\hat\theta^{1}_n-\theta)^2,\,n&amp;gt;2,
+\end{align*}\]&lt;/span&gt;
+where &lt;span class=&#34;math inline&#34;&gt;\(\hat\theta^1_n=2\bar X_n,\)&lt;/span&gt; which entails that even for small sample sizes the MLE is better.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;an-example-of-a-non-regular-model-page-4-simulations&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;An Example of a Non-Regular Model (Page 4, Simulations)&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;set.seed(1)
+n&amp;lt;-1000
+theta&amp;lt;-2
+X&amp;lt;-runif(n,0,theta)
+th1&amp;lt;-2*cumsum(X)/(1:n)
+th2&amp;lt;-sqrt(3*cumsum(X^2)/(1:n))
+th&amp;lt;-numeric()
+for(i in 1:n){
+  th[i]&amp;lt;-max(X[1:i])
+}
+plot(1:n,th1,type=&amp;quot;l&amp;quot;,col=1,ylim=c(1.8,2.2),
+     xlab=&amp;quot;Sample Size&amp;quot;,ylab=&amp;quot;Estimators&amp;quot;)
+lines(1:n,th2,type=&amp;quot;l&amp;quot;,col=2)
+lines(1:n,th,type=&amp;quot;l&amp;quot;,col=3)
+abline(h=theta,col=4,lty=2)
+legend(500,2.2,col=c(1,2,3,4),lty=c(1,1,1,2),
+       legend=c(&amp;quot;MM1&amp;quot;,&amp;quot;MM2&amp;quot;,&amp;quot;MLE&amp;quot;,&amp;quot;True Value&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;an-example-of-a-non-regular-model-page-5&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;An Example of a Non-Regular Model (Page 5)&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/regmod/2018-09-13-r-rmarkdown_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;an-example-of-a-non-regular-model-page-6&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;An Example of a Non-Regular Model (Page 6)&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;n&amp;lt;-10000
+m&amp;lt;-1000
+theta&amp;lt;-2
+
+th1&amp;lt;-numeric()
+th2&amp;lt;-numeric()
+th&amp;lt;-numeric()
+
+for(i in 1:m){set.seed(i);X&amp;lt;-runif(n,0,theta)
+  th1[i] &amp;lt;- 2*mean(X)
+  th2[i] &amp;lt;- sqrt(3*mean(X^2))
+  th[i] &amp;lt;- max(X) 
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;an-example-of-a-non-regular-model-page-7&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;An Example of a Non-Regular Model (Page 7)&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mfrow=c(1,3))
+x&amp;lt;-seq(-4,4,0.001)
+hist(sqrt(n)*(th1-theta),nclass=50,freq=FALSE,
+     col=&amp;quot;lightblue&amp;quot;, border=&amp;quot;blue&amp;quot;,ylab=&amp;quot;&amp;quot;,
+     xlab=&amp;quot;&amp;quot;,main=&amp;quot;MM1&amp;quot;,xlim=c(-4,4),ylim=c(0,0.5))
+lines(x,dnorm(x,0,theta^2/3),col=2)
+
+hist(sqrt(n)*(th2-theta),nclass=50,freq=FALSE,
+     col=&amp;quot;lightblue&amp;quot;, border=&amp;quot;blue&amp;quot;,ylab=&amp;quot;&amp;quot;,
+     xlab=&amp;quot;&amp;quot;,main=&amp;quot;MM2&amp;quot;,xlim=c(-4,4),ylim=c(0,0.5))
+lines(x,dnorm(x,0,theta^2/5),col=2)
+
+x&amp;lt;-seq(0,10,0.001)
+hist(n*(theta-th),nclass=50,freq=FALSE,col=&amp;quot;lightblue&amp;quot;,
+     border=&amp;quot;blue&amp;quot;,ylab=&amp;quot;&amp;quot;,xlab=&amp;quot;&amp;quot;,main=&amp;quot;MLE&amp;quot;,
+     xlim=c(0,10),ylim=c(0,0.5))
+lines(x,dexp(x,1/theta),col=2)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;an-example-of-a-non-regular-model-page-7-1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;An Example of a Non-Regular Model (Page 7)&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/regmod/2018-09-13-r-rmarkdown_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
