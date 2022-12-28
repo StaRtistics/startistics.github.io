@@ -5,12 +5,20 @@
     <link>https://gasparyan.co/tag/source-themes/</link>
       <atom:link href="https://gasparyan.co/tag/source-themes/index.xml" rel="self" type="application/rss+xml" />
     <description>Source Themes</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2022 Samvel B. Gasparyan</copyright><lastBuildDate>Sat, 27 Aug 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2023 Samvel B. Gasparyan</copyright><lastBuildDate>Mon, 14 Nov 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png</url>
       <title>Source Themes</title>
       <link>https://gasparyan.co/tag/source-themes/</link>
     </image>
+    
+    <item>
+      <title>The maraca plot: A novel visualization of hierarchical composite endpoints</title>
+      <link>https://gasparyan.co/publication/maraca/</link>
+      <pubDate>Mon, 14 Nov 2022 00:00:00 +0000</pubDate>
+      <guid>https://gasparyan.co/publication/maraca/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Dapagliflozin across the range of ejection fraction in patients with heart failure: a patient-level, pooled meta-analysis of DAPA-HF and DELIVER</title>
