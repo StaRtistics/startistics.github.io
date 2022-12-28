@@ -250,45 +250,15 @@
 
 
 
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-134157980-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-      dataLayer.push(arguments);
-  }
-
-  function trackOutboundLink(url, target) {
-    gtag('event', 'click', {
-         'event_category': 'outbound',
-         'event_label': url,
-         'transport_type': 'beacon',
-         'event_callback': function () {
-           if (target !== '_blank') {
-             document.location = url;
-           }
-         }
-    });
-    console.debug("Outbound link clicked: " + url);
-  }
-
-  function onClickCallback(event) {
-    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
-      return;
-    }
-    trackOutboundLink(event.target, event.target.getAttribute('target'));  
-  }
-
-  gtag('js', new Date());
-  gtag('config', 'UA-134157980-1', {});
-
   
-  document.addEventListener('click', onClickCallback, false);
+<script>
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','G-GRB2YVTD4F');
 </script>
 
-
-  
 
   
 
@@ -325,7 +295,7 @@
   <meta property="og:description" content="Biostatistician"><meta property="og:image" content="https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="https://gasparyan.co/images/icon_hu37ae94fde7f6135a8e8cfd653ea9ade8_11929814_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2022-08-27T00:00:00&#43;00:00">
+    <meta property="og:updated_time" content="2022-11-14T00:00:00&#43;00:00">
   
 
   
@@ -698,6 +668,18 @@
     
     
     <div>
+      <h2><a href="/publication/maraca/" >The maraca plot: A novel visualization of hierarchical composite endpoints</a></h2>
+      <div class="article-style">
+        
+          Background: Hierarchical composite endpoints are complex endpoints combining outcomes of different types and different clinical importance into an ordinal outcome that prioritizes the clinically most important (e.g. most severe) event of a patient. …
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div>
       <h2><a href="/publication/dapa-hf-deliver-pooled/" >Dapagliflozin across the range of ejection fraction in patients with heart failure: a patient-level, pooled meta-analysis of DAPA-HF and DELIVER</a></h2>
       <div class="article-style">
         
@@ -802,20 +784,17 @@
       </div>
     </div>
   
-    
-    
-    
-    <div>
-      <h2><a href="/publication/phd-thesis/" >Publications related to the PhD thesis</a></h2>
-      <div class="article-style">
-        
-          This work is devoted to the questions of the statistics of stochastic processes. Particularly, the first chapter is devoted to a non-parametric estimation problem for an inhomogeneous Poisson process. The second chapter is dedicated to a problem of estimation of the solution of a Backward Stochastic Differential Equation (BSDE).
-        
-      </div>
-    </div>
-  
 
   
+<nav>
+  <ul class="pagination justify-content-center">
+    
+    
+    <li class="page-item"><a class="page-link" href="/tag/source-themes/page/2/">&raquo;</a></li>
+    
+  </ul>
+</nav>
+
 
 </div>
   </div>
@@ -828,7 +807,7 @@
   
 
   <p class="powered-by">
-    © 2022 Samvel B. Gasparyan
+    © 2023 Samvel B. Gasparyan
   </p>
 
   

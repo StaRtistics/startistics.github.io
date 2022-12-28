@@ -250,45 +250,15 @@
 
 
 
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-134157980-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-      dataLayer.push(arguments);
-  }
-
-  function trackOutboundLink(url, target) {
-    gtag('event', 'click', {
-         'event_category': 'outbound',
-         'event_label': url,
-         'transport_type': 'beacon',
-         'event_callback': function () {
-           if (target !== '_blank') {
-             document.location = url;
-           }
-         }
-    });
-    console.debug("Outbound link clicked: " + url);
-  }
-
-  function onClickCallback(event) {
-    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
-      return;
-    }
-    trackOutboundLink(event.target, event.target.getAttribute('target'));  
-  }
-
-  gtag('js', new Date());
-  gtag('config', 'UA-134157980-1', {});
-
   
-  document.addEventListener('click', onClickCallback, false);
+<script>
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','G-GRB2YVTD4F');
 </script>
 
-
-  
 
   
 
@@ -682,6 +652,8 @@
     
       <li><a href="/courses/example/example2/">Example Page 2</a></li>
     
+      <li><a href="/publication/maraca/">The maraca plot: A novel visualization of hierarchical composite endpoints</a></li>
+    
       <li><a href="/post/maraca/2022-10-15-r-rmarkdown/">Maraca Plots - Basic Usage</a></li>
     
       <li><a href="/publication/dapa-hf-deliver-pooled/">Dapagliflozin across the range of ejection fraction in patients with heart failure: a patient-level, pooled meta-analysis of DAPA-HF and DELIVER</a></li>
@@ -695,8 +667,6 @@
       <li><a href="/publication/dare-19-kidney/">Dapagliflozin and Kidney Outcomes in Hospitalized Patients with COVID-19 Infection</a></li>
     
       <li><a href="/post/ump/2021-12-30-r-rmarkdown/">Neyman-Pearson and some other Uniformly Most Powerful Tests</a></li>
-    
-      <li><a href="/publication/power-win-odds/">Power and sample size calculation for the win odds test: application to an ordinal endpoint in COVID-19 trials</a></li>
     
   </ul>
   
@@ -712,7 +682,7 @@
   
 
   <p class="powered-by">
-    © 2022 Samvel B. Gasparyan
+    © 2023 Samvel B. Gasparyan
   </p>
 
   
