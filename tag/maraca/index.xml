@@ -99,7 +99,8 @@ the given dataset&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(mar, continuous_grid_spacing_x = 20, density_plot_type = &amp;quot;box&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/maraca9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;div style=&#34;page-break-after: always;&#34;&gt;&lt;/div&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(mar, continuous_grid_spacing_x = 20, density_plot_type = &amp;quot;scatter&amp;quot;, vline_type = &amp;quot;mean&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(mar, continuous_grid_spacing_x = 20, density_plot_type = &amp;quot;scatter&amp;quot;, vline_type = &amp;quot;mean&amp;quot;)
+## Warning: Removed 1 rows containing missing values (`geom_point()`).&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/maraca10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;div style=&#34;page-break-after: always;&#34;&gt;&lt;/div&gt;
 &lt;p&gt;The plot_maraca function returns a ggplot2 object. This function will not render the plot immediately so you will have to print() it.

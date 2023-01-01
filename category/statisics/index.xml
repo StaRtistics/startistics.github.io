@@ -38,7 +38,7 @@ This entails that an exponential RV is with 1 probability positive and has the P
 If &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt; has an exponential distribution with the rate &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; we will denote this by &lt;span class=&#34;math inline&#34;&gt;\({\mathbb E}(\lambda).\)&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;In &lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt; the following functions can be used to, correspondingly, generate numbers from &lt;span class=&#34;math inline&#34;&gt;\({\mathbb E}(\lambda)\)&lt;/span&gt;, calculate values of CDF, calculate values of PDF&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rexp(n=2, rate=1)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 2.2847373 0.7885597&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 2.769818 1.201461&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pexp(q=1, rate=1)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.6321206&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dexp(x=1, rate=1)&lt;/code&gt;&lt;/pre&gt;

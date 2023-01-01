@@ -848,7 +848,8 @@ the given dataset</p>
 <pre class="r"><code>plot(mar, continuous_grid_spacing_x = 20, density_plot_type = &quot;box&quot;)</code></pre>
 <p><img src="/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/maraca9-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
-<pre class="r"><code>plot(mar, continuous_grid_spacing_x = 20, density_plot_type = &quot;scatter&quot;, vline_type = &quot;mean&quot;)</code></pre>
+<pre class="r"><code>plot(mar, continuous_grid_spacing_x = 20, density_plot_type = &quot;scatter&quot;, vline_type = &quot;mean&quot;)
+## Warning: Removed 1 rows containing missing values (`geom_point()`).</code></pre>
 <p><img src="/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/maraca10-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
 <p>The plot_maraca function returns a ggplot2 object. This function will not render the plot immediately so you will have to print() it.
