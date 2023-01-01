@@ -251,45 +251,15 @@
 
 
 
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-134157980-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-      dataLayer.push(arguments);
-  }
-
-  function trackOutboundLink(url, target) {
-    gtag('event', 'click', {
-         'event_category': 'outbound',
-         'event_label': url,
-         'transport_type': 'beacon',
-         'event_callback': function () {
-           if (target !== '_blank') {
-             document.location = url;
-           }
-         }
-    });
-    console.debug("Outbound link clicked: " + url);
-  }
-
-  function onClickCallback(event) {
-    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
-      return;
-    }
-    trackOutboundLink(event.target, event.target.getAttribute('target'));  
-  }
-
-  gtag('js', new Date());
-  gtag('config', 'UA-134157980-1', {});
-
   
-  document.addEventListener('click', onClickCallback, false);
+<script>
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','G-GRB2YVTD4F');
 </script>
 
-
-  
 
   
 
@@ -1095,7 +1065,7 @@
       
     
     <li>
-      <a href="/media/resume20220321.pdf" >
+      <a href="/media/resume20221212.pdf" >
         <i class="ai ai-cv"></i>
       </a>
     </li>
@@ -1291,13 +1261,13 @@
       
       <li><a href="/publication/dapa-hf-recurrent/">Dapagliflozin and Recurrent Heart Failure Hospitalizations in Heart Failure With Reduced Ejection Fraction: An Analysis of DAPA-HF</a></li>
       
+      <li><a href="/publication/maraca/">The maraca plot: A novel visualization of hierarchical composite endpoints</a></li>
+      
       <li><a href="/publication/comments-on-win-ratio/">Comments on &#39;Sample size formula for a win ratio endpoint&#39; by RX Yu and J. Ganju</a></li>
       
       <li><a href="/publication/hce-design/">Design and Analysis of Studies Based on Hierarchical Composite Endpoints: Insights from the DARE-19 Trial</a></li>
       
       <li><a href="/publication/dare-19-kidney/">Dapagliflozin and Kidney Outcomes in Hospitalized Patients with COVID-19 Infection</a></li>
-      
-      <li><a href="/publication/dare-19-primary/">Dapagliflozin in patients with cardiometabolic risk factors hospitalised with COVID-19 (DARE-19)</a></li>
       
     </ul>
   </div>
@@ -1319,7 +1289,7 @@
   
 
   <p class="powered-by">
-    © 2022 Samvel B. Gasparyan
+    © 2023 Samvel B. Gasparyan
   </p>
 
   
