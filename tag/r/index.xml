@@ -87,7 +87,7 @@ the given dataset&lt;/p&gt;
 &lt;p&gt;The win odds can be calculated and will be annotated in the maraca plot if available. However, it is not calculated by default. Please set the &lt;code&gt;compute_win_odds = TRUE&lt;/code&gt; to make the calculation. The resulting estimate, 95% confidence levels and p-value will be shown in the maraca object and can also be retrieved with&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mar$win_odds
 ##     estimate        lower        upper      p-value 
-## 1.643265e+00 1.419395e+00 1.912789e+00 9.578560e-12&lt;/code&gt;&lt;/pre&gt;
+## 1.643265e+00 1.416117e+00 1.906848e+00 9.354073e-12&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;plotting-the-resulting-object&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Plotting the resulting object&lt;/h1&gt;
@@ -99,8 +99,7 @@ the given dataset&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(mar, continuous_grid_spacing_x = 20, density_plot_type = &amp;quot;box&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/maraca9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;div style=&#34;page-break-after: always;&#34;&gt;&lt;/div&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(mar, continuous_grid_spacing_x = 20, density_plot_type = &amp;quot;scatter&amp;quot;, vline_type = &amp;quot;mean&amp;quot;)
-## Warning: Removed 1 rows containing missing values (geom_point).&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(mar, continuous_grid_spacing_x = 20, density_plot_type = &amp;quot;scatter&amp;quot;, vline_type = &amp;quot;mean&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/maraca10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;div style=&#34;page-break-after: always;&#34;&gt;&lt;/div&gt;
 &lt;p&gt;The plot_maraca function returns a ggplot2 object. This function will not render the plot immediately so you will have to print() it.
@@ -143,7 +142,6 @@ Martin Karpefors, and Samvel B. Gasparyan. 2022. &lt;em&gt;Maraca: The Maraca Pl
       <pubDate>Thu, 30 Dec 2021 10:00:00 +0400</pubDate>
       <guid>https://gasparyan.co/post/ump/2021-12-30-r-rmarkdown/</guid>
       <description>
-&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
@@ -268,7 +266,6 @@ Lehmann, Erich Leo, and Joseph P Romano. 2005. &lt;em&gt;Testing Statistical Hyp
       <pubDate>Fri, 10 Jan 2020 10:00:00 +0400</pubDate>
       <guid>https://gasparyan.co/post/wrci/2020-01-10-r-rmarkdown/</guid>
       <description>
-&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;continuous-distributions&#34; class=&#34;section level2&#34;&gt;
@@ -433,7 +430,6 @@ Van der Vaart, Aad W. 2000. &lt;em&gt;Asymptotic Statistics&lt;/em&gt;. Vol. 3. 
       <pubDate>Fri, 20 Dec 2019 10:00:00 +0400</pubDate>
       <guid>https://gasparyan.co/post/exp/2019-12-20-r-rmarkdown/</guid>
       <description>
-&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;introduction&#34; class=&#34;section level2&#34;&gt;
@@ -454,7 +450,7 @@ This entails that an exponential RV is with 1 probability positive and has the P
 If &lt;span class=&#34;math inline&#34;&gt;\(\xi\)&lt;/span&gt; has an exponential distribution with the rate &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; we will denote this by &lt;span class=&#34;math inline&#34;&gt;\({\mathbb E}(\lambda).\)&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;In &lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt; the following functions can be used to, correspondingly, generate numbers from &lt;span class=&#34;math inline&#34;&gt;\({\mathbb E}(\lambda)\)&lt;/span&gt;, calculate values of CDF, calculate values of PDF&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rexp(n=2, rate=1)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.06697548 0.25507292&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 2.2847373 0.7885597&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pexp(q=1, rate=1)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.6321206&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dexp(x=1, rate=1)&lt;/code&gt;&lt;/pre&gt;

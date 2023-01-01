@@ -724,7 +724,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    12 min read
+    13 min read
   </span>
   
 
@@ -767,9 +767,6 @@
 
     <div class="article-style">
       
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
-<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
 
 
 <div id="introduction" class="section level1">
@@ -875,7 +872,7 @@ fit</code></pre>
 ## Number of iterations to convergence: 9 
 ## Achieved convergence tolerance: 7.467e-07</code></pre>
 <pre class="r"><code>tidy(fit)</code></pre>
-<pre><code>## # A tibble: 3 x 5
+<pre><code>## # A tibble: 3 × 5
 ##   term  estimate std.error statistic  p.value
 ##   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
 ## 1 beta1  0.167    0.0383        4.35 6.56e- 5
@@ -888,6 +885,8 @@ fit</code></pre>
 <pre class="r"><code>#library(broom)
 values &lt;- tidy(fit)$estimate
 g + stat_function(fun=expFct, args=values, colour=&quot;blue&quot;, lwd=1)</code></pre>
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.</code></pre>
 <p><img src="/post/drc/2018-03-19-r-rmarkdown_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 </div>
@@ -942,7 +941,7 @@ fit2</code></pre>
 <h2>Fitting using the function <em>nls2()</em></h2>
 <p>Fitting procedure can be continued this way: replace the value of the <em>start</em> argument by <em>fit2</em> and leave out the argument <em>algorithm</em></p>
 <pre class="r"><code>tidy(nls2(data = Chwirut2, y ~ expFct(x, beta1, beta2, beta3), start=fit2))</code></pre>
-<pre><code>## # A tibble: 3 x 5
+<pre><code>## # A tibble: 3 × 5
 ##   term  estimate std.error statistic  p.value
 ##   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
 ## 1 beta1  0.167    0.0383        4.35 6.56e- 5
@@ -1013,7 +1012,7 @@ g</code></pre>
 <hr />
 <pre class="r"><code>fit3 &lt;- nls(rate ~ SSmicmen(conc, Vm, K), data = dat)
 tidy(fit3)</code></pre>
-<pre><code>## # A tibble: 2 x 5
+<pre><code>## # A tibble: 2 × 5
 ##   term  estimate std.error statistic    p.value
 ##   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
 ## 1 Vm       126.       7.17     17.6  0.00000218
@@ -1125,18 +1124,24 @@ head(RGRcurve)</code></pre>
 ## 6   0 0.181</code></pre>
 <p>Then, the initial values, determined according to our logic, will be</p>
 <pre class="r"><code>getInitial(RGR ~ SSexp(Day, b,y0), data = RGRcurve)</code></pre>
+<pre><code>## Warning: selfStart initializing functions should have a final &#39;...&#39; argument
+## since R 4.1.0</code></pre>
 <pre><code>##         b        y0 
 ## 3.8450187 0.1674235</code></pre>
 </div>
 <div id="fitting-by-user-defined-ss" class="section level2">
 <h2>Fitting by user defined SS</h2>
-<pre class="r"><code>fit4 &lt;- nls(RGR ~ SSexp(Day, b,y0), data = RGRcurve)
-getInitial(RGR ~ SSexp(Day, b,y0), data = RGRcurve)</code></pre>
+<pre class="r"><code>fit4 &lt;- nls(RGR ~ SSexp(Day, b,y0), data = RGRcurve)</code></pre>
+<pre><code>## Warning: selfStart initializing functions should have a final &#39;...&#39; argument
+## since R 4.1.0</code></pre>
+<pre class="r"><code>getInitial(RGR ~ SSexp(Day, b,y0), data = RGRcurve)</code></pre>
+<pre><code>## Warning: selfStart initializing functions should have a final &#39;...&#39; argument
+## since R 4.1.0</code></pre>
 <pre><code>##         b        y0 
 ## 3.8450187 0.1674235</code></pre>
 <pre class="r"><code># Compare the initial values with the estimated values
 tidy(fit4)</code></pre>
-<pre><code>## # A tibble: 2 x 5
+<pre><code>## # A tibble: 2 × 5
 ##   term  estimate std.error statistic  p.value
 ##   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
 ## 1 b        3.76     0.175       21.5 3.40e-23
@@ -1178,9 +1183,13 @@ l &lt;- list(SSexpFct=SSexpFct)
 list2env(l, envir = .GlobalEnv)#Only for Markdown execution</code></pre>
 <pre><code>## &lt;environment: R_GlobalEnv&gt;</code></pre>
 <pre class="r"><code>getInitial(data = Chwirut2, y ~ SSexpFct(x, beta1, beta2, beta3))</code></pre>
+<pre><code>## Warning: selfStart initializing functions should have a final &#39;...&#39; argument
+## since R 4.1.0</code></pre>
 <pre><code>##       beta1       beta2       beta3 
 ## 0.000000000 0.012140834 0.002537341</code></pre>
 <pre class="r"><code>fit0 &lt;- nls(data = Chwirut2, y ~ SSexpFct(x, beta1, beta2, beta3))</code></pre>
+<pre><code>## Warning: selfStart initializing functions should have a final &#39;...&#39; argument
+## since R 4.1.0</code></pre>
 <hr />
 <pre class="r"><code>fit0_tidy &lt;- tidy(fit0)
 fit0_tidy$p.value &lt;- format.pval(fit0_tidy$p.value,eps=0.001,digits=3)

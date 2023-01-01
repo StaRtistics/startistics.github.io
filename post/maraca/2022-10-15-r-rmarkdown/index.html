@@ -836,7 +836,7 @@ the given dataset</p>
 <p>The win odds can be calculated and will be annotated in the maraca plot if available. However, it is not calculated by default. Please set the <code>compute_win_odds = TRUE</code> to make the calculation. The resulting estimate, 95% confidence levels and p-value will be shown in the maraca object and can also be retrieved with</p>
 <pre class="r"><code>mar$win_odds
 ##     estimate        lower        upper      p-value 
-## 1.643265e+00 1.419395e+00 1.912789e+00 9.578560e-12</code></pre>
+## 1.643265e+00 1.416117e+00 1.906848e+00 9.354073e-12</code></pre>
 </div>
 <div id="plotting-the-resulting-object" class="section level1">
 <h1>Plotting the resulting object</h1>
@@ -848,8 +848,7 @@ the given dataset</p>
 <pre class="r"><code>plot(mar, continuous_grid_spacing_x = 20, density_plot_type = &quot;box&quot;)</code></pre>
 <p><img src="/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/maraca9-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
-<pre class="r"><code>plot(mar, continuous_grid_spacing_x = 20, density_plot_type = &quot;scatter&quot;, vline_type = &quot;mean&quot;)
-## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<pre class="r"><code>plot(mar, continuous_grid_spacing_x = 20, density_plot_type = &quot;scatter&quot;, vline_type = &quot;mean&quot;)</code></pre>
 <p><img src="/post/maraca/2022-10-15-r-rmarkdown_files/figure-html/maraca10-1.png" width="672" /></p>
 <div style="page-break-after: always;"></div>
 <p>The plot_maraca function returns a ggplot2 object. This function will not render the plot immediately so you will have to print() it.

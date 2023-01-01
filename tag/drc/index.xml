@@ -18,9 +18,6 @@
       <pubDate>Thu, 13 Sep 2018 09:00:00 +0400</pubDate>
       <guid>https://gasparyan.co/post/drc/2018-03-19-r-rmarkdown/</guid>
       <description>
-&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;https://gasparyan.co/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;https://gasparyan.co/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;introduction&#34; class=&#34;section level1&#34;&gt;
@@ -126,7 +123,7 @@ fit&lt;/code&gt;&lt;/pre&gt;
 ## Number of iterations to convergence: 9 
 ## Achieved convergence tolerance: 7.467e-07&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tidy(fit)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 3 x 5
+&lt;pre&gt;&lt;code&gt;## # A tibble: 3 × 5
 ##   term  estimate std.error statistic  p.value
 ##   &amp;lt;chr&amp;gt;    &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;
 ## 1 beta1  0.167    0.0383        4.35 6.56e- 5
@@ -139,6 +136,8 @@ fit&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#library(broom)
 values &amp;lt;- tidy(fit)$estimate
 g + stat_function(fun=expFct, args=values, colour=&amp;quot;blue&amp;quot;, lwd=1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;https://gasparyan.co/post/drc/2018-03-19-r-rmarkdown_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -193,7 +192,7 @@ fit2&lt;/code&gt;&lt;/pre&gt;
 &lt;h2&gt;Fitting using the function &lt;em&gt;nls2()&lt;/em&gt;&lt;/h2&gt;
 &lt;p&gt;Fitting procedure can be continued this way: replace the value of the &lt;em&gt;start&lt;/em&gt; argument by &lt;em&gt;fit2&lt;/em&gt; and leave out the argument &lt;em&gt;algorithm&lt;/em&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tidy(nls2(data = Chwirut2, y ~ expFct(x, beta1, beta2, beta3), start=fit2))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 3 x 5
+&lt;pre&gt;&lt;code&gt;## # A tibble: 3 × 5
 ##   term  estimate std.error statistic  p.value
 ##   &amp;lt;chr&amp;gt;    &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;
 ## 1 beta1  0.167    0.0383        4.35 6.56e- 5
@@ -264,7 +263,7 @@ g&lt;/code&gt;&lt;/pre&gt;
 &lt;hr /&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit3 &amp;lt;- nls(rate ~ SSmicmen(conc, Vm, K), data = dat)
 tidy(fit3)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 2 x 5
+&lt;pre&gt;&lt;code&gt;## # A tibble: 2 × 5
 ##   term  estimate std.error statistic    p.value
 ##   &amp;lt;chr&amp;gt;    &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;
 ## 1 Vm       126.       7.17     17.6  0.00000218
@@ -376,18 +375,24 @@ head(RGRcurve)&lt;/code&gt;&lt;/pre&gt;
 ## 6   0 0.181&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Then, the initial values, determined according to our logic, will be&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;getInitial(RGR ~ SSexp(Day, b,y0), data = RGRcurve)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: selfStart initializing functions should have a final &amp;#39;...&amp;#39; argument
+## since R 4.1.0&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##         b        y0 
 ## 3.8450187 0.1674235&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;fitting-by-user-defined-ss&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Fitting by user defined SS&lt;/h2&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit4 &amp;lt;- nls(RGR ~ SSexp(Day, b,y0), data = RGRcurve)
-getInitial(RGR ~ SSexp(Day, b,y0), data = RGRcurve)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit4 &amp;lt;- nls(RGR ~ SSexp(Day, b,y0), data = RGRcurve)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: selfStart initializing functions should have a final &amp;#39;...&amp;#39; argument
+## since R 4.1.0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;getInitial(RGR ~ SSexp(Day, b,y0), data = RGRcurve)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: selfStart initializing functions should have a final &amp;#39;...&amp;#39; argument
+## since R 4.1.0&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##         b        y0 
 ## 3.8450187 0.1674235&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Compare the initial values with the estimated values
 tidy(fit4)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 2 x 5
+&lt;pre&gt;&lt;code&gt;## # A tibble: 2 × 5
 ##   term  estimate std.error statistic  p.value
 ##   &amp;lt;chr&amp;gt;    &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;
 ## 1 b        3.76     0.175       21.5 3.40e-23
@@ -429,9 +434,13 @@ l &amp;lt;- list(SSexpFct=SSexpFct)
 list2env(l, envir = .GlobalEnv)#Only for Markdown execution&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## &amp;lt;environment: R_GlobalEnv&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;getInitial(data = Chwirut2, y ~ SSexpFct(x, beta1, beta2, beta3))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: selfStart initializing functions should have a final &amp;#39;...&amp;#39; argument
+## since R 4.1.0&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##       beta1       beta2       beta3 
 ## 0.000000000 0.012140834 0.002537341&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit0 &amp;lt;- nls(data = Chwirut2, y ~ SSexpFct(x, beta1, beta2, beta3))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: selfStart initializing functions should have a final &amp;#39;...&amp;#39; argument
+## since R 4.1.0&lt;/code&gt;&lt;/pre&gt;
 &lt;hr /&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit0_tidy &amp;lt;- tidy(fit0)
 fit0_tidy$p.value &amp;lt;- format.pval(fit0_tidy$p.value,eps=0.001,digits=3)
